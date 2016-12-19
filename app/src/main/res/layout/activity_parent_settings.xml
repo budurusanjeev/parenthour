@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:id="@+id/par_settings_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<TextView
+    android:text="Age"
+    android:textSize="@dimen/activity_medium_textSize"
+    android:layout_alignParentLeft="true"
+    android:textColor="@color/gray_color"
+    android:layout_marginLeft="10dp"
+    android:layout_centerVertical="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_age"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Occupation"
+            android:textSize="@dimen/activity_medium_textSize"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray_color"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_occupation"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Education"
+            android:textSize="@dimen/activity_medium_textSize"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray_color"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_education"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Gender"
+            android:textSize="@dimen/activity_medium_textSize"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray_color"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_gender"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Available Days"
+            android:textSize="@dimen/activity_medium_textSize"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray_color"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_available_days"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Available Time"
+            android:textSize="@dimen/activity_medium_textSize"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/gray_color"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/tb_available_time"
+            android:layout_width="50dp"
+            android:text=""
+            android:layout_alignParentRight="true"
+            android:textSize="0sp"
+            android:background="@drawable/custom_toggle"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_Orange"/>
+    <TextView
+        android:id="@+id/tv_changepassword"
+        android:textSize="@dimen/activity_fifteen_textSize"
+        android:text="Change Password"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/Orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,145 @@
+<resources>
+    <string name="app_name">Parentshour</string>
+    <string-array name="navdraweritemsafterlogin">
+        <!--<item>Playdate Search</item>
+        <item>Search Assistant</item>-->
+        <item>Home</item>
+        <item>Assistant Requests</item>
+        <item>Friends</item>
+        <item>Notifications</item>
+        <item>Playdate Events</item>
+        <item>Settings</item>
+        <item>Chats</item>
+    </string-array>
+
+
+    <array name="nav_drawer_icons">
+        <!--<item>@drawable/ic_search</item>
+        <item>@drawable/parentasstant</item>-->
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_assistantrequests</item>
+        <item>@drawable/ic_friend</item>
+        <item>@drawable/ic_notifications</item>
+       <!-- <item>@drawable/ic_playdateevents</item>-->
+        <item>@drawable/ic_setting</item>
+        <item>@drawable/ic_chats</item>
+
+    </array>
+
+    <array name="nav_drawer_assistant_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_notifications</item>
+        <item>@drawable/ic_setting</item>
+        <item>@drawable/ic_chats</item>
+    </array>
+
+    <!--Side panel item ic_name string array after login-->
+    <string-array name="navdraweritemsbeforelogin">
+        <item>Home</item>
+        <item>Assistant Requests</item>
+        <item>Friends</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+        <item>Chats</item>
+    </string-array>
+
+<string-array name="navDraweritemsAssistant">
+    <item>Home</item>
+    <item>Notifications</item>
+    <item>Settings</item>
+    <item>Chats</item>
+</string-array>
+
+<!--    public static String Lato_Regular = "Lato-Regular.ttf";
+    public static String Lato_Bold = "Lato-Bold.ttf";
+    public static String Lato_Medium = "Lato-Medium.ttf";-->
+
+    <string name="Lato_Regular">Lato_Regular.ttf</string>
+    <string name="Lato_Bold">Lato_Bold.ttf</string>
+    <string name="Lato_Medium">Lato_Medium.ttf</string>
+
+    <string name="facebook_app_id">241941169513671</string>
+    <string name="coupon">Coupon Amount</string>
+    <string name="search">Search</string>
+    <string name="deliverychargetext">Delivery Charge</string>
+    <string name="onlinechargetext">Online Charge</string>
+    <string name="totaltext">Total Amount</string>
+    <string name="totalpay">Total Pay</string>
+    <string name="wallettext">Wallet Amount</string>
+    <string name="startdatetext">Start Date:-</string>
+    <string name="itemqtytext">Item Quantity</string>
+    <string name="enddatetext">End Date:-</string>
+    <string name="itempricetext">Item Price</string>
+    <string name="deliverattext">Deliver At</string>
+    <string name="addnewtext">Add new</string>
+    <string name="selectstartdatetext">Select Start Date</string>
+    <string name="applyredeemamttext">Apply Redeem Amount</string>
+    <string name="applycouponamttext">Apply Coupon Amount</string>
+    <string name="yourredeemamounttext">Your Redeem Amount</string>
+    <string name="yourorderamounttext">Your Order Amount</string>
+    <string name="enteramountheretext">Enter amount here</string>
+    <string name="applytext">Apply</string>
+    <string name="checkouttext">Checkout</string>
+    <string name="deliverylocationtext">Search For Delivery Location</string>
+    <string name="ordersummarytext">Bill Summary</string>
+    <string name="contactus">For more info and support, contact us!</string>
+    <string name="action_settings">Settings</string>
+    <string name="accessibility_overflow">Overflow</string>
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="zerocost">Rs.0.00</string>
+    <string name="closedrawer">closedrawer</string>
+    <string name="opendrawer">opendrawer</string>
+    <string name="imagedecription">imageview</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="feedbacktext">Feedback</string>
+    <string name="ordernowtext">Order Now</string>
+    <string name="sharetext">Share</string>
+    <string name="qty">Quantity :</string>
+    <string name="pkg">Package</string>
+    <string name="sms">SMS</string>
+    <string name="email">Email</string>
+    <string name="twitter">Twitter</string>
+    <string name="whats_app">Whats app</string>
+    <string name="facebook">facebook</string>
+    <string name="enteraddrsdetailtext">Enter Address Details</string>
+    <string name="streetnametext">Street name</string>
+    <string name="areanametext">Area name</string>
+    <string name="citynametext">City</string>
+    <string name="statetext">State</string>
+    <string name="pincodetext">Pincode</string>
+    <string name="landmarktext">Landmark(optional)</string>
+    <string name="h_notext">H.No/Flat No</string>
+    <string name="address">Address</string>
+    <string name="username"></string>
+    <string name="contact">Add to Cart</string>
+    <string name="addtocart">Add to Cart</string>
+    <string name="proceedtocart">Proceed to Cart</string>
+    <string name="setasdefaultaddresstext">Set as Default Address</string>
+    <string name="donetext">Done</string>
+    <string name="subtotaltext">Sub Total</string>
+    <string name="cost">Package Cost:-</string>
+    <string name="address_contact">address_contact</string>
+    <string name="contact_general">contact_general</string>
+    <string name="contact_callus1">contact_callus1</string>
+    <string name="contact_callus2">contact_callus2</string>
+    <string name="noadrsfound">No Address Found</string>
+    <string name="title_activity_new_implementations">NewImplementations</string>
+    <string name="loading">Please wait ...</string>
+    <string name="fbid">1524942947519089</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+</resources>

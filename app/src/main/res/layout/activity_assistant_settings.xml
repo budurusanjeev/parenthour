@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:orientation="vertical"
+android:id="@+id/ass_settings_parentlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<EditText
+    android:id="@+id/edt_oldpassword"
+    android:hint="Old Password"
+    android:textColorHint="@color/gray_color"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:padding="5dp"
+    android:textColor="@color/gray_color"
+    android:background="@null"
+    android:inputType="textPassword"
+    android:maxLines="1"
+    android:textStyle="bold"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_btn_Orange"/>
+    <EditText
+        android:id="@+id/edt_newpassword"
+        android:hint="New Password"
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:textColor="@color/gray_color"
+        android:background="@null"
+        android:textStyle="bold"
+        android:textColorHint="@color/gray_color"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_btn_Orange"/>
+    <EditText
+        android:id="@+id/edt_conformpassword"
+        android:hint="Confirm Password"
+        android:textColorHint="@color/gray_color"
+        android:padding="5dp"
+        android:textColor="@color/gray_color"
+        android:background="@null"
+        android:textStyle="bold"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/App_btn_Orange"/>
+    <TextView
+        android:id="@+id/tv_changepassword"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:text="Change Password"
+        android:padding="10dp"
+        android:background="@color/Orange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "664478442543",
+    "project_id": "parenthour"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664478442543:android:99a59a292ee738be",
+        "android_client_info": {
+          "package_name": "parentshour.spinlogics.com.parentshour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664478442543-22om1s4pvibfi8p6bh0dn53e9pamlehp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "parentshour.spinlogics.com.parentshour",
+            "certificate_hash": "3615A2CE183C406CD6769AF15776D33D7ADFAFD6"
+          }
+        },
+        {
+          "client_id": "664478442543-kl5o6no1324dap7l38tkvniulfjqn182.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0H85lomU9axbRJo92_ytZ8D_MVWXXSQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-88911167-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
