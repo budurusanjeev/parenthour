@@ -44,11 +44,12 @@ public class AssistantGetActivity extends BaseActivity {
     Context context;
     JSONObject jsonObject;
     ImageView profilePic;
-    private PreferenceUtils preferenceUtils;
     TextView tv_name,tv_userName_edit,tv_email,tv_mobile,
             tv_experience,tv_city,tv_state,tv_billing,tv_about,
             tv_type_gigs,tv_edit;
     LinearLayout ass_get_parent;
+    private PreferenceUtils preferenceUtils;
+
     @Override
     public void initialize() {
         context = AssistantGetActivity.this;
@@ -74,6 +75,7 @@ public class AssistantGetActivity extends BaseActivity {
         toolbarTextView.setText("Profile");
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
             // showLoaderNew();
+
             getProfileData();
         }
         else {
@@ -183,7 +185,7 @@ public class AssistantGetActivity extends BaseActivity {
        // mtoolbar.setTitle("Profile");
         FontStyle.applyFont(getApplicationContext(),toolbarTextView,FontStyle.Lato_Medium);
         FontStyle.applyFont(getApplicationContext(),ass_get_parent,FontStyle.Lato_Medium);
-
+        //  FontStyle.setFont(ass_get_parent, context);
     }
 
 

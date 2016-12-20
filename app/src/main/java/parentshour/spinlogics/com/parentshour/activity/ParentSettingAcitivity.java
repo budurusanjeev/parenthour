@@ -76,7 +76,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
        final EditText edt_conformpassword = (EditText) dialogView.findViewById(R.id.edt_conformpassword);
        final TextView tv_done = (TextView) dialogView.findViewById(R.id.tv_done);
        final TextView tv_cancel = (TextView) dialogView.findViewById(R.id.tv_cancel);
-          LinearLayout par_changepwd_layout = (LinearLayout)findViewById(R.id.par_changepwd_layout);
+          LinearLayout par_changepwd_layout = (LinearLayout) dialogView.findViewById(R.id.par_changepwd_layout);
           FontStyle.applyFont(getApplicationContext(),par_changepwd_layout, FontStyle.Lato_Medium);
 
           tv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
               b.dismiss();
           }else
           {
-           showAlertValidation("New ic_password and Conform ic_password not equal");
+              showAlertValidation("New password and Conform password not equal");
           }
 
          }else {
@@ -116,11 +116,11 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
                   edt_conformpassword.getText().length() == 0) {
            showAlertValidation("Please enter all fields ");
           } else if (edt_oldpassword.getText().length() == 0) {
-           showAlertValidation("Please enter old ic_password ");
+              showAlertValidation("Please enter old password ");
           } else if (edt_newpassword.getText().length() == 0) {
-           showAlertValidation("Please enter new ic_password");
+              showAlertValidation("Please enter new password");
           } else if (edt_conformpassword.getText().length() == 0) {
-           showAlertValidation("Please enter conform ic_password");
+              showAlertValidation("Please enter conform password");
           }
          }
         }

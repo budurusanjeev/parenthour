@@ -60,13 +60,10 @@ import static parentshour.spinlogics.com.parentshour.R.id.iv_upload_profile_phot
  */
 
 public class ParentEditActivity extends BaseActivity {
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
     String imageData;
     Context context;
     ImageView profilePic;
     File destination;
-    private PreferenceUtils preferenceUtils;
     Button bt_save,bt_cancel;
     EditText edt_name,
             edt_zipcode,
@@ -83,6 +80,10 @@ public class ParentEditActivity extends BaseActivity {
             cb_afternoonValue,
             cb_eveningValue;
     CheckBox cb_weekdays, cb_weekends, cb_morning, cb_afternoon, cb_evening;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
+    private PreferenceUtils preferenceUtils;
+
     @Override
     public void initialize() {
         context = ParentEditActivity.this;
@@ -630,6 +631,9 @@ public class ParentEditActivity extends BaseActivity {
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                if (jsonObject.getString("Error").equals("Parent Account doesn't exist.")) {
+
+                                }
                                 Log.v("res ", "res  success" + jsonObject.toString());
                             }
 

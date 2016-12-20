@@ -10,16 +10,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 
 public class ParentDashboard extends BaseActivity {
 
     Context context;
-    private View decorView;
     LinearLayout ll_parent_dashboard, ll_child_dashboard;
     TextView tv_search_for_playdate, tv_search_for_assistant, tv_playdate_events;
-
+    private View decorView;
     private boolean doubleBackToExitPressedOnce = false;
     private PreferenceUtils preferenceUtils;
 
@@ -136,6 +136,7 @@ public class ParentDashboard extends BaseActivity {
         tv_search_for_playdate =(TextView) findViewById(R.id.tv_search_for_playdate);
         tv_search_for_assistant =(TextView) findViewById(R.id.tv_search_for_assistant);
         tv_playdate_events =(TextView) findViewById(R.id.tv_playdate_events);
+        FontStyle.applyFont(context, ll_parent_dashboard, FontStyle.Lato_Medium);
 
     }
 

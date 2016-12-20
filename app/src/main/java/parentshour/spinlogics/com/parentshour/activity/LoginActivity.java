@@ -64,10 +64,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_SIGN_IN_FB = 9002;
-    private AnimationDrawable animationDrawable;
+    public Dialog dialog;
     Context mContext;
     PreferenceUtils preferenceUtils;
-    LinearLayout ll_parent_login, ll_child_login,ll_orConnect_login,ll_fb_btn,ll_google_btn;
+    LinearLayout ll_parent_login, ll_child_login, ll_orConnect_login, ll_fb_btn, ll_google_btn;
     LinearLayout ll_fb_google_btns;
     ImageView iv_ph_logo;
     TextView tv_ll_i_am_a;
@@ -80,10 +80,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     String URLLINK = null;
     GoogleApiClient mGoogleApiClient;
     SignInButton signInButton;
+    private AnimationDrawable animationDrawable;
     private TextView info;
     private LoginButton loginButtonfb;
     private CallbackManager callbackManager;
-    public Dialog dialog;
+
     public final static boolean isValidEmail(CharSequence target) {
         if (target == null) {
             return false;
@@ -107,9 +108,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onClick(View view) {
                 PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
-                preferenceUtils.saveString("email","");
-                preferenceUtils.saveString("p_pic","");
-                preferenceUtils.saveString("a_pic","");
+                preferenceUtils.saveString("email", "");
+                preferenceUtils.saveString("p_pic", "");
+                preferenceUtils.saveString("a_pic", "");
                 startActivity(new Intent(getApplicationContext(), SignupRegistration.class));
             }
         });
@@ -140,8 +141,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ll_google_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  signInButton.performClick();
-            signIn();
+                signIn();
             }
         });
         loginButtonfb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                         preferenceUtils.saveString("email", object.getString("email"));
                                         preferenceUtils.saveString("social", "fb");
                                         // preferenceUtils.saveString("p_gender",  object.getString("gender"));
-                                       // preferenceUtils.saveString("loggedin", "loggedin");
+                                        // preferenceUtils.saveString("loggedin", "loggedin");
                                         sendProfileData(object.getString("email"), object.get("id").toString(), pictureObjectUrl.getString("url"));
 
                                     } else if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                         preferenceUtils.saveString("email", object.getString("email"));
                                         preferenceUtils.saveString("social", "fb");
                                         //preferenceUtils.saveString("a_gender",  object.getString("gender"));
-
+                                        sendProfileData(object.getString("email"), object.get("id").toString(), pictureObjectUrl.getString("url"));
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -197,14 +197,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             @Override
             public void onError(FacebookException e) {
-               // Log.v("","" +)
+                // Log.v("","" +)
                 e.printStackTrace();
 
                 Toast.makeText(mContext, "FB Login Error ", Toast.LENGTH_LONG).show();
                 throw new RuntimeException("crash" + e.toString());
             }
         });
-        //signInButton.reg
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,7 +215,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         password.length() > 0) {
                     if (isValidEmail(edt_email.getText().toString())) {
                         if (NetworkUtils.isNetworkConnectionAvailable(mContext)) {
-                              showLoaderNew();
+                            showLoaderNew();
                             postData();
                         } else {
                             Toast.makeText(mContext, "Please check internet connection", Toast.LENGTH_LONG).show();
@@ -229,7 +229,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     String error = "Invalid Email & Password ";
                     showAlertValidation(error);
                 }
-
 
             }
         });
@@ -315,18 +314,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 preferenceUtils.saveString("p_name", acct.getDisplayName());
                 if (acct.getPhotoUrl() != null) {
                     Log.v("", "" + acct.getPhotoUrl());
-                   // getDataFromUri(acct.getPhotoUrl());
-                    preferenceUtils.saveString("p_pic",acct.getPhotoUrl().toString());
+                    // getDataFromUri(acct.getPhotoUrl());
+                    preferenceUtils.saveString("p_pic", acct.getPhotoUrl().toString());
                     try {
                         sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    } else {
+                } else {
                     sendProfileData(acct.getEmail(), acct.getId(), "");
                 }
-               // preferenceUtils.saveString("loggedin", "loggedin");
+                // preferenceUtils.saveString("loggedin", "loggedin");
                 preferenceUtils.saveString("social", "gp");
                 // sendProfileData(acct.getEmail(), acct.getId(),  acct.getPhotoUrl().toString());
                /* Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
@@ -338,19 +336,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 preferenceUtils.saveString("email", acct.getEmail());
                 if (acct.getPhotoUrl() != null) {
                     preferenceUtils.saveString("a_pic", acct.getPhotoUrl().toString());
-                    Log.v("Image url","Image url " + acct.getPhotoUrl());
-                    try{
-                    sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
-                } catch (Exception e)
-                    {
+                    Log.v("Image url", "Image url " + acct.getPhotoUrl());
+                    try {
+                        sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                }
-                    else {
+                } else {
                     sendProfileData(acct.getEmail(), acct.getId(), "");
                 }
-               // preferenceUtils.saveString("loggedin", "loggedin");
+                // preferenceUtils.saveString("loggedin", "loggedin");
                 preferenceUtils.saveString("social", "gp");
                /* Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
                 startActivity(dashbordactivity);
@@ -585,7 +581,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("p_id", jsonObject.getString("p_id"));
                                     preferenceUtils.saveString("p_name", jsonObject.getString("p_name"));
                                     preferenceUtils.saveString("p_pic", jsonObject.getString("p_pic"));
-                                   // preferenceUtils.saveString("loggedin", "loggedin");
+                                    // preferenceUtils.saveString("loggedin", "loggedin");
                                     Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
                                     startActivity(dashbordactivity);
                                     finish();
@@ -602,7 +598,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("a_id", jsonObject.getString("a_id"));
                                     preferenceUtils.saveString("a_name", jsonObject.getString("a_name"));
                                     preferenceUtils.saveString("a_pic", jsonObject.getString("a_pic"));
-                                  //  preferenceUtils.saveString("loggedin", "loggedin");
+                                    //  preferenceUtils.saveString("loggedin", "loggedin");
                                     Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
                                     startActivity(dashbordactivity);
                                     finish();
@@ -677,12 +673,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ll_child_login = (LinearLayout) findViewById(R.id.ll_child_login);
         loginButtonfb = (LoginButton) findViewById(R.id.connectWithFbButton);
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-//        signInButton.setSize(SignInButton.SIZE_WIDE);
+        //signInButton.setSize(SignInButton.SIZE_WIDE);
         ll_orConnect_login = (LinearLayout) findViewById(R.id.ll_orConnect_login);
         ll_fb_google_btns = (LinearLayout) findViewById(R.id.ll_fb_google_btns);
-          ll_fb_btn = (LinearLayout) findViewById(R.id.ll_fb_btn);
-         ll_google_btn = (LinearLayout) findViewById(R.id.ll_google_btn);
+        ll_fb_btn = (LinearLayout) findViewById(R.id.ll_fb_btn);
+        ll_google_btn = (LinearLayout) findViewById(R.id.ll_google_btn);
 
+        //FontStyle.setFont(ll_parent_login, mContext);
         FontStyle.applyFont(getApplicationContext(),ll_parent_login,FontStyle.Lato_Bold);
 
     }
@@ -695,8 +692,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         final AlertDialog b = dialogBuilder.create();
         final TextView tv_errorTitle = (TextView) dialogView.findViewById(R.id.tvTitle);
         final TextView tv_ok = (TextView) dialogView.findViewById(R.id.btnYes);
-        LinearLayout alert_layout = (LinearLayout)findViewById(R.id.alert_layout);
-        FontStyle.applyFont(getApplicationContext(),alert_layout, FontStyle.Lato_Medium);
+        LinearLayout alert_layout = (LinearLayout) findViewById(R.id.alert_layout);
+        FontStyle.applyFont(getApplicationContext(), alert_layout, FontStyle.Lato_Medium);
         tv_errorTitle.setText(error);
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -712,6 +709,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         runOnUiThread(new Runloader(getResources().getString(R.string.loading)));
     }
 
+    public void hideloader() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (dialog != null && dialog.isShowing())
+                        dialog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     class Runloader implements Runnable {
         private String strrMsg;
 
@@ -723,9 +734,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         @Override
         public void run() {
             try {
-                if (dialog == null)
-                {
-                    dialog = new Dialog(mContext,R.style.Theme_Dialog_Translucent);
+                if (dialog == null) {
+                    dialog = new Dialog(mContext, R.style.Theme_Dialog_Translucent);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.getWindow().setBackgroundDrawable(
                             new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -733,10 +743,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(false);
 
-                if (dialog != null && dialog.isShowing())
-                {
+                if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
-                    dialog=null;
+                    dialog = null;
                 }
                 dialog.show();
 
@@ -755,26 +764,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             animationDrawable.start();
                     }
                 });
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }
     }
-
-    public void hideloader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try
-                {
-                    if (dialog != null && dialog.isShowing())
-                        dialog.dismiss();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }); }
 }
 

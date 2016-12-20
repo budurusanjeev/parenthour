@@ -57,8 +57,8 @@
     <string name="Lato_Regular">Lato_Regular.ttf</string>
     <string name="Lato_Bold">Lato_Bold.ttf</string>
     <string name="Lato_Medium">Lato_Medium.ttf</string>
-
-    <string name="facebook_app_id">241941169513671</string>
+    <!--
+        <string name="facebook_app_id">241941169513671</string>-->
     <string name="coupon">Coupon Amount</string>
     <string name="search">Search</string>
     <string name="deliverychargetext">Delivery Charge</string>

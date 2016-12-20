@@ -62,8 +62,9 @@ import parentshour.spinlogics.com.parentshour.utilities.Utility;
  */
 
 public class SignupRegistration extends AppCompatActivity {
+    public Dialog dialog;
     Context mContext;
-    ImageView iv_upload_profile_photo;
+    ImageView iv_upload_profile_photo, iv_add;
     TextView tv_submit, tv_verify;
     EditText edt_name,
             edt_zipcode,
@@ -72,13 +73,13 @@ public class SignupRegistration extends AppCompatActivity {
             edt_password,
             edt_conform_password;
     TextView toolbarTextView;
-    public Dialog dialog;
-    private AnimationDrawable animationDrawable;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
     String imageData;
     PreferenceUtils preferenceUtils;
     LinearLayout parentLayout;
+    private AnimationDrawable animationDrawable;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
+
     public final static boolean isValidEmail(CharSequence target) {
         if (target == null) {
             return false;
@@ -135,6 +136,7 @@ public class SignupRegistration extends AppCompatActivity {
                         .error(R.drawable.ic_addprofile)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(iv_upload_profile_photo);
+                iv_add.setVisibility(View.GONE);
             }
         }
        if(preferenceUtils.getStringFromPreference("select", "").equals("assistant"))
@@ -171,6 +173,7 @@ public class SignupRegistration extends AppCompatActivity {
                         .error(R.drawable.ic_addprofile)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(iv_upload_profile_photo);
+                iv_add.setVisibility(View.GONE);
             }
         }
 
@@ -426,6 +429,7 @@ public class SignupRegistration extends AppCompatActivity {
         imageData = getStringImage(thumbnail);
 
         iv_upload_profile_photo.setImageBitmap(thumbnail);
+        iv_add.setVisibility(View.GONE);
     }
 
     @SuppressWarnings("deprecation")
@@ -437,6 +441,7 @@ public class SignupRegistration extends AppCompatActivity {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                 imageData = getStringImage(bm);
                 iv_upload_profile_photo.setImageBitmap(bm);
+                iv_add.setVisibility(View.GONE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -580,6 +585,7 @@ public class SignupRegistration extends AppCompatActivity {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data);
                 imageData = getStringImage(bm);
                 iv_upload_profile_photo.setImageBitmap(bm);
+                iv_add.setVisibility(View.GONE);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -597,6 +603,7 @@ public class SignupRegistration extends AppCompatActivity {
         View test1View = findViewById(R.id.toolbarLayout);
         toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         iv_upload_profile_photo = (ImageView) findViewById(R.id.iv_upload_profile_photo);
+        iv_add = (ImageView) findViewById(R.id.iv_add_profile);
         edt_name = (EditText) findViewById(R.id.edt_name);
         edt_zipcode = (EditText) findViewById(R.id.edt_zipcode);
         edt_email = (EditText) findViewById(R.id.edt_email);
@@ -613,6 +620,20 @@ public class SignupRegistration extends AppCompatActivity {
 
     public void showLoaderNew() {
         runOnUiThread(new SignupRegistration.Runloader(getResources().getString(R.string.loading)));
+    }
+
+    public void hideloader() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (dialog != null && dialog.isShowing())
+                        dialog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     class Runloader implements Runnable {
@@ -664,19 +685,4 @@ public class SignupRegistration extends AppCompatActivity {
             }
         }
     }
-
-    public void hideloader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try
-                {
-                    if (dialog != null && dialog.isShowing())
-                        dialog.dismiss();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }); }
 }
