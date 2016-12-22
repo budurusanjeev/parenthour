@@ -5,48 +5,46 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_upload_profile_photo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_profilelogo" />
+
+        <ImageView
+            android:id="@+id/iv_add_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_upload_profile_photo"
+            android:layout_alignEnd="@+id/iv_upload_profile_photo"
+            android:layout_alignRight="@+id/iv_upload_profile_photo"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/imagedescription"
+            android:src="@drawable/ic_add_pro" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
+
         <LinearLayout
             android:id="@+id/ass_edit_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:orientation="vertical">
-            <!-- <de.hdodenhof.circleimageview.CircleImageView
-                 android:id="@+id/iv_upload_profile_photo"
-                 android:layout_width="120dp"
-                 android:layout_height="120dp"
-                 android:layout_gravity="center"
-                 android:layout_margin="10dp"
-                 android:src="@drawable/ic_addprofile" />-->
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_upload_profile_photo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_profilelogo" />
 
-                <ImageView
-                    android:id="@+id/iv_add_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/iv_upload_profile_photo"
-                    android:layout_alignEnd="@+id/iv_upload_profile_photo"
-                    android:layout_alignRight="@+id/iv_upload_profile_photo"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_add_pro" />
-            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/ll_name"
                 android:layout_width="match_parent"
@@ -60,9 +58,9 @@
                     android:id="@+id/iv_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/imagePersondescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_name"
-                    />
+                    android:src="@drawable/ic_name" />
 
                 <View
                     android:id="@+id/view_person"
@@ -79,14 +77,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="Name"
+                    android:gravity="start|center"
+                    android:hint="@string/name"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
@@ -101,9 +100,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imagePhonedescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_mobileno"
-                    />
+                    android:src="@drawable/ic_mobileno" />
 
                 <View
                     android:id="@+id/view_phone"
@@ -120,16 +119,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="Phone"
-
+                    android:gravity="start|center"
+                    android:hint="@string/phone"
                     android:inputType="phone"
                     android:maxLength="10"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_email"
                 android:layout_width="match_parent"
@@ -144,9 +142,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imageemaildescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_email"
-                    />
+                    android:src="@drawable/ic_email" />
 
                 <View
                     android:id="@+id/view_email"
@@ -163,14 +161,14 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="Email"
-
+                    android:gravity="start|center"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_experience"
                 android:layout_width="match_parent"
@@ -185,9 +183,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imageExperiencedescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_experience"
-                    />
+                    android:src="@drawable/ic_experience" />
 
                 <View
                     android:id="@+id/view_experience"
@@ -200,13 +198,12 @@
                 <EditText
                     android:id="@+id/edt_experience"
                     android:layout_width="match_parent"
-
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="Experience"
+                    android:gravity="start|center"
+                    android:hint="@string/experiencetext"
                     android:inputType="number"
                     android:maxLength="2"
                     android:textColor="@color/gray_color"
@@ -229,9 +226,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imagecitydescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_city"
-                    />
+                    android:src="@drawable/ic_city" />
 
                 <View
                     android:id="@+id/view_city"
@@ -240,17 +237,16 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
+
                 <EditText
                     android:id="@+id/edt_city"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="city"
-
+                    android:gravity="start|center"
+                    android:hint="@string/citytext"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
@@ -271,9 +267,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imagestatedescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_state"
-                    />
+                    android:src="@drawable/ic_state" />
+
                 <View
                     android:id="@+id/view_occ"
                     android:layout_width="1dp"
@@ -289,9 +286,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="State"
-
+                    android:gravity="start|center"
+                    android:hint="@string/statetext"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
@@ -299,6 +295,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_zipcode"
                 android:layout_width="match_parent"
@@ -313,9 +310,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imagezipcodedescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_zipcode"
-                    />
+                    android:src="@drawable/ic_zipcode" />
+
                 <View
                     android:id="@+id/view_zip"
                     android:layout_width="1dp"
@@ -331,17 +329,16 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-
-                    android:hint="Zipcode"
+                    android:gravity="start|center"
+                    android:hint="@string/zipcodetext"
                     android:inputType="number"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_billing"
                 android:layout_width="match_parent"
@@ -355,9 +352,10 @@
                     android:id="@+id/iv_billing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/imagebillingdescription"
                     android:padding="5dp"
-                    android:src="@drawable/ic_billing"
-                    />
+                    android:src="@drawable/ic_billing" />
+
                 <View
                     android:id="@+id/view_billing"
                     android:layout_width="1dp"
@@ -365,6 +363,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
+
                 <EditText
                     android:id="@+id/edt_billing"
                     android:layout_width="match_parent"
@@ -372,39 +371,38 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center"
-                    android:hint="Billing / Hour"
+                    android:gravity="start|center"
+                    android:hint="@string/billingtext"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
 
             </LinearLayout>
-    <TextView
-        android:id="@+id/tv_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:padding="5dp"
-        android:text="About: "
-        android:textColor="@color/gray_color" />
 
-    <EditText
-        android:id="@+id/edt_about_me"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/edittext_round_address_popup"
-        android:inputType="textMultiLine"
-        android:minLines="2"
+            <TextView
+                android:id="@+id/tv_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="@string/abouttext"
+                android:textColor="@color/gray_color" />
 
-        android:padding="5dp"
-        android:textColor="@color/gray_color"
-        android:textColorHint="@color/gray_color"
-        android:textSize="@dimen/activity_fifteen_textSize" />
+            <EditText
+                android:id="@+id/edt_about_me"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_round_address_popup"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="5dp"
+                android:textColor="@color/gray_color"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/activity_fifteen_textSize" />
 
             <TextView
                 android:id="@+id/tv_gigs"
@@ -413,7 +411,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:padding="5dp"
-                android:text="Types of Gigs: "
+                android:text="@string/gigstext"
                 android:textColor="@color/gray_color" />
 
             <EditText
@@ -424,7 +422,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/edittext_round_address_popup"
                 android:inputType="textMultiLine"
-                android:minLines="3"
+                android:minLines="4"
                 android:padding="5dp"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
@@ -439,28 +437,30 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="10dp">
+
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/edt_login_buttons"
                     android:gravity="center"
                     android:padding="3dp"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/activity_Btn_large_textSize" />
+
                 <Button
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_cnfirmpass"
                     android:layout_gravity="center"
                     android:background="@drawable/edt_login_buttons"
                     android:gravity="center"
                     android:padding="3dp"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:textColor="@color/white"
                     android:textSize="@dimen/activity_Btn_large_textSize" />
             </LinearLayout>

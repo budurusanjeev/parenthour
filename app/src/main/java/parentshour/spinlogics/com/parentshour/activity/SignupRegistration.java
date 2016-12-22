@@ -94,29 +94,32 @@ public class SignupRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_signup_registration);
         mContext = SignupRegistration.this;
         initializeControls();
-        preferenceUtils  = new PreferenceUtils(getApplicationContext());
-       String email =  preferenceUtils.getStringFromPreference("email","");
+        preferenceUtils = new PreferenceUtils(getApplicationContext());
+        String email = preferenceUtils.getStringFromPreference("email", "");
 
-        if(!email.equals(""))
-        {
+        if (!email.equals("")) {
             edt_email.setText(email);
             edt_email.setEnabled(false);
         }
-        if(preferenceUtils.getStringFromPreference("select", "").equals("parent"))
-        {
-            if(!preferenceUtils.getStringFromPreference("p_pic", "").equals(""))
-            {
+
+        if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
+            String name = preferenceUtils.getStringFromPreference("p_name", "");
+            if (!name.equals("")) {
+                edt_name.setText(name);
+                edt_name.setEnabled(false);
+            }
+            if (!preferenceUtils.getStringFromPreference("p_pic", "").equals("")) {
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
-                    showLoaderNew();
+                        showLoaderNew();
                     }
 
                     @Override
                     protected Void doInBackground(Void... params) {
                         try {
-                            imageData =  getDataFromUrl(preferenceUtils.getStringFromPreference("p_pic", ""));
+                            imageData = getDataFromUrl(preferenceUtils.getStringFromPreference("p_pic", ""));
                         } catch (Exception e) {
                             // log error
                         }
@@ -125,7 +128,7 @@ public class SignupRegistration extends AppCompatActivity {
 
                     @Override
                     protected void onPostExecute(Void result) {
-                    hideloader();
+                        hideloader();
                     }
 
                 }.execute();
@@ -137,23 +140,29 @@ public class SignupRegistration extends AppCompatActivity {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(iv_upload_profile_photo);
                 iv_add.setVisibility(View.GONE);
+                iv_upload_profile_photo.setClickable(false);
+                iv_upload_profile_photo.setEnabled(false);
             }
         }
-       if(preferenceUtils.getStringFromPreference("select", "").equals("assistant"))
-        {
-            if(!preferenceUtils.getStringFromPreference("a_pic", "").equals(""))
-            {
+        if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
+            String name = preferenceUtils.getStringFromPreference("a_name", "");
+            if (!name.equals("")) {
+                edt_name.setText(name);
+                edt_name.setEnabled(false);
+            }
+
+            if (!preferenceUtils.getStringFromPreference("a_pic", "").equals("")) {
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
-                    showLoaderNew();
+                        showLoaderNew();
                     }
 
                     @Override
                     protected Void doInBackground(Void... params) {
                         try {
-                            imageData =  getDataFromUrl(preferenceUtils.getStringFromPreference("a_pic", ""));
+                            imageData = getDataFromUrl(preferenceUtils.getStringFromPreference("a_pic", ""));
                         } catch (Exception e) {
                             // log error
                         }
@@ -162,7 +171,7 @@ public class SignupRegistration extends AppCompatActivity {
 
                     @Override
                     protected void onPostExecute(Void result) {
-                    hideloader();
+                        hideloader();
                     }
 
                 }.execute();
@@ -174,13 +183,14 @@ public class SignupRegistration extends AppCompatActivity {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(iv_upload_profile_photo);
                 iv_add.setVisibility(View.GONE);
+                iv_upload_profile_photo.setClickable(false);
+                iv_upload_profile_photo.setEnabled(false);
             }
         }
 
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startActivity(new Intent(getApplicationContext(), AssitantFinalRegistration.class));
 
                 if (edt_name.getText().length() > 0 &&
                         edt_zipcode.getText().length() == 5 &&
@@ -192,31 +202,24 @@ public class SignupRegistration extends AppCompatActivity {
                         showAlertValidation("Please enter the valid email");
                     } else if (edt_password.getText().toString().equals(edt_conform_password.getText().toString())) {
 
-                        if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
-                        {
+                        if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
 
-                            if(imageData != null)
-                            { showLoaderNew();
+                            if (imageData != null) {
+                                showLoaderNew();
                                 sendData();
-                            }else
-                            {
+                            } else {
                                 showAlertValidation("Please upload Image");
-                                //Toast.makeText(getApplicationContext(),"Please upload Image",Toast.LENGTH_LONG).show();
                             }
-                            //startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
 
-                        }else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
-                        {
+                        } else if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
 
 
-                            if(imageData != null)
-                            {
+                            if (imageData != null) {
                                 showLoaderNew();
                                 registerAssistant();
-                            }else
-                            {
+                            } else {
                                 showAlertValidation("Please upload Image");
-                               // Toast.makeText(getApplicationContext(),"Image is missing ",Toast.LENGTH_LONG).show();
+                                // Toast.makeText(getApplicationContext(),"Image is missing ",Toast.LENGTH_LONG).show();
                             }
                         }
 
@@ -241,14 +244,13 @@ public class SignupRegistration extends AppCompatActivity {
                     }
 
                 }
-
             }
         });
         iv_upload_profile_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
-             // Toast.makeText(getApplicationContext(),"Image capture",Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(),"Image capture",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -280,8 +282,7 @@ public class SignupRegistration extends AppCompatActivity {
         });
     }
 
-    private void registerAssistant()
-    {
+    private void registerAssistant() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_SIGNUP_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -296,7 +297,7 @@ public class SignupRegistration extends AppCompatActivity {
                                 jsonObject.getString("Success-aid");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success-msg"), Toast.LENGTH_LONG).show();
                                 PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
-                                preferenceUtils.saveString("a_id",jsonObject.getString("Success-aid"));
+                                preferenceUtils.saveString("a_id", jsonObject.getString("Success-aid"));
                                 startActivity(new Intent(getApplicationContext(), AssitantFinalRegistration.class));
                                 Log.v("res ", "res  success" + jsonObject.getString("Success-msg"));
                             } else {
@@ -328,7 +329,7 @@ public class SignupRegistration extends AppCompatActivity {
                                 "&a_email=" + edt_email.getText().toString() +
                                 "&a_mobile=" + edt_phone.getText().toString() +
                                 "&a_password=" + edt_password.getText().toString() +
-                                "&photo="+imageData;
+                                "&photo=" + imageData;
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {
@@ -352,6 +353,7 @@ public class SignupRegistration extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
@@ -380,6 +382,7 @@ public class SignupRegistration extends AppCompatActivity {
         });
         builder.show();
     }
+
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -391,6 +394,7 @@ public class SignupRegistration extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -451,7 +455,6 @@ public class SignupRegistration extends AppCompatActivity {
     }
 
 
-
     private void sendData() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.SIGNUP_URL,
@@ -469,21 +472,19 @@ public class SignupRegistration extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success-msg"), Toast.LENGTH_LONG).show();
                                 PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
 
-                               if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
-                               {
-                                   preferenceUtils.saveString("loggedin", "loggedin");
-                                   preferenceUtils.saveString("p_id",jsonObject.getString("Success-pid"));
-                                   startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
-                                   finish();
-                               }
+                                if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
+                                    preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("p_id", jsonObject.getString("Success-pid"));
+                                    startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
+                                    finish();
+                                }
 
-                                if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
-                               {
-                                   preferenceUtils.saveString("loggedin", "loggedin");
-                                   preferenceUtils.saveString("a_id",jsonObject.getString("Success-aid"));
-                                   startActivity(new Intent(getApplicationContext(), AssitantFinalRegistration.class));
-                                   finish();
-                               }
+                                if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
+                                    preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("a_id", jsonObject.getString("Success-aid"));
+                                    startActivity(new Intent(getApplicationContext(), AssitantFinalRegistration.class));
+                                    finish();
+                                }
                                 Log.v("res ", "res  success" + jsonObject.getString("Success-msg"));
                             } else {
                                 hideloader();
@@ -514,7 +515,7 @@ public class SignupRegistration extends AppCompatActivity {
                                 "&p_email=" + edt_email.getText().toString() +
                                 "&p_mobile=" + edt_phone.getText().toString() +
                                 "&p_password=" + edt_password.getText().toString() +
-                                "&photo="+imageData;
+                                "&photo=" + imageData;
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {
@@ -537,7 +538,7 @@ public class SignupRegistration extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-       // Toast.makeText(getApplicationContext(), "Sending data ......", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), "Sending data ......", Toast.LENGTH_LONG).show();
     }
 
     public void showAlertValidation(String error) {
@@ -559,26 +560,23 @@ public class SignupRegistration extends AppCompatActivity {
 
     }
 
-    public String getDataFromUrl(String urlLink)
-    {
+    public String getDataFromUrl(String urlLink) {
         String encodedImage = null;
         try {
             InputStream in = new URL(urlLink).openStream();
-            Bitmap  bmp = BitmapFactory.decodeStream(in);
+            Bitmap bmp = BitmapFactory.decodeStream(in);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageBytes = baos.toByteArray();
             encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return encodedImage ;
+        return encodedImage;
     }
-    public String getDataFromUri(Uri data)
-    {
+
+    public String getDataFromUri(Uri data) {
         Bitmap bm = null;
         if (data != null) {
             try {
@@ -592,13 +590,15 @@ public class SignupRegistration extends AppCompatActivity {
         }
         return imageData;
     }
-    public String getStringImage(Bitmap bmp){
+
+    public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
     private void initializeControls() {
         View test1View = findViewById(R.id.toolbarLayout);
         toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
@@ -610,12 +610,12 @@ public class SignupRegistration extends AppCompatActivity {
         edt_phone = (EditText) findViewById(R.id.edt_phone);
         edt_password = (EditText) findViewById(R.id.edt_password);
         edt_conform_password = (EditText) findViewById(R.id.edt_conform_password);
-       // edt_name = (EditText) findViewById(R.id.edt_name);
+        // edt_name = (EditText) findViewById(R.id.edt_name);
         tv_submit = (TextView) findViewById(R.id.tv_submit);
         tv_verify = (TextView) findViewById(R.id.tv_verify);
         toolbarTextView.setText("Registration");
-        parentLayout = (LinearLayout)findViewById(R.id.parentLayout);
-        FontStyle.applyFont(getApplicationContext(),parentLayout,FontStyle.Lato_Medium);
+        parentLayout = (LinearLayout) findViewById(R.id.parentLayout);
+        FontStyle.applyFont(getApplicationContext(), parentLayout, FontStyle.Lato_Medium);
     }
 
     public void showLoaderNew() {
@@ -647,9 +647,8 @@ public class SignupRegistration extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                if (dialog == null)
-                {
-                    dialog = new Dialog(mContext,R.style.Theme_Dialog_Translucent);
+                if (dialog == null) {
+                    dialog = new Dialog(mContext, R.style.Theme_Dialog_Translucent);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.getWindow().setBackgroundDrawable(
                             new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -657,10 +656,9 @@ public class SignupRegistration extends AppCompatActivity {
                 dialog.setContentView(R.layout.loading);
                 dialog.setCancelable(false);
 
-                if (dialog != null && dialog.isShowing())
-                {
+                if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
-                    dialog=null;
+                    dialog = null;
                 }
                 dialog.show();
 
@@ -679,8 +677,7 @@ public class SignupRegistration extends AppCompatActivity {
                             animationDrawable.start();
                     }
                 });
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }

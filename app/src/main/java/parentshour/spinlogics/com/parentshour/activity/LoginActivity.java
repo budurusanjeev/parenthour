@@ -28,12 +28,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -43,6 +46,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.json.JSONObject;
 
@@ -64,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_SIGN_IN_FB = 9002;
+    private static LoginButton loginButtonfb;
     public Dialog dialog;
     Context mContext;
     PreferenceUtils preferenceUtils;
@@ -82,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     SignInButton signInButton;
     private AnimationDrawable animationDrawable;
     private TextView info;
-    private LoginButton loginButtonfb;
     private CallbackManager callbackManager;
 
     public final static boolean isValidEmail(CharSequence target) {
@@ -91,6 +96,25 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    public static void disconnectFromFacebook() {
+
+        if (AccessToken.getCurrentAccessToken() == null) {
+            // Toast.makeText()
+            loginButtonfb.performClick();
+            return; // already logged out
+
+        }
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+
+                LoginManager.getInstance().logOut();
+
+            }
+        }).executeAsync();
     }
 
     @Override
@@ -111,6 +135,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 preferenceUtils.saveString("email", "");
                 preferenceUtils.saveString("p_pic", "");
                 preferenceUtils.saveString("a_pic", "");
+                preferenceUtils.saveString("p_name", "");
+                preferenceUtils.saveString("a_name", "");
                 startActivity(new Intent(getApplicationContext(), SignupRegistration.class));
             }
         });
@@ -125,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                signOut();
                 signIn();
             }
         });
@@ -135,12 +161,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ll_fb_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                LoginManager.getInstance().logOut();
                 loginButtonfb.performClick();
             }
         });
         ll_google_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                signOut();
                 signIn();
             }
         });
@@ -260,25 +289,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
     }
-
-    /* public static void disconnectFromFacebook() {
-
-         if (AccessToken.getCurrentAccessToken() == null) {
-         // Toast.makeText()
-             return; // already logged out
-
-         }
-
-         new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                 .Callback() {
-             @Override
-             public void onCompleted(GraphResponse graphResponse) {
-
-                 LoginManager.getInstance().logOut();
-
-             }
-         }).executeAsync();
-     }*/
    /* public String getDataFromUri(String data)
     {String imageData = null;
         Bitmap bm = null;
@@ -657,6 +667,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
     private void signIn() {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -680,10 +691,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         ll_google_btn = (LinearLayout) findViewById(R.id.ll_google_btn);
 
         //FontStyle.setFont(ll_parent_login, mContext);
-        FontStyle.applyFont(getApplicationContext(),ll_parent_login,FontStyle.Lato_Bold);
+        FontStyle.applyFont(getApplicationContext(), ll_parent_login, FontStyle.Lato_Bold);
 
     }
 
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // ...
+                    }
+                });
+    }
     public void showAlertValidation(String error) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = getLayoutInflater();

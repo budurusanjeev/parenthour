@@ -162,6 +162,7 @@ public class AssistantGetActivity extends BaseActivity {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        // stringRequest.setRetryPolicy(new DefaultRetryPolicy(1000,2,));
         requestQueue.add(stringRequest);
     }
 

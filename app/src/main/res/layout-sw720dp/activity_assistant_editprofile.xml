@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
+
         <LinearLayout
             android:id="@+id/ass_edit_parent"
             android:layout_width="match_parent"
@@ -47,6 +48,7 @@
                     android:layout_marginRight="10dp"
                     android:src="@drawable/ic_add_pro" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/ll_name"
                 android:layout_width="match_parent"
@@ -61,8 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/ic_name"
-                    />
+                    android:src="@drawable/ic_name" />
 
                 <View
                     android:id="@+id/view_person"
@@ -81,12 +82,14 @@
                     android:background="@color/transparent"
                     android:gravity="left|center"
                     android:hint="Name"
+
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
@@ -102,8 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_mobileno"
-                    />
+                    android:src="@drawable/ic_mobileno" />
 
                 <View
                     android:id="@+id/view_phone"
@@ -127,9 +129,9 @@
                     android:maxLength="10"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_email"
                 android:layout_width="match_parent"
@@ -145,8 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_email"
-                    />
+                    android:src="@drawable/ic_email" />
 
                 <View
                     android:id="@+id/view_email"
@@ -171,6 +172,7 @@
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_experience"
                 android:layout_width="match_parent"
@@ -186,8 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_experience"
-                    />
+                    android:src="@drawable/ic_experience" />
 
                 <View
                     android:id="@+id/view_experience"
@@ -230,8 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_city"
-                    />
+                    android:src="@drawable/ic_city" />
 
                 <View
                     android:id="@+id/view_city"
@@ -240,6 +240,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
+
                 <EditText
                     android:id="@+id/edt_city"
                     android:layout_width="0dp"
@@ -272,8 +273,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_state"
-                    />
+                    android:src="@drawable/ic_state" />
+
                 <View
                     android:id="@+id/view_occ"
                     android:layout_width="1dp"
@@ -299,6 +300,7 @@
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_zipcode"
                 android:layout_width="match_parent"
@@ -314,8 +316,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:src="@drawable/ic_zipcode"
-                    />
+                    android:src="@drawable/ic_zipcode" />
+
                 <View
                     android:id="@+id/view_zip"
                     android:layout_width="1dp"
@@ -337,11 +339,11 @@
                     android:inputType="number"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_billing"
                 android:layout_width="match_parent"
@@ -356,8 +358,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/ic_billing"
-                    />
+                    android:src="@drawable/ic_billing" />
+
                 <View
                     android:id="@+id/view_billing"
                     android:layout_width="1dp"
@@ -365,6 +367,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
+
                 <EditText
                     android:id="@+id/edt_billing"
                     android:layout_width="match_parent"
@@ -377,34 +380,34 @@
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    />
+                    android:textSize="@dimen/activity_fifteen_textSize" />
 
             </LinearLayout>
-    <TextView
-        android:id="@+id/tv_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:padding="5dp"
-        android:text="About: "
-        android:textColor="@color/gray_color" />
 
-    <EditText
-        android:id="@+id/edt_about_me"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/edittext_round_address_popup"
-        android:inputType="textMultiLine"
-        android:minLines="2"
+            <TextView
+                android:id="@+id/tv_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="About: "
+                android:textColor="@color/gray_color" />
 
-        android:padding="5dp"
-        android:textColor="@color/gray_color"
-        android:textColorHint="@color/gray_color"
-        android:textSize="@dimen/activity_fifteen_textSize" />
+            <EditText
+                android:id="@+id/edt_about_me"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_round_address_popup"
+                android:inputType="textMultiLine"
+                android:minLines="2"
+
+                android:padding="5dp"
+                android:textColor="@color/gray_color"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/activity_fifteen_textSize" />
 
             <TextView
                 android:id="@+id/tv_gigs"
@@ -439,6 +442,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="10dp">
+
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_width="wrap_content"
@@ -451,6 +455,7 @@
                     android:text="Save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/activity_Btn_large_textSize" />
+
                 <Button
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"

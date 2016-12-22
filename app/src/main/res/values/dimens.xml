@@ -20,13 +20,16 @@
     <dimen name="activity_verysmall_textSize">13sp</dimen>
 
     <dimen name="edittextfieldgheight">45dp</dimen>
+
+    <dimen name="activity_extralarge_textSize">32sp</dimen>
+    <dimen name="activity_large_textSize">22sp</dimen>
     <dimen name="activity_medium_textSize">18sp</dimen>
     <dimen name="activity_normal_textSize">15sp</dimen>
-    <dimen name="activity_very_small_textSize">10sp</dimen>
     <dimen name="activity_small_textSize">13sp</dimen>
+    <dimen name="activity_very_small_textSize">10sp</dimen>
+
+
     <dimen name="activity_Btn_large_textSize">18sp</dimen>
-    <dimen name="activity_large_textSize">22sp</dimen>
-    <dimen name="activity_extralarge_textSize">32sp</dimen>
     <dimen name="activity_button_small_size">25dp</dimen>
     <dimen name="activity_button_medium_size">40dp</dimen>
     <dimen name="activity_button_large_size">64dp</dimen>

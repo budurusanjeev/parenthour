@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_parent_dashboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_background"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/ll_child_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_search_for_playdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:background="@color/App_btn_Orange"
+                android:gravity="center"
+                android:paddingBottom="@dimen/medium_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/medium_padding"
+                android:text="Search for Playdate"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_large_textSize" />
+
+            <TextView
+                android:id="@+id/tv_search_for_assistant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:background="@color/App_btn_Orange"
+                android:gravity="center"
+                android:paddingBottom="@dimen/medium_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/medium_padding"
+                android:text="Search for Assistant"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_large_textSize" />
+
+            <TextView
+                android:id="@+id/tv_playdate_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:background="@color/App_btn_Orange"
+                android:gravity="center"
+                android:paddingBottom="@dimen/medium_padding"
+                android:paddingLeft="@dimen/large_padding"
+                android:paddingRight="@dimen/large_padding"
+                android:paddingTop="@dimen/medium_padding"
+                android:text="Playdate Events"
+                android:textColor="@color/white"
+                android:textSize="@dimen/activity_large_textSize" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

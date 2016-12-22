@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_parent_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:tag="abc">
+
+    <LinearLayout
+        android:id="@+id/ll_child_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:tag="abc">
+
+        <ImageView
+            android:id="@+id/iv_ph_logo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_profilelogo"
+            android:tag="abc" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:tag="abc">
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:background="@null"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                android:padding="5dp"
+                android:tag="@string/Lato_Bold"
+                android:textColor="@color/App_Orange"
+                android:textColorHint="@color/App_Orange"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:background="@color/App_Orange"
+                android:tag="abc" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:tag="@string/Lato_Bold"
+                android:textColor="@color/App_Orange"
+                android:textColorHint="@color/App_Orange"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:background="@color/App_Orange"
+                android:tag="abc" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:tag="@string/Lato_Regular"
+            android:text="Forgot Passsword?"
+            android:textColor="@color/App_Orange"
+            android:textSize="@dimen/activity_small_textSize" />
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:background="@drawable/edt_login_buttons"
+            android:gravity="center"
+            android:padding="5dp"
+            android:tag="@string/Lato_Bold"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_orConnect_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:tag="abc">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/normal_margin"
+                android:layout_weight="1"
+                android:background="@color/App_Orange"
+                android:tag="abc" />
+
+            <TextView
+                android:id="@+id/tv_orConnect_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:tag="@string/Lato_Regular"
+                android:text="Or Connect With :"
+                android:textColor="@color/App_Orange"
+                android:textSize="@dimen/activity_small_textSize" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/normal_margin"
+                android:layout_weight="1"
+                android:background="@color/App_Orange"
+                android:tag="abc" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fb_google_btns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:tag="abc">
+
+            <LinearLayout
+                android:id="@+id/ll_fb_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/fb_btn_bck"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:tag="abc">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_fb"
+                    android:tag="abc" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:tag="@string/Lato_Regular"
+                    android:text="FACEBOOK"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/activity_medium_textSize" />
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/connectWithFbButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:tag="abc"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_google_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/google_btn"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:tag="abc">
+
+                <ImageView
+                    android:id="@+id/image_google"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_google"
+                    android:tag="abc" />
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:tag="abc"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/text_google"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:tag="@string/Lato_Regular"
+                    android:text="GOOGLE"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/activity_medium_textSize" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+
+            android:id="@+id/tv_dont_hv_acc_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:tag="@string/Lato_Regular"
+            android:text="Don't have account? Sign Up"
+            android:textColor="@color/App_Orange"
+            android:textSize="@dimen/activity_medium_textSize" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

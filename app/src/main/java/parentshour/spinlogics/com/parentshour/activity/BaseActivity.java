@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,12 +23,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
-import com.facebook.FacebookActivity;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -50,8 +47,6 @@ import parentshour.spinlogics.com.parentshour.adapter.NavDrawerListAdapter;
 import parentshour.spinlogics.com.parentshour.domain.NavDrawerItem;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -78,29 +73,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     public ActionBarDrawerToggle mdrawertoogle;
 
     public View header_view,footer_view;
-
-    private AnimationDrawable animationDrawable;
-
     public ArrayList<NavDrawerItem> navDrawerItems;
-
     public NavDrawerListAdapter adapter;
-
     public View customtoast;
-
     public AlertDialog alertDialog;
-
     public AlertDialog.Builder alertBuilder;
-
     public Dialog dialog;
-
     public ImageView img_header;
-
-    PreferenceUtils preferenceUtils;
-
     public HashMap<String,String> Userdata;
-
+    PreferenceUtils preferenceUtils;
     String UserName, UserEmail, UserMobile, WalletAmt;
     GoogleApiClient mGoogleApiClient;
+    private AnimationDrawable animationDrawable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -342,72 +327,11 @@ switch (position)
         runOnUiThread(new RunshowCustomDialogs(strMessage, firstBtnName));
     }*/
 
-    class RunshowCustomDialogs implements Runnable
-    {
-        private String strMessage;// Message to be shown in dialog
-        private String firstBtnName;
-        private int titleGravity;
-        private boolean isShowNestedDialog;
-        private String dialogFrom;
-
-        public RunshowCustomDialogs(String strMessage, String firstBtnName)
-        {
-            this.strMessage 	= strMessage;
-            this.firstBtnName 	= firstBtnName;
-        }
-
-        @Override
-        public void run()
-        {
-            closeAlertDialog();
-            alertBuilder = new AlertDialog.Builder(basecontext);
-            alertBuilder.setCancelable(true);
-
-            final LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.notification_dailog, null);
-
-            TextView dialogtvTitle = (TextView)linearLayout.findViewById(R.id.tvTitle);
-            TextView btnYes = (TextView)linearLayout.findViewById(R.id.btnYes);
-
-
-            if(titleGravity!=0)
-            {
-                // Only in the case of Crash Report Dialog, i am customizing it with custom padding.
-                dialogtvTitle.setGravity(titleGravity);
-                dialogtvTitle.setPadding(35, 35, 0, 35);
-
-            }
-            dialogtvTitle.setText(strMessage);
-            btnYes.setText(firstBtnName);
-            btnYes.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    alertDialog.cancel();
-
-                }
-            });
-
-            try
-            {
-                alertDialog = alertBuilder.create();
-                alertDialog.setView(linearLayout,0,0,0,0);
-                alertDialog.setInverseBackgroundForced(true);
-                alertDialog.show();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void closeAlertDialog()
     {
         if (alertDialog != null && alertDialog.isShowing())
             alertDialog.dismiss();
     }
-
-
 
     public abstract void initialize();
 
@@ -426,8 +350,6 @@ switch (position)
     public abstract void goto_Settings_method();
 
     public abstract void goto_Chats_method();
-
-
 
     private void initdrawer() {
 
@@ -614,6 +536,7 @@ img_header.setOnClickListener(new View.OnClickListener() {
 
         }
     }
+
     @Override
     public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
@@ -621,6 +544,7 @@ img_header.setOnClickListener(new View.OnClickListener() {
         mdrawertoogle.syncState();
 
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -628,23 +552,74 @@ img_header.setOnClickListener(new View.OnClickListener() {
         mdrawertoogle.syncState();
     }
 
-   /* public void updatecustomerwalletamount(double custwalletamount) {
-
-        if (navDrawerItems != null && navDrawerItems.size() != 0) {
-            for (int i = 0; i < navDrawerItems.size(); i++) {
-                NavDrawerItem navDrawerItem = navDrawerItems.get(i);
-
-                if (navDrawerItem.isCounterVisible) {
-                    navDrawerItem.count = String.valueOf(custwalletamount);
-                }
-            }
-
-            adapter.notifyDataSetChanged();
-        }
-    }
-*/
     public void showLoaderNew() {
         runOnUiThread(new Runloader(getResources().getString(R.string.loading)));
+    }
+
+    public void hideloader() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (dialog != null && dialog.isShowing())
+                        dialog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    class RunshowCustomDialogs implements Runnable {
+        private String strMessage;// Message to be shown in dialog
+        private String firstBtnName;
+        private int titleGravity;
+        private boolean isShowNestedDialog;
+        private String dialogFrom;
+
+        public RunshowCustomDialogs(String strMessage, String firstBtnName) {
+            this.strMessage = strMessage;
+            this.firstBtnName = firstBtnName;
+        }
+
+        @Override
+        public void run() {
+            closeAlertDialog();
+            alertBuilder = new AlertDialog.Builder(basecontext);
+            alertBuilder.setCancelable(true);
+
+            final LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.notification_dailog, null);
+
+            TextView dialogtvTitle = (TextView) linearLayout.findViewById(R.id.tvTitle);
+            TextView btnYes = (TextView) linearLayout.findViewById(R.id.btnYes);
+
+
+            if (titleGravity != 0) {
+                // Only in the case of Crash Report Dialog, i am customizing it with custom padding.
+                dialogtvTitle.setGravity(titleGravity);
+                dialogtvTitle.setPadding(35, 35, 0, 35);
+
+            }
+            dialogtvTitle.setText(strMessage);
+            btnYes.setText(firstBtnName);
+            btnYes.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    alertDialog.cancel();
+
+                }
+            });
+
+            try {
+                alertDialog = alertBuilder.create();
+                alertDialog.setView(linearLayout, 0, 0, 0, 0);
+                alertDialog.setInverseBackgroundForced(true);
+                alertDialog.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class Runloader implements Runnable {
@@ -675,42 +650,29 @@ img_header.setOnClickListener(new View.OnClickListener() {
                 }
                 dialog.show();
 
-                ImageView imgeView = (ImageView) dialog
+                final ImageView imgeView = (ImageView) dialog
                         .findViewById(R.id.imgeView);
                 TextView tvLoading = (TextView) dialog
                         .findViewById(R.id.tvLoading);
                 if (!strrMsg.equalsIgnoreCase(""))
-                    tvLoading.setText(strrMsg);
-                animationDrawable = (AnimationDrawable) imgeView
+
+                    animationDrawable = (AnimationDrawable) imgeView
                         .getBackground();
                 imgeView.post(new Runnable() {
                     @Override
                     public void run() {
                         if (animationDrawable != null)
+                            imgeView.setVisibility(View.VISIBLE);
                             animationDrawable.start();
                     }
                 });
+                tvLoading.setText(strrMsg);
             } catch (Exception e)
             {
 
             }
         }
     }
-
-    public void hideloader() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try
-                {
-                    if (dialog != null && dialog.isShowing())
-                        dialog.dismiss();
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }); }
 
 
 }
