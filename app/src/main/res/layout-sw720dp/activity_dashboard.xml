@@ -4,19 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
 
-        <LinearLayout
-            android:id="@+id/ll_child_dashboard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_search_for_playdate"
@@ -32,10 +23,11 @@
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/medium_padding"
-                android:text="Search for Playdate"
+                android:text="@string/search_for_playdate"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_large_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize"
 
+                />
             <TextView
                 android:id="@+id/tv_search_for_assistant"
                 android:layout_width="match_parent"
@@ -50,10 +42,11 @@
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/medium_padding"
-                android:text="Search for Assistant"
+                android:text="@string/search_for_assistant"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_large_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize"
 
+                />
             <TextView
                 android:id="@+id/tv_playdate_events"
                 android:layout_width="match_parent"
@@ -68,11 +61,10 @@
                 android:paddingLeft="@dimen/large_padding"
                 android:paddingRight="@dimen/large_padding"
                 android:paddingTop="@dimen/medium_padding"
-                android:text="Playdate Events"
+                android:text="@string/playdate_events"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_large_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize"
 
-        </LinearLayout>
-    </ScrollView>
+                />
 
 </LinearLayout>

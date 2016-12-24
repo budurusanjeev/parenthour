@@ -5,46 +5,43 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_upload_profile_photo"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_profilelogo" />
-
-        <ImageView
-            android:id="@+id/iv_add_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_upload_profile_photo"
-            android:layout_alignEnd="@+id/iv_upload_profile_photo"
-            android:layout_alignRight="@+id/iv_upload_profile_photo"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:contentDescription="@string/imagedescription"
-            android:src="@drawable/ic_add_pro" />
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
-
         <LinearLayout
             android:id="@+id/ass_edit_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_upload_profile_photo"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_profilelogo" />
+
+                <ImageView
+                    android:id="@+id/iv_add_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_upload_profile_photo"
+                    android:layout_alignEnd="@+id/iv_upload_profile_photo"
+                    android:layout_alignRight="@+id/iv_upload_profile_photo"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@string/imagedescription"
+                    android:src="@drawable/ic_add_pro" />
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/ll_name"
                 android:layout_width="match_parent"
@@ -74,18 +71,17 @@
                     android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:background="@color/transparent"
                     android:gravity="start|center"
                     android:hint="@string/name"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
@@ -125,9 +121,8 @@
                     android:maxLength="10"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_email"
                 android:layout_width="match_parent"
@@ -166,9 +161,8 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_experience"
                 android:layout_width="match_parent"
@@ -198,6 +192,7 @@
                 <EditText
                     android:id="@+id/edt_experience"
                     android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -208,7 +203,7 @@
                     android:maxLength="2"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
             </LinearLayout>
 
 
@@ -237,10 +232,9 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
-
                 <EditText
                     android:id="@+id/edt_city"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -250,7 +244,7 @@
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
             </LinearLayout>
 
             <LinearLayout
@@ -270,7 +264,6 @@
                     android:contentDescription="@string/imagestatedescription"
                     android:padding="5dp"
                     android:src="@drawable/ic_state" />
-
                 <View
                     android:id="@+id/view_occ"
                     android:layout_width="1dp"
@@ -291,11 +284,10 @@
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_zipcode"
                 android:layout_width="match_parent"
@@ -313,7 +305,6 @@
                     android:contentDescription="@string/imagezipcodedescription"
                     android:padding="5dp"
                     android:src="@drawable/ic_zipcode" />
-
                 <View
                     android:id="@+id/view_zip"
                     android:layout_width="1dp"
@@ -334,11 +325,10 @@
                     android:inputType="number"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_billing"
                 android:layout_width="match_parent"
@@ -355,7 +345,6 @@
                     android:contentDescription="@string/imagebillingdescription"
                     android:padding="5dp"
                     android:src="@drawable/ic_billing" />
-
                 <View
                     android:id="@+id/view_billing"
                     android:layout_width="1dp"
@@ -363,7 +352,6 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/gray_color" />
-
                 <EditText
                     android:id="@+id/edt_billing"
                     android:layout_width="match_parent"
@@ -376,7 +364,7 @@
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
             </LinearLayout>
 
@@ -422,22 +410,21 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/edittext_round_address_popup"
                 android:inputType="textMultiLine"
-                android:minLines="4"
+                android:minLines="5"
                 android:padding="5dp"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_fifteen_textSize" />
+                android:textSize="@dimen/activity_medium_textSize" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="10dp">
-
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_width="wrap_content"
@@ -451,7 +438,6 @@
                     android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/activity_Btn_large_textSize" />
-
                 <Button
                     android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"

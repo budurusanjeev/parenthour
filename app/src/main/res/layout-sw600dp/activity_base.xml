@@ -12,7 +12,6 @@
         android:background="@color/App_Orange"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -23,28 +22,22 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_large_textSize" />
-
+                android:textSize="@dimen/activity_Btn_large_textSize" />
             <TextView
                 android:id="@+id/setting_Save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:text="Save"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/save"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_fifteen_textSize"
+                android:textSize="@dimen/activity_medium_textSize"
                 android:visibility="gone" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <!-- <android.support.v7.widget.Toolbar
-         android:id="@+id/toolbar_actionbar"
-         android:background="@null"
-         android:layout_width="match_parent"
-         android:layout_height="?actionBarSize"
-         android:fitsSystemWindows="true" />-->
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -54,9 +47,9 @@
         <include layout="@layout/content_main" />
 
         <RelativeLayout
-            android:layout_width="250dp"
+            android:layout_width="350dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left|start"
+            android:layout_gravity="start"
             android:background="@color/App_SideBar">
 
             <ListView

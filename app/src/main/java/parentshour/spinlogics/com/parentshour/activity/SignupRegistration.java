@@ -262,7 +262,7 @@ public class SignupRegistration extends AppCompatActivity {
                 final View dialogView = inflater.inflate(R.layout.dialog_verify, null);
                 dialogBuilder.setView(dialogView);
                 final AlertDialog b = dialogBuilder.create();
-                final EditText edt_otp = (EditText) dialogView.findViewById(R.id.edt_verify_phone);
+                final EditText edt_otp = (EditText) dialogView.findViewById(R.id.edt_forgot_email);
                 final TextView tv_verify_ok = (TextView) dialogView.findViewById(R.id.tv_verify_ok);
                 final TextView tv_verify_cancel = (TextView) dialogView.findViewById(R.id.tv_verify_cancel);
                 tv_verify_ok.setOnClickListener(new View.OnClickListener() {

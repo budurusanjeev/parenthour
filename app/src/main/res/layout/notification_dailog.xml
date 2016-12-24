@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
     android:id="@+id/alert_layout"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
@@ -15,13 +15,12 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Texview"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:padding="10dp"
                 android:layout_margin="10dp"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -35,28 +34,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:background="@color/white"
+            android:gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
+                android:contentDescription="@string/imagestatedescription"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="gone" />
             <TextView
                 android:id="@+id/btnYes"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/edt_login_buttons"
                 android:contentDescription="@string/app_name"
                 android:gravity="center"
                 android:padding="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="OK"
-                android:layout_marginBottom="5dp"
+                android:text="@string/ok"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:contentDescription="@string/imagestatedescription"
                 android:src="@drawable/ic_ex_profile" />
 
             <TextView
@@ -32,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="abc"
                 android:textColor="@color/gray_color" />
         </LinearLayout>
 
@@ -48,7 +48,6 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abc"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -57,7 +56,6 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abc"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -66,8 +64,6 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="abc"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -75,7 +71,6 @@
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abc"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -87,6 +82,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:contentDescription="@string/imagestatedescription"
             android:src="@drawable/ic_chatrow" />
     </LinearLayout>
 

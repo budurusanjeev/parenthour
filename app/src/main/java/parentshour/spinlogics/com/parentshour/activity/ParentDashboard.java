@@ -131,7 +131,7 @@ public class ParentDashboard extends BaseActivity {
     private void initViewControll() {
 
         ll_parent_dashboard =(LinearLayout) findViewById(R.id.ll_parent_dashboard);
-        ll_child_dashboard =(LinearLayout) findViewById(R.id.ll_child_dashboard);
+        //  ll_child_dashboard =(LinearLayout) findViewById(R.id.ll_child_dashboard);
 
         tv_search_for_playdate =(TextView) findViewById(R.id.tv_search_for_playdate);
         tv_search_for_assistant =(TextView) findViewById(R.id.tv_search_for_assistant);

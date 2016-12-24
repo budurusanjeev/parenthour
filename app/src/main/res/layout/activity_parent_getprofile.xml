@@ -40,11 +40,13 @@
                     android:id="@+id/tv_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
-                    android:gravity="right"
+                    android:gravity="end"
+                    android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="EDIT"
+                    android:text="@string/edit"
                     android:textColor="@color/Orange"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -56,42 +58,32 @@
                     android:background="@color/Orange"
                     />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_use"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_name" />
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
-                            android:text="Name"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/ic_name"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/ic_name"
+                            android:gravity="center_vertical"
+                            android:text="@string/name"
                             android:textColor="@color/gray_color"
                             android:textSize="@dimen/activity_fifteen_textSize" />
-                    </LinearLayout>
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text=""
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
                         android:textSize="@dimen/activity_fifteen_textSize"
@@ -114,32 +106,26 @@
                     android:background="@color/gray_use"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_zipcode" />
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:layout_marginStart="10dp"
-                            android:text="Zipcode"
-                            android:textColor="@color/gray_color" />
-                    </LinearLayout>
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/ic_zipcode"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/ic_zipcode"
+                            android:gravity="center_vertical"
+                            android:text="@string/zipcode"
+                            android:textColor="@color/gray_color"
+                            android:textSize="@dimen/activity_fifteen_textSize" />
                     <TextView
                         android:id="@+id/tv_zipcode"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text=""
+
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
                         android:textSize="@dimen/activity_fifteen_textSize"
@@ -147,7 +133,6 @@
 
                     </TextView>
                 </LinearLayout>
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,32 +148,26 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_email" />
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="E-mail"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_email"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_email"
+                        android:gravity="center_vertical"
+                        android:text="@string/email"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -211,32 +190,26 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_mobileno" />
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Mobile No"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_mobileno"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_mobileno"
+                        android:gravity="center_vertical"
+                        android:text="@string/mobile_no"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_mobile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -259,32 +232,26 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_age" />
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Age"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_age"
+                        android:drawableStart="@drawable/ic_age"
+                        android:gravity="center_vertical"
+                        android:text="@string/age"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
+
                 <TextView
                     android:id="@+id/tv_age"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -307,32 +274,25 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_occupation" />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Occupation"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_occupation"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_occupation"
+                        android:gravity="center_vertical"
+                        android:text="@string/occupation"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_occupation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -355,32 +315,26 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_gender" />
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Gender"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_gender"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_gender"
+                        android:gravity="center_vertical"
+                        android:text="@string/genders"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -403,32 +357,25 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_education" />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Education"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_education"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_education"
+                        android:gravity="center_vertical"
+                        android:text="@string/education"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_education"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -451,32 +398,25 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_ethnicity" />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Ethnicity"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_ethnicity"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_ethnicity"
+                        android:gravity="center_vertical"
+                        android:text="@string/ethnicity"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_ethnicity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"
@@ -489,7 +429,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
                 android:padding="10dp">
 
             </LinearLayout>
@@ -500,25 +439,21 @@
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
+
+                <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_availabledays" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Available Days"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_availabledays"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_availabledays"
+                    android:gravity="center_vertical"
+                    android:text="@string/available_days"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/activity_fifteen_textSize" />
+
                 <TextView
                     android:id="@+id/tv_available_days"
                     android:layout_width="0dp"
@@ -545,35 +480,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_availabletime" />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="Available Time"
-                        android:textColor="@color/gray_color" />
-                </LinearLayout>
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_availabletime"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_availabletime"
+                        android:gravity="center_vertical"
+                        android:text="@string/available_times"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_fifteen_textSize" />
                 <TextView
                     android:id="@+id/tv_available_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fifteen_textSize"

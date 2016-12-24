@@ -3,10 +3,12 @@
     android:id="@+id/login_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
-<include layout="@layout/app_toolbar_layout"
-    android:id="@+id/toolbarLayout"/>
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar_layout" />
     <ScrollView
 
         android:layout_width="match_parent"
@@ -21,41 +23,41 @@
                 android:id="@+id/ll_age"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
                 android:background="@drawable/edittext_round_address_popup"
-                android:layout_margin="10dp">
+                android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_age"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/imagestatedescription"
                     android:padding="5dp"
-                    android:id="@+id/iv_age"
-                    />
+                    android:src="@drawable/ic_age" />
 
                 <View
+                    android:id="@+id/view_age"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/view_age"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:background="@color/black" />
 
                 <EditText
                     android:id="@+id/edt_age"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Age"
-                    android:maxLength="3"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/age"
                     android:inputType="number"
+                    android:maxLength="3"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_small_textSize" />
@@ -66,37 +68,37 @@
                 android:id="@+id/ll_occ"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_occupation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_occupation"
+                    android:contentDescription="@string/imagestatedescription"
                     android:padding="5dp"
-                    android:id="@+id/iv_occupation"
-                    />
+                    android:src="@drawable/ic_occupation" />
                 <View
+                    android:id="@+id/view_occ"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/view_occ"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:background="@color/black" />
 
                 <EditText
                     android:id="@+id/edt_occupation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Occupation"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/occupation"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_small_textSize" />
@@ -107,48 +109,47 @@
                 android:id="@+id/ll_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_email"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                <TextView
+                   android:id="@+id/tv_gender"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Gender :"
                    android:layout_gravity="center"
+                   android:text="@string/gender"
                    android:textColor="@color/App_Gray"
-                   android:id="@+id/tv_gender"
                    android:textSize="@dimen/activity_small_textSize"/>
 
                 <RadioGroup
+                    android:id="@+id/rg_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:id="@+id/rg_gender"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
 
                     <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Male"
                         android:id="@+id/rb_male"
-                        android:textColor="@color/App_black"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_radio_button"
-                        android:textSize="@dimen/activity_small_textSize"
-                        android:layout_weight="1"/>
-
-                    <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Female"
-                        android:padding="5dp"
+                        android:layout_weight="1"
                         android:button="@drawable/custom_radio_button"
+                        android:padding="5dp"
+                        android:text="@string/male"
                         android:textColor="@color/App_black"
+                        android:textSize="@dimen/activity_small_textSize" />
+
+                    <RadioButton
                         android:id="@+id/rb_female"
-                        android:textSize="@dimen/activity_small_textSize"
-                        android:layout_weight="1"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@drawable/custom_radio_button"
+                        android:padding="5dp"
+                        android:text="@string/female"
+                        android:textColor="@color/App_black"
+                        android:textSize="@dimen/activity_small_textSize" />
                 </RadioGroup>
 
 
@@ -158,36 +159,37 @@
                 android:id="@+id/ll_edu"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
-                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_education"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_education"
-                    android:id="@+id/iv_education"
+                    android:contentDescription="@string/imagestatedescription"
                     android:padding="5dp"
+                    android:src="@drawable/ic_education"
                     />
                 <View
+                    android:id="@+id/view_edu"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/view_edu"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:background="@color/black" />
                 <EditText
                     android:id="@+id/edt_education"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Education"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/education"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
@@ -196,35 +198,34 @@
             </LinearLayout>
 
             <TextView
-                android:layout_margin="10dp"
+                android:id="@+id/tv_origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Origin"
+                android:layout_margin="10dp"
+                android:text="@string/ethnicity"
                 android:textColor="@color/App_Gray"
-                android:id="@+id/tv_origin"
                 android:textSize="@dimen/activity_small_textSize"/>
 
             <LinearLayout
                 android:id="@+id/ll_origin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_round_address_popup"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_round_address_popup"
                 android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/edt_cnfrmpwd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:alpha="0.7"
                     android:background="@color/transparent"
-                    android:gravity="left"
-                    android:hint=""
+                    android:gravity="start"
                     android:inputType="textPassword"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -233,8 +234,9 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_originicon"
+                    android:contentDescription="@string/ethnicity"
                     android:padding="5dp"
+                    android:src="@drawable/ic_originicon"
                     />
 
             </LinearLayout>
@@ -243,49 +245,48 @@
                 android:id="@+id/ll_avail_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_password"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tv_avail_Day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Day :"
+                    android:text="@string/available_day"
                     android:textColor="@color/App_Gray"
-                    android:id="@+id/tv_avail_Day"
                     android:textSize="@dimen/activity_small_textSize"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
                     <CheckBox
+                        android:id="@+id/cb_weekdays"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weekdays"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_checkbox_design"
-                        android:textColor="@color/App_Gray"
-                        android:id="@+id/cb_weekdays"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/custom_checkbox_design"
+                        android:padding="5dp"
+                        android:text="@string/weekdays"
+                        android:textColor="@color/App_Gray"
                         android:textSize="@dimen/activity_small_textSize"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
                     <CheckBox
+                        android:id="@+id/cb_weekends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weekends"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_checkbox_design"
-                        android:textColor="@color/App_Gray"
-                        android:id="@+id/cb_weekends"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/custom_checkbox_design"
+                        android:padding="5dp"
+                        android:text="@string/weekends"
+                        android:textColor="@color/App_Gray"
                         android:textSize="@dimen/activity_small_textSize"/>
 
                 </LinearLayout>
@@ -297,67 +298,66 @@
                 android:id="@+id/ll_avail_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_password"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tv_avail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Time :"
+                    android:text="@string/available_time"
                     android:textColor="@color/App_Gray"
-                    android:id="@+id/tv_avail_time"
                     android:textSize="@dimen/activity_small_textSize"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
                     <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Morning"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_checkbox_design"
-                        android:textColor="@color/App_Gray"
                         android:id="@+id/cb_morning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/custom_checkbox_design"
+                        android:padding="5dp"
+                        android:text="@string/morning"
+                        android:textColor="@color/App_Gray"
                         android:textSize="@dimen/activity_small_textSize"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
                     <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Afternoon"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_checkbox_design"
-                        android:textColor="@color/App_Gray"
                         android:id="@+id/cb_afternoon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/custom_checkbox_design"
+                        android:padding="5dp"
+                        android:text="@string/afternoon"
+                        android:textColor="@color/App_Gray"
                         android:textSize="@dimen/activity_small_textSize"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
                     <CheckBox
+                        android:id="@+id/cb_evening"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Evening"
-                        android:padding="5dp"
-                        android:button="@drawable/custom_checkbox_design"
-                        android:textColor="@color/App_Gray"
-                        android:id="@+id/cb_evening"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:button="@drawable/custom_checkbox_design"
+                        android:padding="5dp"
+                        android:text="@string/evening"
+                        android:textColor="@color/App_Gray"
                         android:textSize="@dimen/activity_small_textSize"/>
 
                 </LinearLayout>
@@ -370,12 +370,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/edt_login_buttons"
-                android:text="Signup"
                 android:gravity="center"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_Btn_large_textSize" />
 <!--

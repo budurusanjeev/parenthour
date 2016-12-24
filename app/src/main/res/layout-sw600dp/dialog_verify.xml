@@ -6,23 +6,22 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/small_margin"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:padding="10dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp">
 
     <EditText
-        android:id="@+id/edt_verify_phone"
+        android:id="@+id/edt_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:background="@drawable/edittext_round_gray"
-        android:hint="Enter OTP"
-        android:inputType="textEmailAddress"
-        android:padding="@dimen/medium_padding"
+        android:hint="@string/enter_otp"
+        android:inputType="textCapSentences"
+        android:padding="15dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="15sp" />
-
+        android:textSize="20sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,12 +33,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@drawable/edt_login_buttons"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="Verify"
+            android:padding="10dp"
+            android:text="@string/verify"
             android:textColor="@color/White"
             android:textSize="@dimen/activity_medium_textSize" />
 
@@ -48,12 +47,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@drawable/edt_login_buttons"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="Cancel"
+            android:padding="15dp"
+            android:text="@string/cancel"
             android:textColor="@color/White"
             android:textSize="@dimen/activity_medium_textSize" />
 
@@ -63,8 +62,8 @@
         android:id="@+id/receive_pwd_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Didn't Receive OTP, Send again."
+        android:layout_margin="15dp"
+        android:text="@string/didn_t_receive_otp_send_again"
         android:textColor="@color/Orange"
         android:textSize="@dimen/activity_medium_textSize" />
 </LinearLayout>

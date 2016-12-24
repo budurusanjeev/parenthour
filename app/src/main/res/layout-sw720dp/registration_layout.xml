@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/login_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
     <include
         android:id="@+id/toolbarLayout"
         layout="@layout/app_toolbar_layout" />
-
     <ScrollView
 
         android:layout_width="match_parent"
@@ -24,7 +23,7 @@
                 android:id="@+id/ll_age"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
                 android:orientation="horizontal">
@@ -34,33 +33,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:contentDescription="@string/imagestatedescription"
+                    android:padding="10dp"
                     android:src="@drawable/ic_age" />
 
                 <View
                     android:id="@+id/view_age"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/black" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/gray_color" />
 
                 <EditText
                     android:id="@+id/edt_age"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Age"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/age"
                     android:inputType="number"
                     android:maxLength="3"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_small_textSize" />
+                    android:textSize="@dimen/activity_extralarge_textSize" />
 
             </LinearLayout>
 
@@ -68,7 +66,7 @@
                 android:id="@+id/ll_occ"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
                 android:orientation="horizontal">
@@ -77,31 +75,30 @@
                     android:id="@+id/iv_occupation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:contentDescription="@string/imagestatedescription"
+                    android:padding="10dp"
                     android:src="@drawable/ic_occupation" />
 
                 <View
                     android:id="@+id/view_occ"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/black" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/gray_color" />
 
                 <EditText
                     android:id="@+id/edt_occupation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Occupation"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/occupation"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_small_textSize" />
+                    android:textSize="@dimen/activity_extralarge_textSize" />
 
             </LinearLayout>
 
@@ -109,8 +106,7 @@
                 android:id="@+id/ll_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_email"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -118,16 +114,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Gender :"
+                    android:text="@string/genders"
                     android:textColor="@color/App_Gray"
-                    android:textSize="@dimen/activity_small_textSize" />
+                    android:textSize="@dimen/activity_extralarge_textSize" />
 
                 <RadioGroup
                     android:id="@+id/rg_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -136,10 +133,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:button="@drawable/custom_radio_button"
-                        android:padding="5dp"
-                        android:text="Male"
-                        android:textColor="@color/App_black"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:padding="10dp"
+                        android:text="@string/male"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                     <RadioButton
                         android:id="@+id/rb_female"
@@ -147,10 +144,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:button="@drawable/custom_radio_button"
-                        android:padding="5dp"
-                        android:text="Female"
-                        android:textColor="@color/App_black"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:padding="10dp"
+                        android:text="@string/female"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/activity_extralarge_textSize" />
                 </RadioGroup>
 
 
@@ -160,7 +157,7 @@
                 android:id="@+id/ll_edu"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
                 android:orientation="horizontal">
@@ -169,32 +166,29 @@
                     android:id="@+id/iv_education"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:contentDescription="@string/imagestatedescription"
+                    android:padding="15dp"
                     android:src="@drawable/ic_education" />
-
                 <View
                     android:id="@+id/view_edu"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@color/black" />
-
                 <EditText
                     android:id="@+id/edt_education"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
                     android:background="@color/transparent"
-                    android:gravity="left|center_vertical"
-                    android:hint="Education"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/education"
                     android:inputType="textCapWords"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
-                    android:textSize="@dimen/activity_small_textSize" />
+                    android:textSize="@dimen/activity_extralarge_textSize" />
 
             </LinearLayout>
 
@@ -202,16 +196,16 @@
                 android:id="@+id/tv_origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Origin"
+                android:layout_margin="15dp"
+                android:text="@string/ethnicity"
                 android:textColor="@color/App_Gray"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
 
             <LinearLayout
                 android:id="@+id/ll_origin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/edittext_round_address_popup"
                 android:orientation="horizontal">
 
@@ -219,24 +213,22 @@
                     android:id="@+id/edt_cnfrmpwd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:alpha="0.7"
                     android:background="@color/transparent"
-                    android:gravity="left"
-                    android:hint=""
+                    android:gravity="start"
                     android:inputType="textPassword"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="@dimen/activity_small_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/ethnicity"
+                    android:padding="10dp"
                     android:src="@drawable/ic_originicon" />
 
             </LinearLayout>
@@ -245,55 +237,49 @@
                 android:id="@+id/ll_avail_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_password"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/tv_avail_Day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Day :"
+                    android:text="@string/available_day"
                     android:textColor="@color/App_Gray"
-                    android:textSize="@dimen/activity_small_textSize" />
-
+                    android:textSize="@dimen/activity_medium_textSize" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
-
                     <CheckBox
                         android:id="@+id/cb_weekdays"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:button="@drawable/custom_checkbox_design"
-                        android:padding="5dp"
-                        android:text="Weekdays"
+                        android:padding="15dp"
+                        android:text="@string/weekdays"
                         android:textColor="@color/App_Gray"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
-
                     <CheckBox
                         android:id="@+id/cb_weekends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:button="@drawable/custom_checkbox_design"
-                        android:padding="5dp"
-                        android:text="Weekends"
+                        android:padding="15dp"
+                        android:text="@string/weekends"
                         android:textColor="@color/App_Gray"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                 </LinearLayout>
 
@@ -304,75 +290,67 @@
                 android:id="@+id/ll_avail_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_password"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/tv_avail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available Time :"
+                    android:text="@string/available_time"
                     android:textColor="@color/App_Gray"
-                    android:textSize="@dimen/activity_small_textSize" />
-
+                    android:textSize="@dimen/activity_medium_textSize" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
-
                     <CheckBox
                         android:id="@+id/cb_morning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:button="@drawable/custom_checkbox_design"
-                        android:padding="5dp"
-                        android:text="Morning"
+                        android:padding="10dp"
+                        android:text="@string/morning"
                         android:textColor="@color/App_Gray"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
-
                     <CheckBox
                         android:id="@+id/cb_afternoon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:button="@drawable/custom_checkbox_design"
-                        android:padding="5dp"
-                        android:text="Afternoon"
+                        android:padding="10dp"
+                        android:text="@string/afternoon"
                         android:textColor="@color/App_Gray"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_password"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
-
                     <CheckBox
                         android:id="@+id/cb_evening"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:button="@drawable/custom_checkbox_design"
-                        android:padding="5dp"
-                        android:text="Evening"
+                        android:padding="10dp"
+                        android:text="@string/evening"
                         android:textColor="@color/App_Gray"
-                        android:textSize="@dimen/activity_small_textSize" />
+                        android:textSize="@dimen/activity_extralarge_textSize" />
 
                 </LinearLayout>
 
@@ -384,14 +362,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/edt_login_buttons"
                 android:gravity="center"
-                android:text="Signup"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
-                android:textSize="@dimen/activity_Btn_large_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
             <!--
                         <View
                             android:layout_width="match_parent"

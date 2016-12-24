@@ -16,7 +16,7 @@ public class FontStyle {
     public static String Lato_Regular = "Lato-Regular.ttf";
     public static String Lato_Bold = "Lato-Bold.ttf";
     public static String Lato_Medium = "Lato-Medium.ttf";
-    public Typeface typeFace_AmTypeWriter;
+    public static Typeface typeFace_AmTypeWriter;
     Context context;
 
     public FontStyle(Context context) {
@@ -122,7 +122,7 @@ public class FontStyle {
         ((TextView) view).setTypeface(typeFace_AmTypeWriter);
     }*/
 
-    public void applyfontBasedOnSelection(View view, String type) {
+    public static void applyfontBasedOnSelection(View view, String type, Context context) {
         if (type.equalsIgnoreCase(Lato_Regular)) {
             typeFace_AmTypeWriter = Typeface.createFromAsset(context.getAssets(), "Lato-Regular.ttf");
 

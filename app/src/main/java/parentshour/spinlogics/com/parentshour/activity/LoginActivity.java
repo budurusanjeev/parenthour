@@ -269,7 +269,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 final View dialogView = inflater.inflate(R.layout.forget_password, null);
                 dialogBuilder.setView(dialogView);
                 final AlertDialog b = dialogBuilder.create();
-                final EditText registeredEmail = (EditText) dialogView.findViewById(R.id.edt_forgot_password);
+                final EditText registeredEmail = (EditText) dialogView.findViewById(R.id.edt_forgot_email);
                 final TextView tv_newPassword = (TextView) dialogView.findViewById(R.id.tv_forget_password);
                 tv_newPassword.setOnClickListener(new View.OnClickListener() {
                     @Override

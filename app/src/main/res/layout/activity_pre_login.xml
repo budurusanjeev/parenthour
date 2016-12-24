@@ -7,6 +7,7 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:contentDescription="@string/imagestatedescription"
     android:scaleType="fitCenter"
     android:src="@drawable/parenthour" />
     <ImageView
@@ -14,6 +15,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
+        android:contentDescription="@string/imagestatedescription"
         android:scaleType="fitXY"
         android:src="@drawable/bg_image_before" />
         <LinearLayout

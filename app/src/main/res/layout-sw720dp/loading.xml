@@ -13,6 +13,7 @@
         android:layout_width="@dimen/loder_height_width"
         android:layout_height="@dimen/loder_height_width"
         android:background="#000090"
+        android:contentDescription="@string/imagestatedescription"
         android:visibility="gone" />
 
     <TextView
@@ -20,10 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:maxLines="1"
         android:singleLine="true"
         android:text="@string/loading"
         android:textColor="#fff"
-        android:textSize="@dimen/activity_medium_textSize"
+        android:textSize="@dimen/activity_extralarge_textSize"
         android:visibility="visible" />
 
 </LinearLayout>

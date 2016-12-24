@@ -293,6 +293,7 @@
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_city"
                         android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_city"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
                         android:text="@string/citytext"
@@ -391,9 +392,10 @@
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_billing"
                         android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_billing"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
-                        android:text="Billing"
+                        android:text="@string/billing"
                         android:textColor="@color/gray_color"
                         android:textSize="@dimen/activity_fifteen_textSize" />
 

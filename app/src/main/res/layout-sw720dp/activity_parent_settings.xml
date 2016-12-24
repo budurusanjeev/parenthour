@@ -9,198 +9,213 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="Age"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_age"
+            android:layout_toStartOf="@+id/tb_age"
+            android:text="@string/age"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_age"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="Occupation"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_occupation"
+            android:layout_toStartOf="@+id/tb_occupation"
+            android:text="@string/occupation"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_occupation"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="Education"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_education"
+            android:layout_toStartOf="@+id/tb_education"
+            android:text="@string/education"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_education"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_gender"
+            android:layout_toStartOf="@+id/tb_gender"
             android:gravity="center_vertical"
-            android:text="Gender"
+            android:text="@string/genders"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_gender"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_available_days"
+            android:layout_toStartOf="@+id/tb_available_days"
             android:gravity="center_vertical"
-            android:text="Available Days"
+            android:text="@string/available_days"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_available_days"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toLeftOf="@+id/tb_available_time"
+            android:layout_toStartOf="@+id/tb_available_time"
             android:gravity="center_vertical"
-            android:text="Available Time"
+            android:text="@string/available_times"
             android:textColor="@color/gray_color"
-            android:textSize="@dimen/activity_medium_textSize" />
-
+            android:textSize="@dimen/activity_extralarge_textSize" />
         <ToggleButton
             android:id="@+id/tb_available_time"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/custom_toggle"
-            android:text=""
             android:textSize="0sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/App_Orange" />
-
     <TextView
         android:id="@+id/tv_changepassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@color/Orange"
-        android:padding="10dp"
-        android:text="Change Password"
+        android:padding="20dp"
+        android:text="@string/change_password"
         android:textColor="@color/white"
-        android:textSize="@dimen/activity_fifteen_textSize" />
+        android:textSize="@dimen/activity_extralarge_textSize" />
 </LinearLayout>

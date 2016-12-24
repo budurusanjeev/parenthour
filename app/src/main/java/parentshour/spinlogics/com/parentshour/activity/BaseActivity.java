@@ -144,11 +144,12 @@ switch (position)
     case 0:
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
+            startActivity(new Intent(getApplicationContext(), ParentDashboard.class));
             mdrawerlayout.closeDrawers();
         }
         else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
         {
-
+            startActivity(new Intent(getApplicationContext(), AssitantDashBoard.class));
             mdrawerlayout.closeDrawers();
         }
         break;

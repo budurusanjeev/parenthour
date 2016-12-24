@@ -15,8 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -24,12 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp">
+            android:layout_margin="15dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_upload_profile_photo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_profilelogo" />
@@ -43,14 +43,14 @@
                 android:layout_alignRight="@+id/iv_upload_profile_photo"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:contentDescription="@string/imagestatedescription"
                 android:src="@drawable/ic_add_pro" />
         </RelativeLayout>
-
         <LinearLayout
             android:id="@+id/ll_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -60,41 +60,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_name" />
 
             <View
                 android:id="@+id/view_age"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/gray_color" />
 
             <EditText
                 android:id="@+id/edt_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:gravity="left|center"
-                android:hint="Name"
+                android:gravity="start|center"
+                android:hint="@string/name"
                 android:inputType="textCapWords"
+                android:padding="10dp"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:textSize="@dimen/activity_medium_textSize" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_zipcode"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -104,39 +104,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_zipcode" />
 
             <View
                 android:id="@+id/view_zipcode"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/gray_color" />
 
             <EditText
                 android:id="@+id/edt_zipcode"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:gravity="left|center"
-                android:hint="Zipcode"
+                android:gravity="start|center"
+                android:hint="@string/zipcode"
                 android:inputType="number"
                 android:maxLength="5"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:textSize="@dimen/activity_medium_textSize" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/ll_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -146,38 +146,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_email" />
 
             <View
                 android:id="@+id/view_email"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/gray_color" />
 
             <EditText
                 android:id="@+id/edt_email"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:gravity="left|center"
-                android:hint="Email"
+                android:gravity="start|center"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:textSize="@dimen/activity_medium_textSize" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/ll_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -187,33 +187,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_mobileno" />
 
             <View
                 android:id="@+id/view_phone"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/gray_color" />
 
             <EditText
                 android:id="@+id/edt_phone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:gravity="left|center"
-                android:hint="Phone"
+                android:gravity="start|center"
+                android:hint="@string/phone"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
-
+                android:textSize="@dimen/activity_medium_textSize" />
             <TextView
                 android:id="@+id/tv_verify"
                 android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
                 android:layout_gravity="center"
                 android:background="@color/Orange"
                 android:padding="5dp"
-                android:text="Verify"
+                android:text="@string/verify"
                 android:textColor="@color/white"
                 android:visibility="gone" />
         </LinearLayout>
@@ -229,8 +229,8 @@
         <LinearLayout
             android:id="@+id/ll_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -240,37 +240,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_password" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/gray_color"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
 
             <View
                 android:id="@+id/view_password"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@color/gray_color" />
-
-            <EditText
-                android:id="@+id/edt_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@null"
-                android:gravity="left|center"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColor="@color/gray_color"
-                android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:background="@color/gray_color" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_conform_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_round_address_popup"
             android:orientation="horizontal">
@@ -280,48 +283,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
+                android:contentDescription="@string/imagestatedescription"
+                android:padding="10dp"
                 android:src="@drawable/ic_password" />
 
             <View
                 android:id="@+id/view_conform_password"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/gray_color" />
 
             <EditText
                 android:id="@+id/edt_conform_password"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
                 android:background="@color/transparent"
-                android:gravity="left|center"
-                android:hint="Confirm Password"
+                android:gravity="start|center"
+                android:hint="@string/confirm_password"
                 android:inputType="textPassword"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_small_textSize" />
+                android:textSize="@dimen/activity_medium_textSize" />
         </LinearLayout>
-
         <TextView
             android:id="@+id/tv_submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:layout_weight="1"
             android:background="@drawable/edt_login_buttons"
             android:contentDescription="@string/app_name"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Next"
+            android:text="@string/next"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="@dimen/activity_extralarge_textSize" />
     </LinearLayout>
-    <!--   </ScrollView>
-   -->
+
 </LinearLayout>

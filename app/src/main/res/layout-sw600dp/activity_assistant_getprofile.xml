@@ -24,21 +24,23 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_upload_profile_photo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="15dp"
                     android:src="@drawable/ic_profilelogo" />
 
                 <TextView
                     android:id="@+id/tv_userName_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:tag="@string/Lato_Medium"
                     android:text="@string/username"
                     android:textColor="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
+                    android:textSize="@dimen/activity_medium_textSize" />
 
                 <TextView
                     android:id="@+id/tv_edit_text"
@@ -48,13 +50,13 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
                     android:gravity="end"
-                    android:paddingEnd="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingStart="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingStart="10dp"
                     android:tag="@string/Lato_Bold"
                     android:text="@string/edit"
                     android:textColor="@color/Orange"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <View
@@ -73,12 +75,6 @@
                 android:orientation="vertical"
                 android:tag="abc">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:tag="abc">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -91,17 +87,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_name"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="15dp"
                             android:drawableStart="@drawable/ic_name"
                             android:gravity="center_vertical"
                             android:tag="@string/Lato_Medium"
                             android:text="@string/name"
                             android:textColor="@color/gray_color"
-                            android:textSize="@dimen/activity_fifteen_textSize" />
+                            android:textSize="@dimen/activity_medium_textSize" />
 
                         <TextView
                             android:id="@+id/tv_name"
@@ -112,7 +108,7 @@
                             android:tag="@string/Lato_Bold"
                             android:textAlignment="center"
                             android:textColor="@color/gray_color"
-                            android:textSize="@dimen/activity_fifteen_textSize"
+                            android:textSize="@dimen/activity_medium_textSize"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -122,7 +118,7 @@
                         android:background="@color/white"
                         android:baselineAligned="false"
                         android:orientation="horizontal"
-                        android:padding="10dp"
+                        android:padding="15dp"
                         android:tag="abc">
 
                     </LinearLayout>
@@ -138,17 +134,17 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_mobileno"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="15dp"
                             android:drawableStart="@drawable/ic_mobileno"
                             android:gravity="center_vertical"
                             android:tag="@string/Lato_Medium"
                             android:text="@string/phone"
                             android:textColor="@color/gray_color"
-                            android:textSize="@dimen/activity_fifteen_textSize" />
+                            android:textSize="@dimen/activity_medium_textSize" />
 
                         <TextView
                             android:id="@+id/tv_phone"
@@ -157,23 +153,20 @@
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
                             android:tag="@string/Lato_Bold"
-                            android:text=""
                             android:textAlignment="center"
                             android:textColor="@color/gray_color"
-                            android:textSize="@dimen/activity_fifteen_textSize"
+                            android:textSize="@dimen/activity_medium_textSize"
                             android:textStyle="bold">
 
                         </TextView>
                     </LinearLayout>
-                </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -189,18 +182,18 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_email"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@drawable/ic_email"
                         android:gravity="center_vertical"
 
                         android:tag="@string/Lato_Medium"
                         android:text="@string/email"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_email"
@@ -211,7 +204,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -222,7 +215,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -238,18 +231,18 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_experience"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@drawable/ic_experience"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
 
                         android:text="@string/experiencetext"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_experience"
@@ -260,7 +253,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -272,7 +265,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -288,16 +281,17 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_city"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
+                        android:drawableStart="@drawable/ic_city"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
                         android:text="@string/citytext"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_city"
@@ -308,7 +302,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -320,7 +314,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -336,17 +330,17 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_state"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@drawable/ic_state"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
                         android:text="@string/statetext"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_state"
@@ -355,10 +349,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:tag="@string/Lato_Bold"
-                        android:text=""
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -370,7 +363,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -386,16 +379,17 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_billing"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
+                        android:drawableStart="@drawable/ic_billing"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
-                        android:text="Billing"
+                        android:text="@string/billing"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_billing"
@@ -406,7 +400,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -418,7 +412,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -434,17 +428,17 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_about"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@drawable/ic_about"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
                         android:text="@string/about"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_about"
@@ -455,7 +449,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>
@@ -467,7 +461,7 @@
                     android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:tag="abc">
 
                 </LinearLayout>
@@ -483,17 +477,17 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_typesofgigs"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@drawable/ic_typesofgigs"
                         android:gravity="center_vertical"
                         android:tag="@string/Lato_Medium"
                         android:text="@string/gigs"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize" />
+                        android:textSize="@dimen/activity_medium_textSize" />
 
                     <TextView
                         android:id="@+id/tv_type_gigs"
@@ -504,7 +498,7 @@
                         android:tag="@string/Lato_Bold"
                         android:textAlignment="center"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/activity_fifteen_textSize"
+                        android:textSize="@dimen/activity_medium_textSize"
                         android:textStyle="bold">
 
                     </TextView>

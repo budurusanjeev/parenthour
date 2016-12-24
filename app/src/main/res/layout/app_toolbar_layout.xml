@@ -15,9 +15,10 @@
         android:id="@+id/btn_back_AB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:layout_marginLeft="5dp"
-        android:contentDescription=""
+        android:layout_marginStart="5dp"
+        android:contentDescription="@string/imagestatedescription"
         android:src="@mipmap/ic_launcher"
         android:visibility="gone" />
 
@@ -33,19 +34,21 @@
         android:id="@+id/iv_filter"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_gravity="right|center"
+        android:layout_gravity="end|center"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:src="@mipmap/ic_launcher"
         android:visibility="gone"
         />
     <TextView
         android:id="@+id/setting_Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:padding="5dp"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="@dimen/activity_fourteen_textSize"
         android:visibility="gone" />
