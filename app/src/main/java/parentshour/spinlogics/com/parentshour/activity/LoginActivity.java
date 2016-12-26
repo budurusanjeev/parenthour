@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 preferenceUtils.saveString("a_pic", "");
                 preferenceUtils.saveString("p_name", "");
                 preferenceUtils.saveString("a_name", "");
+                preferenceUtils.saveString("social", "general");
                 startActivity(new Intent(getApplicationContext(), SignupRegistration.class));
             }
         });

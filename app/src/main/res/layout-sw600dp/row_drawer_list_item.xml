@@ -27,7 +27,7 @@
         android:paddingStart="40dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/white"
-        android:textSize="@dimen/activity_verysmall_textSize" />
+        android:textSize="@dimen/activity_large_textSize" />
 
     <TextView
         android:id="@+id/counter"
@@ -40,7 +40,7 @@
         android:background="@drawable/counter_bg"
         android:padding="8dp"
         android:textColor="@color/Black"
-        android:textSize="@dimen/activity_verysmall_textSize"
+        android:textSize="@dimen/activity_large_textSize"
         android:visibility="gone" />
 
 </LinearLayout>

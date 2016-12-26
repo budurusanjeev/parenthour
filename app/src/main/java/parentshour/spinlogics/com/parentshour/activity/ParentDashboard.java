@@ -90,7 +90,7 @@ public class ParentDashboard extends BaseActivity {
     @Override
     public void goto_Friends_method() {
 
-        Intent intent = new Intent(context, FriendsActivity.class);
+        Intent intent = new Intent(context, ParentFriendsActivity.class);
         startActivity(intent);
     }
 
@@ -122,8 +122,8 @@ public class ParentDashboard extends BaseActivity {
     @Override
     public void goto_Chats_method() {
 
-        Intent intent = new Intent(context, ChatsActivity.class);
-        startActivity(intent);
+       /* Intent intent = new Intent(context, ChatsActivity.class);
+        startActivity(intent);*/
 
     }
 

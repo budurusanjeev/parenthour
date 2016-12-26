@@ -17,8 +17,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/fbid"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/fbid" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:label="Parent Hour"
@@ -30,10 +32,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name="com.facebook.FacebookActivity"
+        <activity
+            android:name="com.facebook.FacebookActivity"
 
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name=".activity.LoginActivity"
@@ -42,11 +44,12 @@
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".activity.PreLoginActivity"
+        <activity
+            android:name=".activity.PreLoginActivity"
             android:label="Login"
 
             android:screenOrientation="portrait"
-            android:theme="@style/myAppTheme"/>
+            android:theme="@style/myAppTheme" />
 
         <activity
             android:name=".activity.ParentDashboard"
@@ -87,23 +90,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activity.ChatsActivity"
-            android:label="Login"
-
-            android:screenOrientation="portrait"
-            android:theme="@style/myAppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activity.PlayDateEventsActivity"
-            android:label="Login"
-
-            android:screenOrientation="portrait"
-            android:theme="@style/myAppTheme"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
-            android:name=".activity.FriendsActivity"
             android:label="Login"
 
             android:screenOrientation="portrait"
@@ -139,47 +126,68 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ParentGetProfileActivity"
+        <activity
+            android:name=".activity.ParentGetProfileActivity"
             android:label="Profile"
             android:screenOrientation="portrait"
 
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ParentEditActivity"
+        <activity
+            android:name=".activity.ParentEditActivity"
             android:label="Edit Profile Info"
             android:screenOrientation="portrait"
 
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.AssistantGetActivity"
+        <activity
+            android:name=".activity.AssistantGetActivity"
             android:label="Edit Profile Info"
 
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.AssitantDashBoard"
+        <activity
+            android:name=".activity.AssitantDashBoard"
             android:screenOrientation="portrait"
 
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.AssistantEditActivity"
+        <activity
+            android:name=".activity.AssistantEditActivity"
             android:label="Edit Profile Info"
 
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.AssistantSettingActivity"
+        <activity
+            android:name=".activity.ParentFriendsActivity"
+            android:label="Edit Profile Info"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activity.AssistantSettingActivity"
+            android:label="Edit Profile Info"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activity.ParentGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activity.ParentSettingAcitivity"
             android:label="Edit Profile Info"
 
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ParentSettingAcitivity"
-            android:label="Edit Profile Info"
 
-            android:screenOrientation="portrait"
-            android:theme="@style/myAppTheme"
-            android:windowSoftInputMode="stateHidden" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="5c7569897eed60c55901c5c1831394a4e71e904a" />

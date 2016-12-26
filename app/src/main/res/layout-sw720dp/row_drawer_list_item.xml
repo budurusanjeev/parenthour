@@ -23,9 +23,10 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:paddingEnd="40dp"
         android:paddingRight="40dp"
+        android:paddingStart="40dp"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/white"
-        android:textSize="@dimen/activity_verysmall_textSize" />
+        android:textSize="@dimen/activity_extralarge_textSize" />
 
     <TextView
         android:id="@+id/counter"

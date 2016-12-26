@@ -11,13 +11,11 @@ import parentshour.spinlogics.com.parentshour.activity.ParentDashboard;
 public class AppConstants
 {
 
+	public static final int GET = 1;
+	public static final int POST = 2;
 	//Device height & width
 	public static int DEVICE_DISPLAY_WIDTH;
 	public static int DEVICE_DISPLAY_HEIGHT;
-	
-	public static final int GET  = 1;
-	public static final int POST = 2;
-	
 	public static Typeface typeFace;
 
 	//public static String IMAGE_URL="http://fitros-ws.elasticbeanstalk.com/";
@@ -37,10 +35,6 @@ public class AppConstants
 	public static String NO_RESPONSE="No Response from Server";
 	public static int PAYMODEONLINE=5;
 	public static int PAYMODECOD=7;
-
-	public int  UNAUTHORISED= HttpURLConnection.HTTP_UNAUTHORIZED;
-
-
 	public static String DASHBOARD = ParentDashboard.class.getSimpleName();
 	public static String RESTAURANTID = "restaurantid";
 	public static String RESTAURANTNAME = "restaurant ic_name";
@@ -60,9 +54,9 @@ public class AppConstants
 	public static String KEY_ORDERPACKEAGE="orderpackagelist";
 	public static String LOGINCOOKIE="loginCookie";
 	public static String FILTERQUIERY = "?ic_filter=";
-
-	//Parent
+	//Host url
 	public static String HOST_URL="http://spinlogics.com/Parentshour/webservices/";
+	//Parent
 	public static String LOGIN_URL = HOST_URL+"p_login.php";
 	public static String SIGNUP_URL = HOST_URL+ "p_register1.php";
 	public static String SIGNUP_FINAL_URL = HOST_URL+ "p_register2.php";
@@ -73,7 +67,8 @@ public class AppConstants
 	public static String PARENT_GET_SETTINGS_URL = HOST_URL +"p_getsettings.php";
 	public static String PARENT_SOCIAL_LOGIN_URL = HOST_URL +"p_login_social.php";
 	public static String PARENT_SETTING_URL = HOST_URL +"p_setsettings.php";
-
+	public static String PARENT_FRIENDS_URL = HOST_URL + "p_get_friends.php";
+	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_group_details.php";
 	//Assistant
 	public static String ASSISTANT_LOGIN_URL = HOST_URL + "a_login.php";
 	public static String ASSISTANT_SIGNUP_URL = HOST_URL+ "a_register1.php";
@@ -83,5 +78,6 @@ public class AppConstants
 	public static String ASSISTANT_CHANGE_PASSWORD_URL = HOST_URL +"a_changepassword.php";
 	public static String ASSISTANT_FORTGOT_PASSWORD_URL = HOST_URL+"a_forgotpassword.php";
 	public static String ASSISTANT_SOCIAL_LOGIN_URL = HOST_URL +"a_login_social.php";
+	public int UNAUTHORISED = HttpURLConnection.HTTP_UNAUTHORIZED;
 
 }

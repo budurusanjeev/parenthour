@@ -488,7 +488,7 @@ public class SignupRegistration extends AppCompatActivity {
                                 Log.v("res ", "res  success" + jsonObject.getString("Success-msg"));
                             } else {
                                 hideloader();
-                                jsonObject.getString("error");
+                                jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                                 Log.v("res ", "res  success" + jsonObject.getString("Error"));
                             }

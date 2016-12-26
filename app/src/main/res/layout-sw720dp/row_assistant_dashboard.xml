@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:contentDescription="@string/imagestatedescription"
                 android:src="@drawable/ic_ex_profile" />
 
@@ -33,14 +33,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/gray_color" />
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_extralarge_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_color"
-                android:textSize="@dimen/activity_fourteen_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
 
             <TextView
 
@@ -57,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_color"
-                android:textSize="@dimen/activity_fourteen_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
 
             <TextView
 
@@ -65,14 +66,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_color"
-                android:textSize="@dimen/activity_fourteen_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
 
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_color"
-                android:textSize="@dimen/activity_fourteen_textSize" />
+                android:textSize="@dimen/activity_extralarge_textSize" />
 
         </LinearLayout>
 

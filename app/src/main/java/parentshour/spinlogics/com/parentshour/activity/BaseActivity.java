@@ -1,6 +1,5 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -40,7 +40,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.adapter.NavDrawerListAdapter;
@@ -75,14 +74,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public View header_view,footer_view;
     public ArrayList<NavDrawerItem> navDrawerItems;
     public NavDrawerListAdapter adapter;
-    public View customtoast;
-    public AlertDialog alertDialog;
-    public AlertDialog.Builder alertBuilder;
     public Dialog dialog;
     public ImageView img_header;
-    public HashMap<String,String> Userdata;
     PreferenceUtils preferenceUtils;
-    String UserName, UserEmail, UserMobile, WalletAmt;
     GoogleApiClient mGoogleApiClient;
     private AnimationDrawable animationDrawable;
 
@@ -111,22 +105,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         generateIconAndStringForDrawer();
 
         initialize();
-
-        //updatesidepanelwalletamt();
-
-
-        /*try {
-            getSupportActionBar().setHomeButtonEnabled(false);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }*/
-
-     /*   getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);*/
-
         initdrawer();
 
         mdrawertoogle.syncState();
@@ -138,7 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 NavDrawerItem drawerobj = (NavDrawerItem) parent.getItemAtPosition(position);
 
                 toolbarTextView.setText(drawerobj.title);
-//                toolbarTextView.setText(drawerobj.title);
+
 switch (position)
 {
     case 0:
@@ -177,6 +155,7 @@ switch (position)
     case 3:
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
+            startActivity(new Intent(getApplicationContext(), ParentFriendsActivity.class));
             mdrawerlayout.closeDrawers();
         }
         else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
@@ -218,7 +197,7 @@ switch (position)
         tv_userLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(),""+preferenceUtils.getStringFromPreference("social",""),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "" + preferenceUtils.getStringFromPreference("social", ""), Toast.LENGTH_LONG).show();
                if(preferenceUtils.getStringFromPreference("social","").equals("fb"))
                {
 
@@ -250,16 +229,15 @@ switch (position)
                             new ResultCallback<Status>() {
                                 @Override
                                 public void onResult(Status status) {
-                                    // tv_username.setText("");
-                                    preferenceUtils.saveString("loggedin","ic_logout");
+                                    preferenceUtils.saveString("loggedin", "ic_logout");
                                     preferenceUtils.logoutUser();
                                     startActivity(new Intent(getApplicationContext(),PreLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
-                            //   Toast.makeText(getApplicationContext()," "+status.isSuccess(),Toast.LENGTH_LONG).show();
                                 }
                             });
 
-                }else  if(preferenceUtils.getStringFromPreference("social","").equals("general"))
+                } else
+               //if(preferenceUtils.getStringFromPreference("social","").equals("general"))
                {
                    preferenceUtils.saveString("loggedin","ic_logout");
                    preferenceUtils.logoutUser();
@@ -268,70 +246,8 @@ switch (position)
 
                }
 
-                //LoginManager.getInstance().logOut();
-                //LoginActivity.disconnectFromFacebook();
-
             }
         });
-    }
-
-
-
-   /* public  void slidelist_item_click(String title)
-    {
-        switch (title)
-        {
-            case "Playdate Search":
-                goto_playDateSearch_method();
-                mdrawerlayout.closeDrawers();
-                break;
-            case "Search Assistant":
-                goto_SearchAssistant_method();
-                mdrawerlayout.closeDrawers();
-                break;
-           case "Assistant Requests":
-                goto_AssistantRequests_method();
-                mdrawerlayout.closeDrawers();
-                break;
-            case "Friends":
-                goto_Friends_method();
-                mdrawerlayout.closeDrawers();
-                break;
-            case "Notifications":
-                goto_Notifications_method();
-                mdrawerlayout.closeDrawers();
-                break;
-            case "Playdate Events":
-                goto_PlaydateEvents_method();
-                adapter.notifyDataSetChanged();
-                mdrawerlayout.closeDrawers();
-            case "Settings":
-                goto_Settings_method();
-                adapter.notifyDataSetChanged();
-                mdrawerlayout.closeDrawers();
-            case "Chats":
-                goto_Chats_method();
-                adapter.notifyDataSetChanged();
-                mdrawerlayout.closeDrawers();
-
-        }
-    }
-*/
-   /* public void setPageName(String name)
-    {
-
-        toolbarTextView.setText(name);
-    }
-*/
-    /*public void showAlertDialog(String strMessage, String firstBtnName)
-    {
-        runOnUiThread(new RunshowCustomDialogs(strMessage, firstBtnName));
-    }*/
-
-    public void closeAlertDialog()
-    {
-        if (alertDialog != null && alertDialog.isShowing())
-            alertDialog.dismiss();
     }
 
     public abstract void initialize();
@@ -432,12 +348,9 @@ switch (position)
         if(mtoolbar!=null)
         {
             setSupportActionBar(mtoolbar);
-            // getSupportActionBar().setTitle("Parentshour");
             toolbarTextView.setText("Parentshour");
             FontStyle.applyFont(getApplicationContext(),toolbarTextView,FontStyle.Lato_Medium);
         }
-      /*  View test1View = findViewById(R.id.toolbarLayout);
-        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);*/
     }
 
     public void generateIconAndStringForDrawer() {
@@ -512,13 +425,13 @@ img_header.setOnClickListener(new View.OnClickListener() {
             TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[0], navMenuIcons.getResourceId(0, -1)));
-            // My Orders
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[1], navMenuIcons.getResourceId(1, -1)));
-            //My Wallet
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[2], navMenuIcons.getResourceId(2, -1)));
-            // Contact Us
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[3], navMenuIcons.getResourceId(3, -1)));
-            // Logout/Login
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[4], navMenuIcons.getResourceId(4, -1)));
 
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[5], navMenuIcons.getResourceId(5, -1)));
@@ -528,11 +441,11 @@ img_header.setOnClickListener(new View.OnClickListener() {
             TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_assistant_icons);
 
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[0], navMenuIcons.getResourceId(0, -1)));
-            // My Orders
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[1], navMenuIcons.getResourceId(1, -1)));
-            //My Wallet
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[2], navMenuIcons.getResourceId(2, -1)));
-            // Contact Us
+
             navDrawerItems.add(new NavDrawerItem(nav_item_titlenames[3], navMenuIcons.getResourceId(3, -1)));
 
         }
@@ -569,58 +482,6 @@ img_header.setOnClickListener(new View.OnClickListener() {
                 }
             }
         });
-    }
-
-    class RunshowCustomDialogs implements Runnable {
-        private String strMessage;// Message to be shown in dialog
-        private String firstBtnName;
-        private int titleGravity;
-        private boolean isShowNestedDialog;
-        private String dialogFrom;
-
-        public RunshowCustomDialogs(String strMessage, String firstBtnName) {
-            this.strMessage = strMessage;
-            this.firstBtnName = firstBtnName;
-        }
-
-        @Override
-        public void run() {
-            closeAlertDialog();
-            alertBuilder = new AlertDialog.Builder(basecontext);
-            alertBuilder.setCancelable(true);
-
-            final LinearLayout linearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.notification_dailog, null);
-
-            TextView dialogtvTitle = (TextView) linearLayout.findViewById(R.id.tvTitle);
-            TextView btnYes = (TextView) linearLayout.findViewById(R.id.btnYes);
-
-
-            if (titleGravity != 0) {
-                // Only in the case of Crash Report Dialog, i am customizing it with custom padding.
-                dialogtvTitle.setGravity(titleGravity);
-                dialogtvTitle.setPadding(35, 35, 0, 35);
-
-            }
-            dialogtvTitle.setText(strMessage);
-            btnYes.setText(firstBtnName);
-            btnYes.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    alertDialog.cancel();
-
-                }
-            });
-
-            try {
-                alertDialog = alertBuilder.create();
-                alertDialog.setView(linearLayout, 0, 0, 0, 0);
-                alertDialog.setInverseBackgroundForced(true);
-                alertDialog.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     class Runloader implements Runnable {
