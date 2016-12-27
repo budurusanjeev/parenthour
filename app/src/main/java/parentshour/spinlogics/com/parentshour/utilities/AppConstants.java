@@ -68,7 +68,12 @@ public class AppConstants
 	public static String PARENT_SOCIAL_LOGIN_URL = HOST_URL +"p_login_social.php";
 	public static String PARENT_SETTING_URL = HOST_URL +"p_setsettings.php";
 	public static String PARENT_FRIENDS_URL = HOST_URL + "p_get_friends.php";
-	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_group_details.php";
+	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_groups.php";
+	public static String PARENT_SEARCH_PLAY_DATE_URL = HOST_URL + "p_search_play_date.php";
+	public static String PARENT_ADDED_FRIENDS_LIST_URL = HOST_URL + "p_get_friends.php";
+
+
+
 	//Assistant
 	public static String ASSISTANT_LOGIN_URL = HOST_URL + "a_login.php";
 	public static String ASSISTANT_SIGNUP_URL = HOST_URL+ "a_register1.php";

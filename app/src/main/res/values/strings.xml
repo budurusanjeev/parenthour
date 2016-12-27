@@ -146,5 +146,8 @@
     <string name="enter_register_e_mail">Enter Register E-mail</string>
     <string name="get_new_password">Get new password</string>
     <string name="ok">OK</string>
+    <string name="addUsers">Add Users</string>
+    <string name="groupname">Group Name</string>
+    <string name="plus">+</string>
 
 </resources>

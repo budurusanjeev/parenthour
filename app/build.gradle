@@ -49,6 +49,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

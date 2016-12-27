@@ -1,13 +1,11 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,26 +30,26 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
-import parentshour.spinlogics.com.parentshour.adapter.ParentGroupAdapter;
-import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
+import parentshour.spinlogics.com.parentshour.adapter.ParentSearchPlayAdapter;
+import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 /**
- * Created by SPINLOGICS on 12/26/2016.
+ * Created by SPINLOGICS on 12/27/2016.
  */
 
-public class ParentGroupActivity extends BaseActivity {
+public class ParentPlayDateSearch extends BaseActivity {
     Context context;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
-    ArrayList<ParentFriendModel> friendsArrayList;
+    ArrayList<PlaySearchDateModel> playSearchArrayList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void initialize() {
-        context = ParentGroupActivity.this;
+        context = ParentPlayDateSearch.this;
 
         preferenceUtils = new PreferenceUtils(context);
 
@@ -63,19 +61,8 @@ public class ParentGroupActivity extends BaseActivity {
 
     private void initViewControll() {
         TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Groups");
-        TextView tv_save = (TextView) findViewById(R.id.setting_Save);
-        tv_save.setVisibility(View.VISIBLE);
-        tv_save.setText("+");
-        tv_save.setTextSize(25f);
-        tv_save.setPadding(5, 5, 5, 5);
-        tv_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //sendSettings();
-                startActivity(new Intent(getApplicationContext(), ParentAddGroup.class));
-            }
-        });
+        toolbarTextView.setText("PlayDate Search");
+
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
             mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
@@ -84,7 +71,7 @@ public class ParentGroupActivity extends BaseActivity {
             mRecyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
-            friendsArrayList = new ArrayList<ParentFriendModel>();
+            playSearchArrayList = new ArrayList<PlaySearchDateModel>();
 
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -95,8 +82,8 @@ public class ParentGroupActivity extends BaseActivity {
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            friendsArrayList.clear();
-                            getParentGroups();
+                            playSearchArrayList.clear();
+                            getPlayDate();
                             mRecyclerView.setAdapter(adapter);
 
                         }
@@ -109,23 +96,16 @@ public class ParentGroupActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        friendsArrayList.clear();
-        getParentGroups();
-    }
-
-    private void getParentGroups() {
-        //PARENT_GROUPS_URL
+    private void getPlayDate() {
         showLoaderNew();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_GROUPS_URL,
+        // PARENT_SEARCH_PLAY_DATE_URL
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_SEARCH_PLAY_DATE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -133,14 +113,18 @@ public class ParentGroupActivity extends BaseActivity {
                                 JSONArray jsonArrayFriends = jsonObject.getJSONArray("Success");
                                 int s = jsonArrayFriends.length();
                                 for (int g = 0; g < s; g++) {
+                                    PlaySearchDateModel playSearchDateModel = new PlaySearchDateModel();
                                     JSONObject jsonObjectParent = jsonArrayFriends.getJSONObject(g);
-                                    ParentFriendModel parentFriendModel = new ParentFriendModel();
-                                    parentFriendModel.setpId(jsonObjectParent.getString("grp_id"));
-                                    parentFriendModel.setpName(jsonObjectParent.getString("grp_name"));
-                                    parentFriendModel.setpImgUrl(jsonObjectParent.getString("grp_pic"));
-                                    friendsArrayList.add(parentFriendModel);
+                                    playSearchDateModel.setpId(jsonObjectParent.getString("pe_id"));
+                                    JSONObject jsonObjectList = jsonObjectParent.getJSONObject("pid_list");
+                                    playSearchDateModel.setpName(jsonObjectList.getString("p_name"));
+                                    playSearchDateModel.setpAge(jsonObjectList.getString("p_age"));
+                                    playSearchDateModel.setpImageUrl(jsonObjectList.getString("p_pic"));
+                                    playSearchDateModel.setpEthnicity(jsonObjectList.getString("p_ethnicity"));
+                                    playSearchDateModel.setpEducation(jsonObjectList.getString("p_education"));
+                                    playSearchArrayList.add(playSearchDateModel);
                                 }
-                                adapter = new ParentGroupAdapter(friendsArrayList, context);
+                                adapter = new ParentSearchPlayAdapter(playSearchArrayList, context);
                                 mRecyclerView.setAdapter(adapter);
 
                             } else {
@@ -161,15 +145,15 @@ public class ParentGroupActivity extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         hideloader();
                         Log.v("error", "error " + error.toString());
-                        Toast.makeText(ParentGroupActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ParentPlayDateSearch.this, error.toString(), Toast.LENGTH_LONG).show();
                         throw new RuntimeException("crash" + error.toString());
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
+                //  String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+                String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
 
                 try {
                     return credentials.getBytes(getParamsEncoding());
@@ -234,5 +218,12 @@ public class ParentGroupActivity extends BaseActivity {
     @Override
     public void goto_Chats_method() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playSearchArrayList.clear();
+        getPlayDate();
     }
 }

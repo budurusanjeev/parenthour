@@ -2,12 +2,10 @@ package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
@@ -23,7 +21,7 @@ public class ParentDashboard extends BaseActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private PreferenceUtils preferenceUtils;
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
 
@@ -41,7 +39,7 @@ public class ParentDashboard extends BaseActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
-    }
+    }*/
 
 
 
@@ -114,16 +112,11 @@ public class ParentDashboard extends BaseActivity {
     @Override
     public void goto_Settings_method() {
 
-        Intent intent = new Intent(context, SettiongsActivity.class);
-        startActivity(intent);
 
     }
 
     @Override
     public void goto_Chats_method() {
-
-       /* Intent intent = new Intent(context, ChatsActivity.class);
-        startActivity(intent);*/
 
     }
 
@@ -131,12 +124,17 @@ public class ParentDashboard extends BaseActivity {
     private void initViewControll() {
 
         ll_parent_dashboard =(LinearLayout) findViewById(R.id.ll_parent_dashboard);
-        //  ll_child_dashboard =(LinearLayout) findViewById(R.id.ll_child_dashboard);
-
         tv_search_for_playdate =(TextView) findViewById(R.id.tv_search_for_playdate);
         tv_search_for_assistant =(TextView) findViewById(R.id.tv_search_for_assistant);
         tv_playdate_events =(TextView) findViewById(R.id.tv_playdate_events);
         FontStyle.applyFont(context, ll_parent_dashboard, FontStyle.Lato_Medium);
+
+        tv_search_for_playdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ParentPlayDateSearch.class));
+            }
+        });
 
     }
 

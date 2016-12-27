@@ -250,6 +250,7 @@ public class ParentEditActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
+                        showLoaderNew();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -285,6 +286,7 @@ public class ParentEditActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        hideloader();
                         Log.v("error", "error " + error.toString());
 
                         Toast.makeText(ParentEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();

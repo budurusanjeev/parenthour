@@ -18,27 +18,27 @@ import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
- * Created by SPINLOGICS on 12/26/2016.
+ * Created by SPINLOGICS on 12/27/2016.
  */
 
-public class ParentFriendAdapter extends RecyclerView.Adapter<ParentFriendAdapter.ViewHolder> {
+public class ParentGroupAdapter extends RecyclerView.Adapter<ParentGroupAdapter.ViewHolder> {
     Context activity;
     private ArrayList<ParentFriendModel> list;
 
-    public ParentFriendAdapter(ArrayList<ParentFriendModel> countries, Context context) {
+    public ParentGroupAdapter(ArrayList<ParentFriendModel> countries, Context context) {
         this.list = countries;
         this.activity = context;
     }
 
     @Override
-    public ParentFriendAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_assistant_dashboard, viewGroup, false);
+    public ParentGroupAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_parent_groups, viewGroup, false);
 
-        return new ParentFriendAdapter.ViewHolder(view);
+        return new ParentGroupAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ParentFriendAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ParentGroupAdapter.ViewHolder viewHolder, int i) {
 
         viewHolder.tv_title.setText(list.get(i).getpName());
         Glide.with(activity)
@@ -63,7 +63,7 @@ public class ParentFriendAdapter extends RecyclerView.Adapter<ParentFriendAdapte
         public ViewHolder(View view) {
             super(view);
             iv_profile_pic = (ImageView) view.findViewById(R.id.profile_pic);
-            tv_title = (TextView) view.findViewById(R.id.tv_title);
+            tv_title = (TextView) view.findViewById(R.id.tv_name);
            /* tv_date = (TextView) view.findViewById(tv_date);
             tv_time = (TextView) view.findViewById(tv_time);
             tv_status = (TextView) view.findViewById(tv_status);

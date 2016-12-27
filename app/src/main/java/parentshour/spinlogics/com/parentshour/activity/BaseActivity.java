@@ -116,10 +116,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                 NavDrawerItem drawerobj = (NavDrawerItem) parent.getItemAtPosition(position);
 
                 toolbarTextView.setText(drawerobj.title);
+                //  Toast.makeText(getApplicationContext(),preferenceUtils.getStringFromPreference("select","")+" No: "+position,Toast.LENGTH_LONG).show();
 
 switch (position)
 {
-    case 0:
+    /*case 0:
+
+        if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
+        {
+
+            mdrawerlayout.closeDrawers();
+        }
+        else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
+        {
+
+            mdrawerlayout.closeDrawers();
+        }
+        break;*/
+    case 1:
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
             startActivity(new Intent(getApplicationContext(), ParentDashboard.class));
@@ -128,17 +142,6 @@ switch (position)
         else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
         {
             startActivity(new Intent(getApplicationContext(), AssitantDashBoard.class));
-            mdrawerlayout.closeDrawers();
-        }
-        break;
-    case 1:
-        if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
-        {
-            mdrawerlayout.closeDrawers();
-        }
-        else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
-        {
-
             mdrawerlayout.closeDrawers();
         }
          break;
