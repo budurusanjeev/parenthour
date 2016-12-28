@@ -19,15 +19,22 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <ImageView
+            <!--  <ImageView
+                  android:id="@+id/profile_pic"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:layout_margin="10dp"
+                  android:contentDescription="@string/imagestatedescription"
+                  android:src="@drawable/ic_ex_profile" />
+  -->
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:contentDescription="@string/imagestatedescription"
-                android:src="@drawable/ic_ex_profile" />
-
+                android:src="@drawable/ic_profilelogo" />
             <TextView
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
@@ -83,7 +90,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:contentDescription="@string/imagestatedescription"
-            android:src="@drawable/ic_chatrow" />
+            android:src="@drawable/ic_chat" />
     </LinearLayout>
 
     <View

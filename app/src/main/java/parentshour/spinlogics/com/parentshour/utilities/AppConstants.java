@@ -54,24 +54,28 @@ public class AppConstants
 	public static String KEY_ORDERPACKEAGE="orderpackagelist";
 	public static String LOGINCOOKIE="loginCookie";
 	public static String FILTERQUIERY = "?ic_filter=";
+
 	//Host url
 	public static String HOST_URL="http://spinlogics.com/Parentshour/webservices/";
+
+
 	//Parent
 	public static String LOGIN_URL = HOST_URL+"p_login.php";
 	public static String SIGNUP_URL = HOST_URL+ "p_register1.php";
 	public static String SIGNUP_FINAL_URL = HOST_URL+ "p_register2.php";
     public static String FORTGOT_PASSWORD_URL = HOST_URL+"p_forgotpassword.php";
     public static String GET_PROFILE_URL = HOST_URL+"p_getprofile.php";
+	public static String GET_PARENT_PROFILE_URL = HOST_URL + "p_get_parent_profile.php";
 	public static String EDIT_PROFILE_URL = HOST_URL+"p_editprofile.php";
 	public static String PARENT_CHANGE_PASSWORD_URL = HOST_URL +"p_changepassword.php";
 	public static String PARENT_GET_SETTINGS_URL = HOST_URL +"p_getsettings.php";
 	public static String PARENT_SOCIAL_LOGIN_URL = HOST_URL +"p_login_social.php";
+	public static String PARENT_PLAY_DATE_EVENT = HOST_URL + "p_get_play_date_events.php";
 	public static String PARENT_SETTING_URL = HOST_URL +"p_setsettings.php";
 	public static String PARENT_FRIENDS_URL = HOST_URL + "p_get_friends.php";
 	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_groups.php";
 	public static String PARENT_SEARCH_PLAY_DATE_URL = HOST_URL + "p_search_play_date.php";
 	public static String PARENT_ADDED_FRIENDS_LIST_URL = HOST_URL + "p_get_friends.php";
-
 
 
 	//Assistant

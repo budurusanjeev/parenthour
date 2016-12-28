@@ -30,38 +30,39 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
-import parentshour.spinlogics.com.parentshour.adapter.ParentSearchPlayAdapter;
-import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
+import parentshour.spinlogics.com.parentshour.adapter.ListChipsAdapter;
+import parentshour.spinlogics.com.parentshour.models.PlayDateEventsModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 /**
- * Created by SPINLOGICS on 12/27/2016.
+ * Created by SPINLOGICS on 12/28/2016.
  */
 
-public class ParentPlayDateSearch extends BaseActivity {
+public class ParentPlayDateEvents extends BaseActivity {
     Context context;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
-    ArrayList<PlaySearchDateModel> playSearchArrayList;
+    ArrayList<PlayDateEventsModel> playDateArrayList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void initialize() {
-        context = ParentPlayDateSearch.this;
+        context = ParentPlayDateEvents.this;
 
         preferenceUtils = new PreferenceUtils(context);
 
         llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         initViewControll();
+        getPlayDateEvents();
         Fabric.with(this, new Crashlytics());
     }
 
     private void initViewControll() {
         TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("PlayDate Search");
+        toolbarTextView.setText("Play Date");
 
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
@@ -71,7 +72,7 @@ public class ParentPlayDateSearch extends BaseActivity {
             mRecyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
-            playSearchArrayList = new ArrayList<PlaySearchDateModel>();
+            playDateArrayList = new ArrayList<PlayDateEventsModel>();
 
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -82,8 +83,8 @@ public class ParentPlayDateSearch extends BaseActivity {
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            playSearchArrayList.clear();
-                            getPlayDate();
+                            playDateArrayList.clear();
+                            getPlayDateEvents();
                             mRecyclerView.setAdapter(adapter);
 
                         }
@@ -96,16 +97,15 @@ public class ParentPlayDateSearch extends BaseActivity {
         }
     }
 
-    private void getPlayDate() {
+    private void getPlayDateEvents() {
         showLoaderNew();
-        // PARENT_SEARCH_PLAY_DATE_URL
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_SEARCH_PLAY_DATE_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_PLAY_DATE_EVENT,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        hideloader();
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
+                        hideloader();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -113,21 +113,28 @@ public class ParentPlayDateSearch extends BaseActivity {
                                 JSONArray jsonArrayFriends = jsonObject.getJSONArray("Success");
                                 int s = jsonArrayFriends.length();
                                 for (int g = 0; g < s; g++) {
-                                    PlaySearchDateModel playSearchDateModel = new PlaySearchDateModel();
                                     JSONObject jsonObjectParent = jsonArrayFriends.getJSONObject(g);
-                                    playSearchDateModel.setpId(jsonObjectParent.getString("pe_id"));
-                                    playSearchDateModel.setpName(jsonObjectParent.getString("p_name"));
-                                    playSearchDateModel.setpAge(jsonObjectParent.getString("p_age"));
-                                    playSearchDateModel.setpImageUrl(jsonObjectParent.getString("p_pic"));
-                                    playSearchDateModel.setpEthnicity(jsonObjectParent.getString("p_ethnicity"));
-                                    playSearchDateModel.setpEducation(jsonObjectParent.getString("p_education"));
-                                    playSearchDateModel.setpIsFriend(jsonObjectParent.getString("p_flag_status"));
-                                    playSearchDateModel.setPsetFlag(jsonObjectParent.getString("p_frnd_status"));
-                                    playSearchArrayList.add(playSearchDateModel);
+                                    PlayDateEventsModel playDateEventsModel = new PlayDateEventsModel();
+                                    playDateEventsModel.setDate(jsonObjectParent.getString("pe_date"));
+                                    playDateEventsModel.setTime(jsonObjectParent.getString("pe_time"));
+                                    playDateEventsModel.setpEid(jsonObjectParent.getString("pe_id"));
+                                    int c = jsonObjectParent.getJSONArray("pid_list").length();
+                                    JSONArray profileArray = jsonObjectParent.getJSONArray("pid_list");
+                                    ArrayList<PlayDateEventsModel> subProfileArray = new ArrayList<PlayDateEventsModel>();
+                                    for (int a = 0; a < c; a++) {
+                                        JSONObject profileObject = profileArray.getJSONObject(a);
+                                        PlayDateEventsModel subPlayDateEventsModel = new PlayDateEventsModel();
+                                        subPlayDateEventsModel.setpId(profileObject.getString("p_id"));
+                                        subPlayDateEventsModel.setName(profileObject.getString("p_name"));
+                                        subPlayDateEventsModel.setImgurl(profileObject.getString("p_pic"));
+                                        subProfileArray.add(subPlayDateEventsModel);
+                                        playDateEventsModel.setPlayDateMembers(subProfileArray);
+                                    }
+                                    playDateArrayList.add(playDateEventsModel);
                                 }
-                                adapter = new ParentSearchPlayAdapter(playSearchArrayList, context);
-                                mRecyclerView.setAdapter(adapter);
-
+                                //adapter = new ParentGroupAdapter(friendsArrayList, context);
+                                //mRecyclerView.setAdapter(adapter);
+                                mRecyclerView.setAdapter(new ListChipsAdapter(playDateArrayList));
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -146,15 +153,15 @@ public class ParentPlayDateSearch extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         hideloader();
                         Log.v("error", "error " + error.toString());
-                        Toast.makeText(ParentPlayDateSearch.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ParentPlayDateEvents.this, error.toString(), Toast.LENGTH_LONG).show();
                         throw new RuntimeException("crash" + error.toString());
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //  String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+                String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
 
                 try {
                     return credentials.getBytes(getParamsEncoding());
@@ -178,7 +185,6 @@ public class ParentPlayDateSearch extends BaseActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 
     @Override
@@ -219,12 +225,5 @@ public class ParentPlayDateSearch extends BaseActivity {
     @Override
     public void goto_Chats_method() {
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        playSearchArrayList.clear();
-        getPlayDate();
     }
 }

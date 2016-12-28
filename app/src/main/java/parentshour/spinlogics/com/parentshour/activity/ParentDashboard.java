@@ -21,27 +21,6 @@ public class ParentDashboard extends BaseActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private PreferenceUtils preferenceUtils;
 
-    /*@Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-
-            finish();
-
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-    }*/
-
-
 
     @Override
     public void initialize() {
@@ -133,6 +112,13 @@ public class ParentDashboard extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ParentPlayDateSearch.class));
+            }
+        });
+
+        tv_playdate_events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ParentPlayDateEvents.class));
             }
         });
 

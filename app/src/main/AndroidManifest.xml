@@ -52,6 +52,13 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
+            android:name=".activity.ParentPlaySearchDateDetailViewActivity"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
             android:name=".activity.ParentAddFriendList"
             android:label="Login"
             android:screenOrientation="portrait"
@@ -81,10 +88,17 @@
         <activity
             android:name=".activity.ParentRegisterActivity"
             android:label="Login"
-
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activity.ParentPlayDateEvents"
+            android:label="Play Date"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".activity.PlaydateSearchActivity"
             android:label="Login"
