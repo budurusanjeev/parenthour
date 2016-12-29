@@ -29,7 +29,7 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
-import parentshour.spinlogics.com.parentshour.adapter.ParentSearchPlayAdapter;
+import parentshour.spinlogics.com.parentshour.adapter.ParentAddFriendAdapter;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
@@ -106,7 +106,7 @@ public class ParentAddFriendList extends BaseActivity {
 
                                     parentAddedFriendArrayList.add(playSearchDateModel);
                                 }
-                                adapter = new ParentSearchPlayAdapter(parentAddedFriendArrayList, context);
+                                adapter = new ParentAddFriendAdapter(parentAddedFriendArrayList, context);
                                 mRecyclerView.setAdapter(adapter);
 
                             } else {

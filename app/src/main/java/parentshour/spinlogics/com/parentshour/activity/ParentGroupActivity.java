@@ -72,8 +72,7 @@ public class ParentGroupActivity extends BaseActivity {
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sendSettings();
-                startActivity(new Intent(getApplicationContext(), ParentAddGroup.class));
+                startActivity(new Intent(getApplicationContext(), ParentAddGroup.class).putExtra("groupId", ""));
             }
         });
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {

@@ -47,14 +47,14 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
         viewHolder.tv_education.setText(list.get(i).getpEducation());
         viewHolder.tv_age.setText(list.get(i).getpAge());
         viewHolder.tv_ethnicity.setText(list.get(i).getpEthnicity());
-        /*if(list.get(i).getpIsFriend().equals("1"))
+        if (list.get(i).getpIsFriend().equals("1"))
         {
         viewHolder.iv_friend.setImageResource(R.drawable.ic_connect);
         }
         else
         {
         viewHolder.iv_friend.setImageResource(R.drawable.ic_group_search_date);
-        }*/
+        }
 
         Glide.with(activity)
                 .load(list.get(i).getpImageUrl())

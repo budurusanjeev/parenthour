@@ -119,14 +119,14 @@
             android:layout_height="2dp"
             android:layout_below="@+id/tv_addMemberToGroup"
             android:background="@color/App_btn_Orange" />
-        <!-- <android.support.v7.widget.RecyclerView
-             android:id="@+id/addedGroupMembers"
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerAddedGroupMembers"
              android:layout_width="match_parent"
-             android:layout_margin="10dp"
+            android:layout_height="wrap_content"
              android:layout_below="@+id/view"
-             android:layout_height="wrap_content">
+            android:layout_margin="5dp">
          </android.support.v7.widget.RecyclerView>
- -->
     </RelativeLayout>
 
 

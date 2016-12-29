@@ -74,6 +74,7 @@ public class AppConstants
 	public static String PARENT_SETTING_URL = HOST_URL +"p_setsettings.php";
 	public static String PARENT_FRIENDS_URL = HOST_URL + "p_get_friends.php";
 	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_groups.php";
+	public static String PARENT_GROUP_MEMBERS_URL = HOST_URL + "p_get_group_details.php";
 	public static String PARENT_SEARCH_PLAY_DATE_URL = HOST_URL + "p_search_play_date.php";
 	public static String PARENT_ADDED_FRIENDS_LIST_URL = HOST_URL + "p_get_friends.php";
 

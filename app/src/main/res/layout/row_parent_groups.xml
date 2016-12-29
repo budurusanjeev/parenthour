@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <!--  <ImageView
-          android:id="@+id/profile_pic"
-          android:layout_width="60dp"
-          android:layout_height="60dp"
-          android:layout_gravity="center_vertical"
-          android:layout_weight="1"
-          android:contentDescription="@string/imagedescription"
-          android:src="@drawable/ic_profilelogo" />-->
+    <LinearLayout
+        android:id="@+id/innerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
         android:layout_width="80dp"
@@ -44,19 +42,27 @@
             android:id="@+id/tv_edit_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/tv_chat_friend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_margin="5dp"
             android:padding="5dp"
-            android:src="@drawable/ic_chat" />
+            android:src="@drawable/ic_chat"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/Orange" />
 </LinearLayout>
