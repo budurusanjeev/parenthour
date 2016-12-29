@@ -592,7 +592,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("p_id", jsonObject.getString("p_id"));
                                     preferenceUtils.saveString("p_name", jsonObject.getString("p_name"));
                                     preferenceUtils.saveString("p_pic", jsonObject.getString("p_pic"));
-                                    // preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("loggedin", "loggedin");
                                     Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
                                     startActivity(dashbordactivity);
                                     finish();
@@ -609,7 +609,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("a_id", jsonObject.getString("a_id"));
                                     preferenceUtils.saveString("a_name", jsonObject.getString("a_name"));
                                     preferenceUtils.saveString("a_pic", jsonObject.getString("a_pic"));
-                                    //  preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("loggedin", "loggedin");
                                     Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
                                     startActivity(dashbordactivity);
                                     finish();

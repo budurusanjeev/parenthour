@@ -3,6 +3,7 @@ package parentshour.spinlogics.com.parentshour.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,7 +73,7 @@ public class ParentGroupActivity extends BaseActivity {
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ParentAddGroup.class).putExtra("groupId", ""));
+                startActivity(new Intent(getApplicationContext(), ParentAddGroup.class).putExtra("groupId", (Parcelable[]) null));
             }
         });
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
@@ -167,8 +168,8 @@ public class ParentGroupActivity extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+                // String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
 
                 try {
                     return credentials.getBytes(getParamsEncoding());

@@ -49,7 +49,7 @@
             android:label="Login"
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".activity.ParentPlaySearchDateDetailViewActivity"

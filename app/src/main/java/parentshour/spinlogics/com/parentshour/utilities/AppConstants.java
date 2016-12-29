@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Environment;
 
 import java.io.File;
-import java.net.HttpURLConnection;
 
 import parentshour.spinlogics.com.parentshour.activity.ParentDashboard;
 
@@ -75,9 +74,11 @@ public class AppConstants
 	public static String PARENT_FRIENDS_URL = HOST_URL + "p_get_friends.php";
 	public static String PARENT_GROUPS_URL = HOST_URL + "p_get_groups.php";
 	public static String PARENT_GROUP_MEMBERS_URL = HOST_URL + "p_get_group_details.php";
+	public static String PARENT_EDIT_GROUP_MEMBERS_URL = HOST_URL + "p_edit_groups.php";
+	public static String PARENT_CREATE_GROUP_URL = HOST_URL + "p_put_groups.php";
 	public static String PARENT_SEARCH_PLAY_DATE_URL = HOST_URL + "p_search_play_date.php";
 	public static String PARENT_ADDED_FRIENDS_LIST_URL = HOST_URL + "p_get_friends.php";
-
+	public static String PARENT_FRIEND_REQUEST_URL = HOST_URL + "p_set_frnd_requests.php";
 
 	//Assistant
 	public static String ASSISTANT_LOGIN_URL = HOST_URL + "a_login.php";
@@ -88,6 +89,6 @@ public class AppConstants
 	public static String ASSISTANT_CHANGE_PASSWORD_URL = HOST_URL +"a_changepassword.php";
 	public static String ASSISTANT_FORTGOT_PASSWORD_URL = HOST_URL+"a_forgotpassword.php";
 	public static String ASSISTANT_SOCIAL_LOGIN_URL = HOST_URL +"a_login_social.php";
-	public int UNAUTHORISED = HttpURLConnection.HTTP_UNAUTHORIZED;
+	//public int UNAUTHORISED = HttpURLConnection.HTTP_UNAUTHORIZED;
 
 }

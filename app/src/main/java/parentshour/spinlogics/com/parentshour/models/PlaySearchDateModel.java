@@ -14,6 +14,15 @@ public class PlaySearchDateModel {
     String pIsFriend;
     String pEducation;
     String pEthnicity;
+    Boolean selectFriend;
+
+    public Boolean getSelectFriend() {
+        return selectFriend;
+    }
+
+    public void setSelectFriend(Boolean selectFriend) {
+        this.selectFriend = selectFriend;
+    }
 
     public String getpAddress() {
         return pAddress;

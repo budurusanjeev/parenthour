@@ -103,7 +103,7 @@ public class ParentAddFriendList extends BaseActivity {
                                     playSearchDateModel.setpId(jsonObjectParent.getString("p_id"));
                                     playSearchDateModel.setpName(jsonObjectParent.getString("p_name"));
                                     playSearchDateModel.setpImageUrl(jsonObjectParent.getString("p_pic"));
-
+                                    playSearchDateModel.setSelectFriend(false);
                                     parentAddedFriendArrayList.add(playSearchDateModel);
                                 }
                                 adapter = new ParentAddFriendAdapter(parentAddedFriendArrayList, context);

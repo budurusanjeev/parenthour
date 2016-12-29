@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,10 +40,11 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
     }
 
     @Override
-    public void onBindViewHolder(ParentAddFriendAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final ParentAddFriendAdapter.ViewHolder viewHolder, int i) {
         // final int s = i;
         viewHolder.tv_name.setText(list.get(i).getpName());
-
+        viewHolder.cb_friend.setOnCheckedChangeListener(null);
+        viewHolder.cb_friend.setChecked(list.get(i).getSelectFriend());
         Glide.with(activity)
                 .load(list.get(i).getpImageUrl())
                 .error(R.drawable.ic_profilelogo)
@@ -50,7 +52,12 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
                 .into(viewHolder.iv_profile_pic);
 
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
-
+        viewHolder.cb_friend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                list.get(viewHolder.getAdapterPosition()).setSelectFriend(b);
+            }
+        });
     }
 
     @Override

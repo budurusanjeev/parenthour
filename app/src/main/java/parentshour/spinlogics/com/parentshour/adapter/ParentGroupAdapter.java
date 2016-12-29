@@ -54,14 +54,14 @@ public class ParentGroupAdapter extends RecyclerView.Adapter<ParentGroupAdapter.
             @Override
             public void onClick(View view) {
                 activity.startActivity(new Intent(activity, ParentAddGroup.class)
-                        .putExtra("groupId", list.get(s).getpId()));
+                        .putExtra("groupId", list.get(s)));
             }
         });
         viewHolder.iv_chat_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ParentAddGroup.class)
-                        .putExtra("groupId", list.get(s).getpId()));
+                /*activity.startActivity(new Intent(activity, ParentAddGroup.class)
+                        .putExtra("groupId", list.get(s).getpId()));*/
             }
         });
     }

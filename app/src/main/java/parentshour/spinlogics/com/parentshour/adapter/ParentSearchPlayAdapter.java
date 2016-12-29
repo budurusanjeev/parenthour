@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.ParentPlayDateSearch;
 import parentshour.spinlogics.com.parentshour.activity.ParentPlaySearchDateDetailViewActivity;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
@@ -49,11 +50,11 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
         viewHolder.tv_ethnicity.setText(list.get(i).getpEthnicity());
         if (list.get(i).getpIsFriend().equals("1"))
         {
-        viewHolder.iv_friend.setImageResource(R.drawable.ic_connect);
+            viewHolder.iv_friend.setImageResource(R.drawable.ic_group_search_date);
         }
         else
         {
-        viewHolder.iv_friend.setImageResource(R.drawable.ic_group_search_date);
+            viewHolder.iv_friend.setImageResource(R.drawable.ic_connect);
         }
 
         Glide.with(activity)
@@ -74,30 +75,14 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
                 activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class).putExtra("id", list.get(i).getpId()));
             }
         });
-        /*viewHolder.tv_name.setOnClickListener(new View.OnClickListener() {
+        viewHolder.iv_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class).putExtra("id",list.get(i).getpId()));
+                if (activity instanceof ParentPlayDateSearch) {
+                    ((ParentPlayDateSearch) activity).setFriendRequest(list.get(i).getpId());
+                }
             }
         });
-        viewHolder.tv_education.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class).putExtra("id",list.get(i).getpId()));
-            }
-        });
-        viewHolder.tv_age.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class).putExtra("id",list.get(i).getpId()));
-            }
-        });
-        viewHolder.tv_ethnicity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class).putExtra("id",list.get(i).getpId()));
-            }
-        });*/
 
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_education, FontStyle.Lato_Medium, activity);
@@ -126,12 +111,6 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
             titleLayout = (LinearLayout) view.findViewById(R.id.titleLayout);
             iv_flag = (ImageView) view.findViewById(R.id.iv_flag);
             iv_friend = (ImageView) view.findViewById(R.id.iv_friend);
-            //tv_name = (TextView) view.findViewById(R.id.profile_name);
-            /*
-            tv_status = (TextView) view.findViewById(tv_status);
-            tv_name = (TextView) view.findViewById(R.id.profile_name);*/
-            //  row_assistant_layout = (LinearLayout) view.findViewById(R.id.row_assistant_layout);
-            // FontStyle.applyFont(activity, row_assistant_layout, FontStyle.Lato_Medium);
 
         }
     }

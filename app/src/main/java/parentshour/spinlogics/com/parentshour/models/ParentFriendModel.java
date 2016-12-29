@@ -1,13 +1,37 @@
 package parentshour.spinlogics.com.parentshour.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by SPINLOGICS on 12/26/2016.
  */
 
-public class ParentFriendModel {
+public class ParentFriendModel implements Parcelable {
+    public static final Creator<ParentFriendModel> CREATOR = new Creator<ParentFriendModel>() {
+        @Override
+        public ParentFriendModel createFromParcel(Parcel in) {
+            return new ParentFriendModel(in);
+        }
+
+        @Override
+        public ParentFriendModel[] newArray(int size) {
+            return new ParentFriendModel[size];
+        }
+    };
     String pName;
     String pImgUrl;
     String pId;
+
+    public ParentFriendModel(Parcel in) {
+        pName = in.readString();
+        pImgUrl = in.readString();
+        pId = in.readString();
+    }
+
+    public ParentFriendModel() {
+
+    }
 
     public String getpId() {
         return pId;
@@ -31,5 +55,17 @@ public class ParentFriendModel {
 
     public void setpName(String pName) {
         this.pName = pName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(pName);
+        parcel.writeString(pImgUrl);
+        parcel.writeString(pId);
     }
 }

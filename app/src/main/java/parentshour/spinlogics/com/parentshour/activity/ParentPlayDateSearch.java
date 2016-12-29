@@ -96,6 +96,74 @@ public class ParentPlayDateSearch extends BaseActivity {
         }
     }
 
+    public void setFriendRequest(final String friendId) {
+        showLoaderNew();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_FRIEND_REQUEST_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response);
+                        hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.has("Success")) {
+
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            throw new RuntimeException("crash" + e.toString());
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(ParentPlayDateSearch.this, error.toString(), Toast.LENGTH_LONG).show();
+                        throw new RuntimeException("crash" + error.toString());
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&to_p_id=" + friendId;
+                Log.v("credentials", "credentials " + credentials);
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
     private void getPlayDate() {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
@@ -115,14 +183,14 @@ public class ParentPlayDateSearch extends BaseActivity {
                                 for (int g = 0; g < s; g++) {
                                     PlaySearchDateModel playSearchDateModel = new PlaySearchDateModel();
                                     JSONObject jsonObjectParent = jsonArrayFriends.getJSONObject(g);
-                                    playSearchDateModel.setpId(jsonObjectParent.getString("pe_id"));
+                                    playSearchDateModel.setpId(jsonObjectParent.getString("to_pid"));
                                     playSearchDateModel.setpName(jsonObjectParent.getString("p_name"));
                                     playSearchDateModel.setpAge(jsonObjectParent.getString("p_age"));
                                     playSearchDateModel.setpImageUrl(jsonObjectParent.getString("p_pic"));
                                     playSearchDateModel.setpEthnicity(jsonObjectParent.getString("p_ethnicity"));
                                     playSearchDateModel.setpEducation(jsonObjectParent.getString("p_education"));
-                                    playSearchDateModel.setpIsFriend(jsonObjectParent.getString("p_flag_status"));
-                                    playSearchDateModel.setPsetFlag(jsonObjectParent.getString("p_frnd_status"));
+                                    playSearchDateModel.setpIsFriend(jsonObjectParent.getString("frnd_status"));
+                                    // playSearchDateModel.setPsetFlag(jsonObjectParent.getString("frnd_status"));
                                     playSearchArrayList.add(playSearchDateModel);
                                 }
                                 adapter = new ParentSearchPlayAdapter(playSearchArrayList, context);
@@ -153,8 +221,8 @@ public class ParentPlayDateSearch extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //  String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
 
                 try {
                     return credentials.getBytes(getParamsEncoding());
