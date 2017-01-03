@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,8 +81,10 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                                 tv_name.setText(jsonObject.getString("p_name"));
                                 tv_username.setText(jsonObject.getString("p_name"));
                                 tv_zipcode.setText(jsonObject.getString("p_zip"));
-                                tv_email.setText(jsonObject.getString("p_email"));
-                                tv_mobile.setText(jsonObject.getString("p_mobile"));
+                                //tv_email.setText(jsonObject.getString("p_email"));
+                                // tv_mobile.setText(jsonObject.getString("p_mobile"));
+                                tv_email.setVisibility(View.GONE);
+                                tv_mobile.setVisibility(View.GONE);
                                 tv_age.setText(jsonObject.getString("p_age"));
                                 tv_occupation.setText(jsonObject.getString("p_occupation"));
                                 tv_gender.setText(jsonObject.getString("p_gender"));
@@ -94,13 +97,8 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                                         .crossFade().error(R.drawable.ic_addprofile)
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
-
-                                // Toast.makeText(getApplicationContext(), "" , Toast.LENGTH_LONG).show();
-                                //startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
-                                //  Log.v("res ", "res  success" + jsonObject.getString("Success-msg"));
                             } else {
                                 loadingText.hideloader(ParentPlaySearchDateDetailViewActivity.this);
-                                //ParentPlaySearchDateDetailViewActivity.this
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                                 Log.v("res ", "res  success" + jsonObject.getString("Error"));
@@ -108,6 +106,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -118,14 +117,15 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                         //  hideloader();
                         loadingText.hideloader(ParentPlaySearchDateDetailViewActivity.this);
                         Toast.makeText(ParentPlaySearchDateDetailViewActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //  String credentials ="p_id="+preferenceUtils.getStringFromPreference("p_id","")+"&parent_id="+parentId;
-                String credentials = "p_id=12&parent_id=" + parentId;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&parent_id=" + parentId;
+                // String credentials = "p_id=12&parent_id=" + parentId;
                 Log.v("credentials ", "credentials " + credentials);
                 try {
                     return credentials.getBytes(getParamsEncoding());
@@ -167,7 +167,10 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
         tv_available_time = (TextView) findViewById(R.id.tv_available_time);
         tv_username = (TextView) findViewById(R.id.tv_userName_edit);
         View test1View = findViewById(R.id.toolbarLayout);
-
+        LinearLayout emailLayout = (LinearLayout) findViewById(R.id.emailLayout);
+        LinearLayout mobileLayout = (LinearLayout) findViewById(R.id.mobileLayout);
+        emailLayout.setVisibility(View.GONE);
+        mobileLayout.setVisibility(View.GONE);
         toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         toolbarTextView.setText("Parent Profile");
 

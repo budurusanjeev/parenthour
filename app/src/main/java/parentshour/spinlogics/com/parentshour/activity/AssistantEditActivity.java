@@ -58,12 +58,9 @@ import parentshour.spinlogics.com.parentshour.utilities.Utility;
 
 public class AssistantEditActivity extends BaseActivity {
 
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
     String imageData;
     Context context;
     ImageView profilePic;
-    private PreferenceUtils preferenceUtils;
     Button bt_save, bt_cancel;
     EditText edt_name,
             edt_experience,
@@ -71,6 +68,18 @@ public class AssistantEditActivity extends BaseActivity {
             edt_phone, edt_city, edt_zipcode, edt_state, edt_billing, edt_about_me, edt_gigs;
     LinearLayout ass_edit_parent;
     TextView toolbarTextView;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
+    private PreferenceUtils preferenceUtils;
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
     @Override
     public void initialize() {
         context = AssistantEditActivity.this;
@@ -429,7 +438,8 @@ showLoaderNew();
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            //  throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -438,7 +448,8 @@ showLoaderNew();
                     public void onErrorResponse(VolleyError error) {
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(AssistantEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -468,14 +479,6 @@ showLoaderNew();
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
-
-    public final static boolean isValidEmail(CharSequence target) {
-        if (target == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
     }
 
     @Override

@@ -132,8 +132,6 @@ public class ParentPlayDateEvents extends BaseActivity {
                                     }
                                     playDateArrayList.add(playDateEventsModel);
                                 }
-                                //adapter = new ParentGroupAdapter(friendsArrayList, context);
-                                //mRecyclerView.setAdapter(adapter);
                                 mRecyclerView.setAdapter(new ListChipsAdapter(playDateArrayList));
                             } else {
                                 jsonObject.getString("Error");
@@ -143,7 +141,7 @@ public class ParentPlayDateEvents extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
 
                     }
@@ -154,14 +152,15 @@ public class ParentPlayDateEvents extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentPlayDateEvents.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+                // String credentials = "p_id=12" /*+ preferenceUtils.getStringFromPreference("p_id", "")*/;
 
                 try {
                     return credentials.getBytes(getParamsEncoding());

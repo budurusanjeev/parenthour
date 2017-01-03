@@ -83,7 +83,14 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
                 }
             }
         });
-
+        viewHolder.iv_flag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity instanceof ParentPlayDateSearch) {
+                    ((ParentPlayDateSearch) activity).setFlagParent(list.get(i).getpId());
+                }
+            }
+        });
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_education, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_age, FontStyle.Lato_Medium, activity);

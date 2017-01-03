@@ -149,5 +149,14 @@
     <string name="addUsers">Add Users</string>
     <string name="groupname">Group Name</string>
     <string name="plus">+</string>
+    <string name="friend_requests">Friend Requests</string>
+    <string name="nextscreen"><![CDATA[>]]></string>
+    <string name="play_date_events">Play Date Events</string>
+    <string name="accept">Accept</string>
+    <string name="igonre">Igonre</string>
+    <string name="block">Block</string>
+    <string name="do_you_want_to_attend">Do you want to attend ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

@@ -44,12 +44,12 @@ public class ParentGetProfileActivity extends BaseActivity {
     JSONObject jsonObject;
    // private View decorView;
     ImageView profilePic;
-    //LinearLayout ll_parent_dashboard, ll_child_dashboard;
-    private boolean doubleBackToExitPressedOnce = false;
-    private PreferenceUtils preferenceUtils;
     TextView tv_name,tv_zipcode,tv_email,tv_mobile,
              tv_age,tv_occupation,tv_gender,tv_education,tv_ethnicity,
              tv_available_days,tv_available_time,tv_edit,tv_username;
+    //LinearLayout ll_parent_dashboard, ll_child_dashboard;
+    private boolean doubleBackToExitPressedOnce = false;
+    private PreferenceUtils preferenceUtils;
 
     @Override
     public void initialize() {
@@ -61,13 +61,6 @@ public class ParentGetProfileActivity extends BaseActivity {
 
         initViewControll();
         Fabric.with(this, new Crashlytics());
-       /* if (NetworkUtils.isNetworkConnectionAvailable(context)) {
-            //  showLoaderNew();
-        //    postData();
-            getProfileData();
-        } else {
-            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
-        }*/
 
         tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,10 +109,12 @@ startActivity(new Intent(getApplicationContext(),ParentEditActivity.class));
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                                 Log.v("res ", "res  success" + jsonObject.getString("Error"));
+
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -129,7 +124,8 @@ startActivity(new Intent(getApplicationContext(),ParentEditActivity.class));
                         Log.v("error", "error " + error.toString());
                         hideloader();
                         Toast.makeText(ParentGetProfileActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        // throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -176,7 +172,6 @@ startActivity(new Intent(getApplicationContext(),ParentEditActivity.class));
         tv_available_time = (TextView)findViewById(R.id.tv_available_time);
         tv_username = (TextView)findViewById(R.id.tv_userName_edit);
         tv_edit = (TextView)findViewById(R.id.tv_edit_text);
-  //      View test1View = findViewById(R.id.toolbarLayout);
         TextView toolbarTextView = (TextView)findViewById(R.id.page_heading);
         toolbarTextView.setText("Profile");
         LinearLayout par_get_layout = (LinearLayout)findViewById(R.id.par_get_layout);
@@ -188,8 +183,7 @@ startActivity(new Intent(getApplicationContext(),ParentEditActivity.class));
     protected void onResume() {
         super.onResume();
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
-            //  showLoaderNew();
-            //    postData();
+
             getProfileData();
         } else {
             Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();

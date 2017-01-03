@@ -37,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONObject;
 
@@ -310,6 +311,7 @@ public class SignupRegistration extends AppCompatActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -318,6 +320,7 @@ public class SignupRegistration extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(SignupRegistration.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -495,6 +498,7 @@ public class SignupRegistration extends AppCompatActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -504,6 +508,7 @@ public class SignupRegistration extends AppCompatActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(SignupRegistration.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override

@@ -65,10 +65,7 @@ public class ParentRegisterActivity extends BaseNew {
 
         initializeControls();
         Fabric.with(this, new Crashlytics());
-        /*ViewGroup root = (ViewGroup) findViewById(R.id.login_root);
 
-        fontType = new FontType(mContext, root);*/
-        //setFontToAll();
         preferenceUtils=new PreferenceUtils(mContext);
         rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -259,7 +256,8 @@ public class ParentRegisterActivity extends BaseNew {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            //throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -269,7 +267,8 @@ public class ParentRegisterActivity extends BaseNew {
                         Log.v("error", "error " + error.toString());
 
                         Toast.makeText(ParentRegisterActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
+                        // throw new RuntimeException("crash" + error.toString());
                     }
                 }) {
             @Override
@@ -379,9 +378,9 @@ Log.v("res cre","res cre "+credentials);
         iv_occupation = (ImageView) findViewById(R.id.iv_occupation);
         iv_education = (ImageView) findViewById(R.id.iv_education);
 
-        view_age = (View) findViewById(R.id.view_age);
-        view_occ = (View) findViewById(R.id.view_occ);
-        view_edu = (View) findViewById(R.id.view_edu);
+        view_age = findViewById(R.id.view_age);
+        view_occ = findViewById(R.id.view_occ);
+        view_edu = findViewById(R.id.view_edu);
 
         View test1View = findViewById(R.id.toolbarLayout);
         toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);

@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONObject;
 
@@ -220,6 +221,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -229,6 +231,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
                         Log.v("error", "error " + error.toString());
                         hideloader();
                         Toast.makeText(ParentSettingAcitivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -408,6 +411,7 @@ sendSettings();
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -417,6 +421,7 @@ sendSettings();
                         Log.v("error", "error " + error.toString());
                         hideloader();
                         Toast.makeText(ParentSettingAcitivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override

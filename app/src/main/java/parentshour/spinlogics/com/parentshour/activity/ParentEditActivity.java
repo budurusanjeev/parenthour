@@ -34,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONObject;
 
@@ -118,7 +119,6 @@ public class ParentEditActivity extends BaseActivity {
                                 cb_eveningValue != null )
                         {
                             if (NetworkUtils.isNetworkConnectionAvailable(context)) {
-                                //  showLoaderNew();
                                 sendData();
                             } else {
                                 Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
@@ -280,6 +280,7 @@ public class ParentEditActivity extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -288,7 +289,7 @@ public class ParentEditActivity extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         hideloader();
                         Log.v("error", "error " + error.toString());
-
+                        Crashlytics.logException(error);
                         Toast.makeText(ParentEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -641,6 +642,7 @@ public class ParentEditActivity extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -649,6 +651,7 @@ public class ParentEditActivity extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -703,8 +706,6 @@ public class ParentEditActivity extends BaseActivity {
     }
     private String validateTimings()
     {
-        //  String value =null;
-
         if(cb_morningValue != null&&
                 cb_afternoonValue != null&&
                 cb_eveningValue != null)
@@ -777,17 +778,12 @@ public class ParentEditActivity extends BaseActivity {
 
         bt_save = (Button)findViewById(R.id.btn_save);
         bt_cancel = (Button)findViewById(R.id.btn_cancel);
-      //  View test1View = findViewById(R.id.toolbarLayout);
         TextView toolbarTextView = (TextView)findViewById(R.id.page_heading);
         toolbarTextView.setText("Edit Profile");
-        //mtoolbar.setTitle("Edit Profile");
         LinearLayout par_edit_layout = (LinearLayout)findViewById(R.id.par_edit_layout);
         FontStyle.applyFont(getApplicationContext(),par_edit_layout, FontStyle.Lato_Medium);
 
     }
-
-   // BaseActivity.toolbarTextView
-    //BaseActivity.setPageName("Edit Profile");
     @Override
     public void goto_playDateSearch_method() {
 

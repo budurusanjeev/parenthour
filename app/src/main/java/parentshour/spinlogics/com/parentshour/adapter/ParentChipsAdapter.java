@@ -1,30 +1,36 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import parentshour.spinlogics.com.parentshour.models.PlayDateEventsModel;
+import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 
-public class ChipsAdapter extends RecyclerView.Adapter {
+/**
+ * Created by SPINLOGICS on 1/2/2017.
+ */
 
-    private ArrayList<PlayDateEventsModel> chipsArray;
+public class ParentChipsAdapter extends RecyclerView.Adapter {
 
-    public ChipsAdapter(ArrayList<PlayDateEventsModel> chipsArray) {
+    private ArrayList<ParentFriendModel> chipsArray;
+
+    public ParentChipsAdapter(ArrayList<ParentFriendModel> chipsArray) {
         this.chipsArray = chipsArray;
+        Log.v("zzz", "zzz zzz zzz" + chipsArray.get(0).getpName());
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ChipViewHolder(new ChipView(parent.getContext()));
+        return new ParentChipsAdapter.ChipViewHolder(new ParentView(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ((ChipView) holder.itemView).displayItem(chipsArray.get(position));
+        ((ParentView) holder.itemView).displayItem(chipsArray.get(position));
     }
 
     @Override
@@ -35,7 +41,7 @@ public class ChipsAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    private class ChipViewHolder extends RecyclerView.ViewHolder {
+    class ChipViewHolder extends RecyclerView.ViewHolder {
 
         public ChipViewHolder(View itemView) {
             super(itemView);

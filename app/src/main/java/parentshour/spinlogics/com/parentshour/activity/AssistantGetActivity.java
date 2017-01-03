@@ -122,9 +122,9 @@ public class AssistantGetActivity extends BaseActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                          //   public void forceCrash(View view) {
-                                throw new RuntimeException("crash" + e.toString());
+                            //  throw new RuntimeException("crash" + e.toString());
                            // }
-
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -134,6 +134,7 @@ public class AssistantGetActivity extends BaseActivity {
                         Log.v("error", "error " + error.toString());
                         hideloader();
                         Toast.makeText(AssistantGetActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override

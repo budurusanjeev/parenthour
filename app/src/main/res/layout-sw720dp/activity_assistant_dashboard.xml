@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -12,12 +13,16 @@
         android:background="@drawable/edittext_search_background"
         android:orientation="horizontal">
 
-        <EditText
+        <AutoCompleteTextView
+            android:id="@+id/searchAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/search"
+            android:layout_toStartOf="@+id/search"
             android:background="@null"
-            android:hint="Search"
+            android:gravity="center_vertical"
+            android:hint="@string/search"
             android:padding="10dp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange" />
@@ -26,10 +31,12 @@
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/ic_search_orange" />
+            android:src="@drawable/ic_search_orange"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONObject;
 
@@ -179,6 +180,7 @@ public class AssitantFinalRegistration extends AppCompatActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -187,6 +189,7 @@ public class AssitantFinalRegistration extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(AssitantFinalRegistration.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override

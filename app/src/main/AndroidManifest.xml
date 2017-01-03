@@ -50,6 +50,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ParentFriendRequestActivity"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ParentPlayDateSelectionEvent"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".activity.ParentNotificationsActivity"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".activity.ParentPlaySearchDateDetailViewActivity"

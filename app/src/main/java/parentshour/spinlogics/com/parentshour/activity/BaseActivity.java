@@ -12,6 +12,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -171,6 +172,7 @@ switch (position)
     case 4:
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
+            startActivity(new Intent(getApplicationContext(), ParentNotificationsActivity.class));
             mdrawerlayout.closeDrawers();
         }
         else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
@@ -271,6 +273,26 @@ switch (position)
 
     public abstract void goto_Chats_method();
 
+    public void showAlertValidation(String error) {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(basecontext);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.notification_dailog, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog b = dialogBuilder.create();
+        final TextView tv_errorTitle = (TextView) dialogView.findViewById(R.id.tvTitle);
+        final TextView tv_ok = (TextView) dialogView.findViewById(R.id.btnYes);
+        LinearLayout alert_layout = (LinearLayout) findViewById(R.id.alert_layout);
+        FontStyle.applyFont(getApplicationContext(), alert_layout, FontStyle.Lato_Medium);
+        tv_errorTitle.setText(error);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        b.show();
+
+    }
     private void initdrawer() {
 
         mtoolbar.setTitle("Parent Hour");

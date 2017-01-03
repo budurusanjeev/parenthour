@@ -18,6 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="2dp"
@@ -39,24 +41,60 @@
             android:layout_margin="2dp"
             android:layout_weight="1"
             android:padding="2dp"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_location"
             android:textColor="@color/gray_color" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:padding="2dp"
-            android:src="@drawable/ic_edit"
-            android:textColor="@color/gray_color" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_attend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="@string/do_you_want_to_attend"
+            android:textColor="@color/gray_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_search_background"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/yes"
+            android:textColor="@color/Orange" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_search_background"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/no"
+            android:textColor="@color/Orange" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

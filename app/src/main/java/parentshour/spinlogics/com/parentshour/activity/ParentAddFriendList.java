@@ -1,6 +1,8 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
@@ -65,6 +68,21 @@ public class ParentAddFriendList extends BaseActivity {
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String data = "";
+                List<PlaySearchDateModel> stList = ((ParentAddFriendAdapter) adapter)
+                        .getStudentist();
+
+                for (int i = 0; i < stList.size(); i++) {
+                    PlaySearchDateModel singleStudent = stList.get(i);
+                    if (singleStudent.getSelectFriend()) {
+                        data = data + "," + singleStudent.getpId();
+                    }
+                }
+
+                Intent intent = getIntent();
+                intent.putExtra("friendsList", data);
+                setResult(Activity.RESULT_OK, intent);
+                Log.v("friend list selected ", "friend list selected: " + data);
                 finish();
             }
         });
@@ -118,7 +136,8 @@ public class ParentAddFriendList extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            //   throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
 
                     }
@@ -129,15 +148,14 @@ public class ParentAddFriendList extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddFriendList.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //     throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                //  String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
-
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {

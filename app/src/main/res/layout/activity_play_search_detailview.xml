@@ -137,11 +137,13 @@
                 android:background="@color/white"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray_use"
@@ -182,11 +184,13 @@
                 android:background="@color/white"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/mobileLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray_use"

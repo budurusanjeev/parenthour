@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crashlytics.android.Crashlytics;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -47,6 +48,7 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.adapter.ParentGroupRowAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
@@ -64,18 +66,19 @@ public class ParentAddGroup extends BaseActivity {
     RecyclerView.Adapter adapter;
     TextView iv_addMemberToGroup, tv_done, tv_cancel;
     ArrayList<PlaySearchDateModel> parentAddGroupArrayList;
+    ArrayList<ParentFriendModel> parentFriendModels;
     ParentFriendModel groupId;
     String imageData;
     ImageView iv_upload_profile_photo;
-    private String userChoosenTask;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask, friendsList;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1, SELECT_FRIENDS = 2;
 
     @Override
     public void initialize() {
         context = ParentAddGroup.this;
 
         preferenceUtils = new PreferenceUtils(context);
-
+        parentFriendModels = new ArrayList<ParentFriendModel>();
         llContent.addView(inflater.inflate(R.layout.activity_parent_addgroup, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         initViewControll();
         if (getIntent().getExtras().get("groupId") != null) {
@@ -87,6 +90,7 @@ public class ParentAddGroup extends BaseActivity {
                     .error(R.drawable.ic_profilelogo)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(iv_upload_profile_photo);
+            getGroupMembers();
         }
 
 
@@ -109,23 +113,42 @@ public class ParentAddGroup extends BaseActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         parentAddGroupArrayList = new ArrayList<PlaySearchDateModel>();
-        // getGroupMembers();
+
         iv_addMemberToGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ParentAddFriendList.class));
+                // startActivity(new Intent(getApplicationContext(), ParentAddFriendList.class));
+                startActivityForResult(new Intent(getApplicationContext(), ParentAddFriendList.class), SELECT_FRIENDS);
             }
         });
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getIntent().getExtras().get("groupId") != null) {
-                    editedGroup();
+
+                    if (et_groupName.getText().length() > 0 || friendsList.length() > 0) {
+                        editedGroup();
+                    } else {
+                        if (friendsList.length() > 0) {
+                            showAlertValidation("Add a friend");
+                        }
+                        if (et_groupName.getText().length() > 0) {
+                            showAlertValidation("Group name cannot be empty");
+                        }
+                    }
                 } else {
-                    createGroup();
+                    if (et_groupName.getText().length() > 0 || friendsList.length() > 0) {
+                        createGroup();
+                    } else {
+                        if (friendsList.length() > 0) {
+                            showAlertValidation("Add a friend");
+                        }
+                        if (et_groupName.getText().length() > 0) {
+                            showAlertValidation("Group name cannot be empty");
+                        }
+                    }
                 }
 
-                //  finish();
             }
         });
         tv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +188,8 @@ public class ParentAddGroup extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
+                            // throw new RuntimeException("crash" + e.toString());
                             //throw new RuntimeException("crash" + e);
                         }
 
@@ -177,35 +201,16 @@ public class ParentAddGroup extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
-
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 String credentials;
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_name=" + et_groupName.getText().toString() + "&grp_friends=75,79,42&grp_pic=" + imageData;  /*+ preferenceUtils.getStringFromPreference("p_id", "")*/
-
-                // p_id=12&grp_name=group1&grp_friends=2,4,6,8&grp_pic=abc.png
-
+                credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_name=" + et_groupName.getText().toString() + "&grp_friends=" + friendsList + "&grp_pic=" + imageData;  /*+ preferenceUtils.getStringFromPreference("p_id", "")*/
                 Log.v("credentials", "credentials " + et_groupName.getText().toString());
-//                Log.v("credentials", "credentials " + groupId.getpId());
-                // Log.v("credentials", "credentials " + imageData);
                 Log.v("credentials", "credentials " + credentials);
-               /* if (imageData != null) {
 
-                    credentials = "p_id="+preferenceUtils.getStringFromPreference("p_id", "")+"&grp_name=" + et_groupName.getText().toString() + "&grp_friends=13&grp_id=" + groupId.getpId() + "&grp_pic=" + imageData;  *//*+ preferenceUtils.getStringFromPreference("p_id", "")*//*
-                    Log.v("credentials", "credentials " + et_groupName.getText().toString());
-                    Log.v("credentials", "credentials " + groupId.getpId());
-                    Log.v("credentials", "credentials " + imageData);
-                    Log.v("credentials", "credentials " + credentials);
-                } else {
-                    credentials = "p_id="+preferenceUtils.getStringFromPreference("p_id", "")+"&grp_name=" + et_groupName.getText().toString() + "&grp_friends=13&grp_id=" + groupId.getpId() + "&grp_pic=";
-                    Log.v("credentials", "credentials " + et_groupName.getText().toString());
-                    Log.v("credentials", "credentials " + groupId.getpId());
-                    // Log.v("credentials","credentials "+imageData);
-                    Log.v("credentials", "credentials " + credentials);
-                }*/
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {
@@ -232,7 +237,6 @@ public class ParentAddGroup extends BaseActivity {
     }
 
     private void editedGroup() {
-        // p_id=12&grp_name=group2&grp_friends=13&grp_id=1&grp_pic=abc.png
 
         showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_EDIT_GROUP_MEMBERS_URL,
@@ -256,7 +260,8 @@ public class ParentAddGroup extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
+                            // / throw new RuntimeException("crash" + e.toString());
                             //throw new RuntimeException("crash" + e);
                         }
 
@@ -268,25 +273,24 @@ public class ParentAddGroup extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
-
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 String credentials;
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
+
                 if (imageData != null) {
-                    credentials = "p_id=12&grp_name=" + et_groupName.getText().toString() + "&grp_friends=13&grp_id=" + groupId.getpId() + "&grp_pic=" + imageData;  /*+ preferenceUtils.getStringFromPreference("p_id", "")*/
+                    credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_name=" + et_groupName.getText().toString() + "&grp_friends=" + friendsList + "&grp_id=" + groupId.getpId() + "&grp_pic=" + imageData;  /*+ preferenceUtils.getStringFromPreference("p_id", "")*/
                     Log.v("credentials", "credentials " + et_groupName.getText().toString());
                     Log.v("credentials", "credentials " + groupId.getpId());
                     Log.v("credentials", "credentials " + imageData);
                     Log.v("credentials", "credentials " + credentials);
 
                 } else {
-                    credentials = "p_id=12&grp_name=" + et_groupName.getText().toString() + "&grp_friends=13&grp_id=" + groupId.getpId() + "&grp_pic=";
+                    credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_name=" + et_groupName.getText().toString() + "&grp_friends=" + friendsList + "&grp_id=" + groupId.getpId() + "&grp_pic=";
                     Log.v("credentials", "credentials " + et_groupName.getText().toString());
                     Log.v("credentials", "credentials " + groupId.getpId());
-                    // Log.v("credentials","credentials "+imageData);
                     Log.v("credentials", "credentials " + credentials);
                 }
                 try {
@@ -383,13 +387,23 @@ public class ParentAddGroup extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        //Log.v("friend list","friend list: "+ requestCode+" data "+data.getStringExtra("friendsList"));
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
+
+            if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
+            } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
+            } else if (requestCode == 2) {
+                arrayToString(data);
+                //  Log.v("friend list","friend list: "+data.getStringExtra("friendsList"));
+            }
         }
+    }
+
+    private void arrayToString(Intent data) {
+        friendsList = data.getStringExtra("friendsList");
+        Log.v("friend list", "friend list: " + data.getStringExtra("friendsList"));
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -453,21 +467,24 @@ public class ParentAddGroup extends BaseActivity {
                         hideloader();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-
-                            if (jsonObject.has("Success")) {
-
-                                //adapter = new ParentGroupAdapter(parentAddGroupArrayList, context);
+                            if (!jsonObject.has("Error")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("grp_friends2");
+                                int sz = jsonArray.length();
+                                for (int g = 0; g < sz; g++) {
+                                    JSONObject friendObject = jsonArray.getJSONObject(g);
+                                    ParentFriendModel parentFriendModel = new ParentFriendModel();
+                                    parentFriendModel.setpId(friendObject.getString("p_id"));
+                                    parentFriendModel.setpName(friendObject.getString("p_name"));
+                                    //   parentFriendModel.setpImgUrl(friendObject.getString("p_pic"));
+                                    parentFriendModels.add(parentFriendModel);
+                                }
+                                adapter = new ParentGroupRowAdapter(parentFriendModels, context);
                                 mRecyclerView.setAdapter(adapter);
-
-                            } else {
-                                jsonObject.getString("Error");
-                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
-                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
 
                     }
@@ -478,15 +495,15 @@ public class ParentAddGroup extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        // throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
-
-                //   String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "");
-                String credentials = "p_id=12&grp_id=" + groupId; /*+ preferenceUtils.getStringFromPreference("p_id", "")*/
-
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_id=" + groupId.getpId();
+                //  String credentials = "p_id=42&grp_id=" + groupId;
+                Log.v("url", "url " + credentials);
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {

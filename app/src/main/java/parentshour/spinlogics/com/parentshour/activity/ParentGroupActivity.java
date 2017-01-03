@@ -117,7 +117,7 @@ public class ParentGroupActivity extends BaseActivity {
     }
 
     private void getParentGroups() {
-        //PARENT_GROUPS_URL
+
         showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_GROUPS_URL,
                 new Response.Listener<String>() {
@@ -151,7 +151,8 @@ public class ParentGroupActivity extends BaseActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            //throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
 
                     }
@@ -162,7 +163,8 @@ public class ParentGroupActivity extends BaseActivity {
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentGroupActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //  throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override

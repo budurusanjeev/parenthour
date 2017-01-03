@@ -21,11 +21,11 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class NavDrawerListAdapter extends BaseAdapter {
 
+    ViewHolder holder;
+    NavDrawerItem model;
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
     private LayoutInflater inflator;
-    ViewHolder holder;
-    NavDrawerItem model;
 
     //FontType fontType;
 
@@ -66,7 +66,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
             holder.nav_tvtitle= (TextView) convertView.findViewById(R.id.drawertitle);
 
-            holder.nav_tvcount= (TextView) convertView.findViewById(R.id.counter);
+//            holder.nav_tvcount= (TextView) convertView.findViewById(R.id.counter);
 
             convertView.setTag(holder);
 
@@ -85,14 +85,14 @@ public class NavDrawerListAdapter extends BaseAdapter {
         holder.nav_tvtitle.setTextSize(15.0f);
         holder.nav_tvtitle.setText(model.title);
 
-        if(model.isCounterVisible)
+       /* if(model.isCounterVisible)
         {
             holder.nav_tvcount.setText("Rs."+model.count);
         }
         else
         {
             holder.nav_tvcount.setVisibility(View.GONE);
-        }
+        }*/
 
 
 

@@ -79,6 +79,12 @@ public class AppConstants
 	public static String PARENT_SEARCH_PLAY_DATE_URL = HOST_URL + "p_search_play_date.php";
 	public static String PARENT_ADDED_FRIENDS_LIST_URL = HOST_URL + "p_get_friends.php";
 	public static String PARENT_FRIEND_REQUEST_URL = HOST_URL + "p_set_frnd_requests.php";
+	public static String PARENT_FRIEND_FLAG_URL = HOST_URL + "p_set_flag.php";
+	public static String PARENT_NOTIFICATIONS_URL = HOST_URL + "p_get_notifications.php";
+	public static String PARENT_ACCEPT_FRIEND_URL = HOST_URL + "p_friend_accept.php";
+	public static String PARENT_BLOCK_FRIEND_URL = HOST_URL + "p_friend_block.php";
+	public static String PARENT_IGNORE_FRIEND_URL = HOST_URL + "p_friend_ignore.php";
+
 
 	//Assistant
 	public static String ASSISTANT_LOGIN_URL = HOST_URL + "a_login.php";
@@ -89,6 +95,5 @@ public class AppConstants
 	public static String ASSISTANT_CHANGE_PASSWORD_URL = HOST_URL +"a_changepassword.php";
 	public static String ASSISTANT_FORTGOT_PASSWORD_URL = HOST_URL+"a_forgotpassword.php";
 	public static String ASSISTANT_SOCIAL_LOGIN_URL = HOST_URL +"a_login_social.php";
-	//public int UNAUTHORISED = HttpURLConnection.HTTP_UNAUTHORIZED;
 
 }

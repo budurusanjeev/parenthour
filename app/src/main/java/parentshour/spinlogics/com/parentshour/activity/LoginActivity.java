@@ -229,9 +229,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onError(FacebookException e) {
                 // Log.v("","" +)
                 e.printStackTrace();
-
+                Crashlytics.logException(e);
                 Toast.makeText(mContext, "FB Login Error ", Toast.LENGTH_LONG).show();
-                throw new RuntimeException("crash" + e.toString());
+                // throw new RuntimeException("crash" + e.toString());
             }
         });
 
@@ -331,6 +331,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Crashlytics.logException(e);
                     }
                 } else {
                     sendProfileData(acct.getEmail(), acct.getId(), "");
@@ -352,6 +353,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Crashlytics.logException(e);
                     }
 
                 } else {
@@ -415,6 +417,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -424,7 +427,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Log.v("error", "error " + error.toString());
 
                         Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        // throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -508,7 +512,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            throw new RuntimeException("crash" + e.toString());
+                            // throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -519,7 +524,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Log.v("error", "error " + error.toString());
 
                         Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        //  throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
@@ -618,6 +624,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Crashlytics.logException(e);
                         }
                     }
                 },
@@ -627,7 +634,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                        throw new RuntimeException("crash" + error.toString());
+                        // throw new RuntimeException("crash" + error.toString());
+                        Crashlytics.logException(error);
                     }
                 }) {
             @Override
