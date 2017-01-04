@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parentshour.spinlogics.com.parentshour.R;
-import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
+import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
@@ -25,9 +25,9 @@ import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriendAdapter.ViewHolder> {
     private Context activity;
-    private ArrayList<PlaySearchDateModel> list;
+    private ArrayList<ParentFriendModel> list;
 
-    public ParentAddFriendAdapter(ArrayList<PlaySearchDateModel> countries, Context context) {
+    public ParentAddFriendAdapter(ArrayList<ParentFriendModel> countries, Context context) {
         this.list = countries;
         this.activity = context;
     }
@@ -47,7 +47,7 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
         viewHolder.cb_friend.setChecked(list.get(i).getSelectFriend());
         viewHolder.cb_friend.setTag(list.get(i));
         Glide.with(activity)
-                .load(list.get(i).getpImageUrl())
+                .load(list.get(i).getpImgUrl())
                 .error(R.drawable.ic_profilelogo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.iv_profile_pic);
@@ -56,27 +56,17 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
         viewHolder.cb_friend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
-                PlaySearchDateModel contact = (PlaySearchDateModel) cb.getTag();
+                ParentFriendModel contact = (ParentFriendModel) cb.getTag();
 
                 contact.setSelectFriend(cb.isChecked());
                 list.get(s).setSelectFriend(cb.isChecked());
-                /*Toast.makeText(
-                        v.getContext(),
-                        "Clicked on Checkbox: " + cb.getText() + " is "
-                                + cb.isChecked(), Toast.LENGTH_LONG).show();*/
+
             }
         });
 
-      /*  viewHolder.cb_friend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                list.get(viewHolder.getAdapterPosition()).setSelectFriend(b);
-            }
-        });*/
-
     }
 
-    public List<PlaySearchDateModel> getStudentist() {
+    public List<ParentFriendModel> getStudentist() {
 
         return list;
     }

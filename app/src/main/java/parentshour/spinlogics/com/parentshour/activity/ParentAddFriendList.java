@@ -3,6 +3,7 @@ package parentshour.spinlogics.com.parentshour.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,7 +34,7 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.adapter.ParentAddFriendAdapter;
-import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
+import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
@@ -45,8 +46,12 @@ public class ParentAddFriendList extends BaseActivity {
     Context context;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
-    ArrayList<PlaySearchDateModel> parentAddedFriendArrayList;
-
+    ArrayList<ParentFriendModel> parentAddedFriendArrayList;
+    // ArrayList<String> parentselectedFriendArrayList;
+    List<ParentFriendModel> stList;
+    int size = 0;
+    List<String> myFriendsList;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     public void initialize() {
         context = ParentAddFriendList.this;
@@ -56,41 +61,75 @@ public class ParentAddFriendList extends BaseActivity {
         llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         initViewControll();
+
+        if (getIntent().getParcelableArrayListExtra("selected") != null) {  // parentselectedFriendArrayList = new ArrayList<>();
+         /*  String selected = getIntent().getStringExtra("selected");
+           String d[] = selected.split(",");
+           size = d.length;
+           *//*for(int s = 0; s < size ; s++)
+           {
+           parentselectedFriendArrayList.add(d[s]);
+               parentselectedFriendArrayList.add();
+           }*//*
+           (Arrays.asList(selected.split(",")));*/
+            ArrayList<ParentFriendModel> parentAddedFriendArrayList = getIntent().getParcelableArrayListExtra("selected");
+            size = parentAddedFriendArrayList.size();
+            myFriendsList = new ArrayList<String>();
+            for (int s = 0; s < size; s++) {
+                myFriendsList.add(parentAddedFriendArrayList.get(s).getpId());
+            }
+        }
+
         Fabric.with(this, new Crashlytics());
     }
 
     private void initViewControll() {
         TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
         toolbarTextView.setText("Add Friends");
-        TextView tv_save = (TextView) findViewById(R.id.setting_Save);
-        tv_save.setVisibility(View.VISIBLE);
-        tv_save.setText("Done");
-        tv_save.setOnClickListener(new View.OnClickListener() {
+        TextView tv_done = (TextView) findViewById(R.id.setting_Save);
+        tv_done.setVisibility(View.VISIBLE);
+        tv_done.setText("Done");
+        tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String data = "";
-                List<PlaySearchDateModel> stList = ((ParentAddFriendAdapter) adapter)
+                stList = ((ParentAddFriendAdapter) adapter)
                         .getStudentist();
-
-                for (int i = 0; i < stList.size(); i++) {
-                    PlaySearchDateModel singleStudent = stList.get(i);
-                    if (singleStudent.getSelectFriend()) {
-                        data = data + "," + singleStudent.getpId();
+                ArrayList<ParentFriendModel> parentFriendModels = new ArrayList<ParentFriendModel>();
+                if (((ParentAddFriendAdapter) adapter)
+                        .getStudentist().size() > 0) {
+                    for (int i = 0; i < stList.size(); i++) {
+                        ParentFriendModel singleStudent = stList.get(i);
+                        if (singleStudent.getSelectFriend()) {
+                            data = data + "," + singleStudent.getpId();
+                            ParentFriendModel parentFriendModel = new ParentFriendModel();
+                            parentFriendModel.setpId(singleStudent.getpId());
+                            parentFriendModel.setpName(singleStudent.getpName());
+                            parentFriendModel.setpImgUrl(singleStudent.getpImgUrl());
+                            parentFriendModels.add(parentFriendModel);
+                        }
                     }
-                }
 
-                Intent intent = getIntent();
-                intent.putExtra("friendsList", data);
-                setResult(Activity.RESULT_OK, intent);
-                Log.v("friend list selected ", "friend list selected: " + data);
-                finish();
+                    Intent intent = getIntent();
+                    intent.putExtra("friendsList", data);
+                    intent.putParcelableArrayListExtra("friendObject", parentFriendModels);
+                    setResult(Activity.RESULT_OK, intent);
+                    Log.v("friend list selected ", "friend list selected: " + data);
+                    finish();
+                } else {
+                    finish();
+                }
             }
         });
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setRefreshing(false);
         mRecyclerView = (RecyclerView) findViewById(R.id.assistant_dashborad_recyclerView);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        parentAddedFriendArrayList = new ArrayList<PlaySearchDateModel>();
+        parentAddedFriendArrayList = new ArrayList<ParentFriendModel>();
+        // parentselectedFriendArrayList = new ArrayList<ParentFriendModel>();
     }
 
     @Override
@@ -111,17 +150,26 @@ public class ParentAddFriendList extends BaseActivity {
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            parentAddedFriendArrayList = new ArrayList<PlaySearchDateModel>();
+                            //  parentAddedFriendArrayList = new ArrayList<ParentFriendModel>();
                             if (jsonObject.has("Success")) {
                                 JSONArray jsonArrayFriends = jsonObject.getJSONArray("Success");
                                 int s = jsonArrayFriends.length();
                                 for (int g = 0; g < s; g++) {
-                                    PlaySearchDateModel playSearchDateModel = new PlaySearchDateModel();
+                                    ParentFriendModel playSearchDateModel = new ParentFriendModel();
                                     JSONObject jsonObjectParent = jsonArrayFriends.getJSONObject(g);
                                     playSearchDateModel.setpId(jsonObjectParent.getString("p_id"));
                                     playSearchDateModel.setpName(jsonObjectParent.getString("p_name"));
-                                    playSearchDateModel.setpImageUrl(jsonObjectParent.getString("p_pic"));
-                                    playSearchDateModel.setSelectFriend(false);
+                                    playSearchDateModel.setpImgUrl(jsonObjectParent.getString("p_pic"));
+                                    if (size > 0) {
+                                        if (myFriendsList.contains(jsonObjectParent.getString("p_id"))) {
+                                            playSearchDateModel.setSelectFriend(true);
+                                        } else {
+                                            playSearchDateModel.setSelectFriend(false);
+                                        }
+                                    } else {
+                                        playSearchDateModel.setSelectFriend(false);
+                                    }
+
                                     parentAddedFriendArrayList.add(playSearchDateModel);
                                 }
                                 adapter = new ParentAddFriendAdapter(parentAddedFriendArrayList, context);

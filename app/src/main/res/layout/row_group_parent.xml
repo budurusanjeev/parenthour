@@ -6,16 +6,26 @@
     android:orientation="horizontal"
     android:padding="5dp">
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_profilelogo" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/iv_profile"
         android:textColor="@color/gray_color"
         android:textSize="@dimen/activity_fifteen_textSize" />
 
@@ -34,6 +44,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/iv_delete"
+        android:layout_below="@+id/iv_profile"
         android:background="@color/Orange" />
 </RelativeLayout>

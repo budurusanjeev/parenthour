@@ -22,15 +22,25 @@ public class ParentFriendModel implements Parcelable {
     String pName;
     String pImgUrl;
     String pId;
+    Boolean selectFriend;
 
     public ParentFriendModel(Parcel in) {
         pName = in.readString();
         pImgUrl = in.readString();
         pId = in.readString();
+        selectFriend = Boolean.valueOf(in.readString());
     }
 
     public ParentFriendModel() {
 
+    }
+
+    public Boolean getSelectFriend() {
+        return selectFriend;
+    }
+
+    public void setSelectFriend(Boolean selectFriend) {
+        this.selectFriend = selectFriend;
     }
 
     public String getpId() {
@@ -67,5 +77,6 @@ public class ParentFriendModel implements Parcelable {
         parcel.writeString(pName);
         parcel.writeString(pImgUrl);
         parcel.writeString(pId);
+        parcel.writeString(String.valueOf(selectFriend));
     }
 }

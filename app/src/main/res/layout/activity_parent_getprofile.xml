@@ -240,6 +240,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:drawableLeft="@drawable/ic_age"
+                        android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_age"
                         android:gravity="center_vertical"
                         android:text="@string/age"

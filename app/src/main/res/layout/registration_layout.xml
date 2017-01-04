@@ -99,6 +99,8 @@
                     android:background="@color/transparent"
                     android:gravity="start|center_vertical"
                     android:hint="@string/occupation"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
                     android:textColor="@color/gray_color"
                     android:textColorHint="@color/gray_color"
                     android:textSize="@dimen/activity_small_textSize" />

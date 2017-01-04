@@ -68,7 +68,7 @@ public class ParentAddGroup extends BaseActivity {
     ArrayList<PlaySearchDateModel> parentAddGroupArrayList;
     ArrayList<ParentFriendModel> parentFriendModels;
     ParentFriendModel groupId;
-    String imageData;
+    String imageData, friendsSelected;
     ImageView iv_upload_profile_photo;
     private String userChoosenTask, friendsList;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1, SELECT_FRIENDS = 2;
@@ -117,8 +117,12 @@ public class ParentAddGroup extends BaseActivity {
         iv_addMemberToGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //  parentFriendModels;
                 // startActivity(new Intent(getApplicationContext(), ParentAddFriendList.class));
-                startActivityForResult(new Intent(getApplicationContext(), ParentAddFriendList.class), SELECT_FRIENDS);
+                /*startActivityForResult(new Intent(getApplicationContext(), ParentAddFriendList.class)
+                        .putExtra("selected",friendsSelected), SELECT_FRIENDS);*/
+                startActivityForResult(new Intent(getApplicationContext(), ParentAddFriendList.class)
+                        .putParcelableArrayListExtra("selected", parentFriendModels), SELECT_FRIENDS);
             }
         });
         tv_done.setOnClickListener(new View.OnClickListener() {
@@ -403,6 +407,10 @@ public class ParentAddGroup extends BaseActivity {
 
     private void arrayToString(Intent data) {
         friendsList = data.getStringExtra("friendsList");
+        parentFriendModels.clear();
+        parentFriendModels = data.getParcelableArrayListExtra("friendObject");
+        adapter = new ParentGroupRowAdapter(parentFriendModels, context);
+        mRecyclerView.setAdapter(adapter);
         Log.v("friend list", "friend list: " + data.getStringExtra("friendsList"));
     }
 
@@ -468,6 +476,7 @@ public class ParentAddGroup extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (!jsonObject.has("Error")) {
+                                friendsSelected = jsonObject.getString("grp_friends");
                                 JSONArray jsonArray = jsonObject.getJSONArray("grp_friends2");
                                 int sz = jsonArray.length();
                                 for (int g = 0; g < sz; g++) {
@@ -475,8 +484,9 @@ public class ParentAddGroup extends BaseActivity {
                                     ParentFriendModel parentFriendModel = new ParentFriendModel();
                                     parentFriendModel.setpId(friendObject.getString("p_id"));
                                     parentFriendModel.setpName(friendObject.getString("p_name"));
-                                    //   parentFriendModel.setpImgUrl(friendObject.getString("p_pic"));
+                                    parentFriendModel.setpImgUrl(friendObject.getString("p_pic"));
                                     parentFriendModels.add(parentFriendModel);
+                                    friendsList = friendObject.getString("p_id") + ",";
                                 }
                                 adapter = new ParentGroupRowAdapter(parentFriendModels, context);
                                 mRecyclerView.setAdapter(adapter);
@@ -502,7 +512,6 @@ public class ParentAddGroup extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&grp_id=" + groupId.getpId();
-                //  String credentials = "p_id=42&grp_id=" + groupId;
                 Log.v("url", "url " + credentials);
                 try {
                     return credentials.getBytes(getParamsEncoding());
