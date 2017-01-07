@@ -1,12 +1,16 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +49,7 @@ public class ParentPlayDateEvents extends BaseActivity {
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
     ArrayList<PlayDateEventsModel> playDateArrayList;
+    EditText editTextPlayEventsSearch;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -63,7 +68,16 @@ public class ParentPlayDateEvents extends BaseActivity {
     private void initViewControll() {
         TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
         toolbarTextView.setText("Play Date");
-
+        TextView tv_save = (TextView) findViewById(R.id.setting_Save);
+        tv_save.setVisibility(View.VISIBLE);
+        tv_save.setText("+");
+        tv_save.setTextSize(18f);
+        tv_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ParentEventCreation.class).putExtra("eventId", (Parcelable[]) null));
+            }
+        });
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
             mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
@@ -73,7 +87,48 @@ public class ParentPlayDateEvents extends BaseActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
             playDateArrayList = new ArrayList<PlayDateEventsModel>();
+            editTextPlayEventsSearch = (EditText) findViewById(R.id.searchAutoComplete);
 
+
+           /* editTextPlayEventsSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    charSequence = charSequence.toString().toLowerCase();
+
+                    final ArrayList<PlaySearchDateModel> filteredList = new ArrayList<PlaySearchDateModel>();
+
+                    for (int v = 0; v < playSearchArrayList.size(); v++) {
+
+                        final String text = playSearchArrayList.get(v).getpName().toLowerCase();
+                        if (text.contains(charSequence)) {
+
+                            filteredList.add(playSearchArrayList.get(v));
+                        }
+                        *//*else
+                        {   filteredList.clear();
+                            filteredList.addAll(playSearchArrayList);
+                        }*//*
+                    }
+
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentPlayDateSearch.this));
+                    adapter = new ParentSearchPlayAdapter(filteredList, context);
+                    mRecyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();  // data set changed
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+
+                }
+            });*/
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -118,6 +173,7 @@ public class ParentPlayDateEvents extends BaseActivity {
                                     playDateEventsModel.setDate(jsonObjectParent.getString("pe_date"));
                                     playDateEventsModel.setTime(jsonObjectParent.getString("pe_time"));
                                     playDateEventsModel.setpEid(jsonObjectParent.getString("pe_id"));
+                                    playDateEventsModel.setPe_edit(jsonObjectParent.getString("pe_edit"));
                                     int c = jsonObjectParent.getJSONArray("pid_list").length();
                                     JSONArray profileArray = jsonObjectParent.getJSONArray("pid_list");
                                     ArrayList<PlayDateEventsModel> subProfileArray = new ArrayList<PlayDateEventsModel>();
@@ -132,7 +188,7 @@ public class ParentPlayDateEvents extends BaseActivity {
                                     }
                                     playDateArrayList.add(playDateEventsModel);
                                 }
-                                mRecyclerView.setAdapter(new ListChipsAdapter(playDateArrayList));
+                                mRecyclerView.setAdapter(new ListChipsAdapter(playDateArrayList, "events"));
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();

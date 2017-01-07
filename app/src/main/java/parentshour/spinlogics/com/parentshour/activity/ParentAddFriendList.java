@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.adapter.ParentAddFriendAdapter;
+import parentshour.spinlogics.com.parentshour.adapter.ParentFriendAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
@@ -52,6 +56,7 @@ public class ParentAddFriendList extends BaseActivity {
     int size = 0;
     List<String> myFriendsList;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    EditText editTextFriendSearch;
     @Override
     public void initialize() {
         context = ParentAddFriendList.this;
@@ -129,6 +134,42 @@ public class ParentAddFriendList extends BaseActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
         parentAddedFriendArrayList = new ArrayList<ParentFriendModel>();
+        editTextFriendSearch = (EditText) findViewById(R.id.searchAutoComplete);
+
+
+        editTextFriendSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                charSequence = charSequence.toString().toLowerCase();
+
+                final ArrayList<ParentFriendModel> filteredList = new ArrayList<ParentFriendModel>();
+
+                for (int v = 0; v < parentAddedFriendArrayList.size(); v++) {
+
+                    final String text = parentAddedFriendArrayList.get(v).getpName().toLowerCase();
+                    if (text.contains(charSequence)) {
+
+                        filteredList.add(parentAddedFriendArrayList.get(v));
+                    }
+                }
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentAddFriendList.this));
+                adapter = new ParentFriendAdapter(filteredList, context);
+                mRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
         // parentselectedFriendArrayList = new ArrayList<ParentFriendModel>();
     }
 

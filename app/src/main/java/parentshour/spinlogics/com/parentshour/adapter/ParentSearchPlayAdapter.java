@@ -91,11 +91,11 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
                 }
             }
         });
+
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_education, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_age, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_ethnicity, FontStyle.Lato_Medium, activity);
-
     }
 
     @Override

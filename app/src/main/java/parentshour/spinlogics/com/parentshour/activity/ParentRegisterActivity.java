@@ -2,10 +2,14 @@ package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +33,9 @@ import com.crashlytics.android.Crashlytics;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
@@ -45,6 +52,7 @@ public class ParentRegisterActivity extends BaseNew {
     TextView toolbarTextView;
    /* Typeface custom_font;
     FontType fontType;*/
+   Spinner spinner_ethnicity;
     LinearLayout ll_age, ll_occ, ll_gender, ll_edu, ll_origin, ll_avail_day, ll_avail_time;
     ImageView iv_age, iv_occupation, iv_education;
     View view_age, view_occ, view_edu;
@@ -55,7 +63,8 @@ public class ParentRegisterActivity extends BaseNew {
     CheckBox cb_weekdays, cb_weekends, cb_morning, cb_afternoon, cb_evening;
     Button btn_signup;
     PreferenceUtils preferenceUtils;
-    String cb_weekdaysValue,rg_gender_value ="",value,valueTimimgs, cb_weekendsValue, cb_morningValue, cb_afternoonValue, cb_eveningValue;
+    List<String> Lines = null;
+    String ethnicity, cb_weekdaysValue, rg_gender_value = "", value, valueTimimgs, cb_weekendsValue, cb_morningValue, cb_afternoonValue, cb_eveningValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +172,13 @@ public class ParentRegisterActivity extends BaseNew {
                     {
                         if (NetworkUtils.isNetworkConnectionAvailable(mContext)) {
                             showLoaderNew();
-                            sendData();
+                            if (!edt_occupation.getText().toString().equals("")) {
+                                sendData();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Please enter the occupation", Toast.LENGTH_LONG).show();
+                            }
+
+
                         } else {
                             Toast.makeText(mContext, "Please check internet connection", Toast.LENGTH_LONG).show();
                         }
@@ -281,7 +296,7 @@ public class ParentRegisterActivity extends BaseNew {
                         "&p_occupation="+occupaction+
                         "&p_gender="+rg_gender_value+
                         "&p_education="+education+
-                        "&p_ethnicity="+
+                        "&p_ethnicity=" + ethnicity +
                         "&p_avail_days="+validateSignup()+
                         "&p_avail_time="+validateTimings();
 Log.v("res cre","res cre "+credentials);
@@ -309,13 +324,6 @@ Log.v("res cre","res cre "+credentials);
         requestQueue.add(stringRequest);
     }
 
-   /* private void setFontToAll() {
-      //  edt_userid.setTypeface(custom_font);
-    }*/
-
-  /*  public void clearEditText() {
-      // edt_userpwd.setText("");
-    }*/
 
     public void showAlertValidation(String error) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
@@ -336,21 +344,10 @@ Log.v("res cre","res cre "+credentials);
 
     }
 
-    private void getTextSignup()
-    {
-      /*  UserName=edt_userName.getText().toString();
-        EmailId=edt_email.getText().toString();
-        MobileNum=edt_mobile.getText().toString();
-        UserPass=edt_userpwd.getText().toString();
-        UserCnfmPass=edt_cnfrmpwd.getText().toString();*/
-    }
-
-
 
     private void initializeControls() {
 
          btn_signup = (Button) findViewById(R.id.btn_signup);
-
         cb_weekdays = (CheckBox) findViewById(R.id.cb_weekdays);
         cb_weekends = (CheckBox) findViewById(R.id.cb_weekends);
         cb_morning= (CheckBox) findViewById(R.id.cb_morning);
@@ -378,6 +375,8 @@ Log.v("res cre","res cre "+credentials);
         iv_occupation = (ImageView) findViewById(R.id.iv_occupation);
         iv_education = (ImageView) findViewById(R.id.iv_education);
 
+        spinner_ethnicity = (Spinner) findViewById(R.id.spinner_ethnicity);
+
         view_age = findViewById(R.id.view_age);
         view_occ = findViewById(R.id.view_occ);
         view_edu = findViewById(R.id.view_edu);
@@ -390,7 +389,47 @@ Log.v("res cre","res cre "+credentials);
         edt_occupation = (EditText) findViewById(R.id.edt_occupation);
         edt_education = (EditText) findViewById(R.id.edt_education);
 
+        Lines = Arrays.asList(getResources().getStringArray(R.array.enthincityArray));
 
+        ArrayAdapter adapterBusinessType = new ArrayAdapter<String>(this, R.layout.row_spinner, Lines) {
+            @Override
+            public int getCount() {
+                return Lines.size();
+            }
+
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View row;
+
+                if (null == convertView) {
+                    row = LayoutInflater.from(mContext).inflate(R.layout.row_spinner, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(R.id.tv_ethnicity_row);
+                tv.setText(getItem(position));
+
+                return row;
+            }
+        };
+        adapterBusinessType.setDropDownViewResource(R.layout.row_spinner);
+
+        spinner_ethnicity.setAdapter(adapterBusinessType);
+
+        spinner_ethnicity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ethnicity = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
 }

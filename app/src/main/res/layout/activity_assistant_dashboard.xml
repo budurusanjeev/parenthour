@@ -14,7 +14,7 @@
         android:background="@drawable/edittext_search_background"
         android:orientation="horizontal">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/searchAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="@string/search"
+            android:maxLines="1"
             android:padding="10dp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange" />

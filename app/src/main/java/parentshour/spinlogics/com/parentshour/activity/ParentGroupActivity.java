@@ -7,9 +7,12 @@ import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +51,7 @@ public class ParentGroupActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
     ArrayList<ParentFriendModel> friendsArrayList;
+    EditText editTextGroupSearch;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -85,6 +89,44 @@ public class ParentGroupActivity extends BaseActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
             friendsArrayList = new ArrayList<ParentFriendModel>();
+
+            editTextGroupSearch = (EditText) findViewById(R.id.searchAutoComplete);
+
+
+            editTextGroupSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    charSequence = charSequence.toString().toLowerCase();
+
+                    final ArrayList<ParentFriendModel> filteredList = new ArrayList<ParentFriendModel>();
+
+                    for (int v = 0; v < friendsArrayList.size(); v++) {
+
+                        final String text = friendsArrayList.get(v).getpName().toLowerCase();
+                        if (text.contains(charSequence)) {
+
+                            filteredList.add(friendsArrayList.get(v));
+                        }
+                    }
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentGroupActivity.this));
+                    adapter = new ParentGroupAdapter(filteredList, context);
+                    mRecyclerView.setAdapter(adapter);
+                    mRecyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+
+                }
+            });
 
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override

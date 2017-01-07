@@ -70,7 +70,7 @@ public class AutoPlayDateSearchAdapter extends ArrayAdapter<PlaySearchDateModel>
         this.items = items;
         suggestions = new ArrayList<PlaySearchDateModel>();
         tempItems = new ArrayList<PlaySearchDateModel>(items);
-//        Log.v("name ","name: "+items.get(0).getpName());
+
     }
 
     @Override

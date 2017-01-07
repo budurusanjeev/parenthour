@@ -36,6 +36,7 @@
 
                 <TextView
                     android:id="@+id/profile_name"
+                    fontPath="assets\Lato-Bold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -52,14 +53,17 @@
 
                 <TextView
                     android:id="@+id/tv_title"
+                    fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/about"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fourteen_textSize" />
 
                 <TextView
 
                     android:id="@+id/tv_date"
+                    fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray_color"
@@ -68,6 +72,7 @@
                 <TextView
 
                     android:id="@+id/tv_time"
+                    fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray_color"
@@ -75,6 +80,7 @@
 
                 <TextView
                     android:id="@+id/tv_status"
+                    fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray_color"

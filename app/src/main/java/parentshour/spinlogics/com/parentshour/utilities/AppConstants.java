@@ -84,6 +84,12 @@ public class AppConstants
 	public static String PARENT_ACCEPT_FRIEND_URL = HOST_URL + "p_friend_accept.php";
 	public static String PARENT_BLOCK_FRIEND_URL = HOST_URL + "p_friend_block.php";
 	public static String PARENT_IGNORE_FRIEND_URL = HOST_URL + "p_friend_ignore.php";
+	public static String PARENT_CREATE_EVENT_URL = HOST_URL + "p_add_play_date.php";
+	public static String PARENT_GET_EVENT_URL = HOST_URL + "p_get_play_date_details.php";
+	public static String PARENT_EDIT_EVENT_URL = HOST_URL + "p_edit_play_date.php";
+	public static String PARENT_ACCEPT_EVENT_URL = HOST_URL + "p_accept_play_date.php";
+	public static String PARENT_REJECT_EVENT_URL = HOST_URL + "p_reject_play_date.php";
+
 
 
 	//Assistant

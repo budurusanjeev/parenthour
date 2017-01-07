@@ -11,9 +11,18 @@ public class PlayDateEventsModel {
     String date;
     String time;
     String pId;
+    String pe_edit;
     String imgurl;
     String pEid;
     ArrayList playDateMembers;
+
+    public String getPe_edit() {
+        return pe_edit;
+    }
+
+    public void setPe_edit(String pe_edit) {
+        this.pe_edit = pe_edit;
+    }
 
     public String getImgurl() {
         return imgurl;

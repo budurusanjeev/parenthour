@@ -43,6 +43,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ParentEventCreation"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activity.ParentAddGroup"

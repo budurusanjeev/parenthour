@@ -1,32 +1,75 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.ParentEventCreation;
+import parentshour.spinlogics.com.parentshour.activity.ParentPlayDateSelectionEvent;
 import parentshour.spinlogics.com.parentshour.models.PlayDateEventsModel;
 
 public class RowChipsView extends FrameLayout {
+    Context contexts;
 
-    public RowChipsView(Context context) {
+    public RowChipsView(Context context, String nameRow) {
         super(context);
-        initializeView(context);
+        initializeView(context, nameRow);
+        this.contexts = context;
     }
 
-    private void initializeView(Context context) {
+    private void initializeView(Context context, String name) {
         LayoutInflater.from(context).inflate(R.layout.row_horizontal_recyclerview, this);
+        if (name.equals("events")) {
+            findViewById(R.id.tv_yes).setVisibility(GONE);
+            findViewById(R.id.tv_no).setVisibility(GONE);
+            findViewById(R.id.tv_attend).setVisibility(GONE);
+
+        }
+        /*else
+        {
+
+        }*/
         ((RecyclerView) findViewById(R.id.recyclerViewHorizontal)).setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    public void setAdapter(PlayDateEventsModel playDateEventsModel, ChipsAdapter adapter) {
+    public void setAdapter(final PlayDateEventsModel playDateEventsModel, ChipsAdapter adapter) {
 
-        //((TextView)findViewById(R.id.chipTextView)).setText(playDateEventsModel.getName());
         ((TextView) findViewById(R.id.tv_date)).setText(playDateEventsModel.getDate());
         ((TextView) findViewById(R.id.tv_time)).setText(playDateEventsModel.getTime());
+        (findViewById(R.id.tv_yes)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ParentPlayDateSelectionEvent) contexts).acceptRequest(playDateEventsModel.getpEid());
+
+            }
+        });
+
+        (findViewById(R.id.tv_no)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ParentPlayDateSelectionEvent) contexts).rejectRequest(playDateEventsModel.getpEid());
+
+            }
+        });
+        if (playDateEventsModel.getPe_edit().equals("1")) {
+            findViewById(R.id.iv_edit_events).setVisibility(VISIBLE);
+            findViewById(R.id.iv_edit_events).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    contexts.startActivity(new Intent(contexts, ParentEventCreation.class)
+                            .putExtra("eventId", playDateEventsModel.getpEid()));
+                }
+            });
+        } else {
+            findViewById(R.id.iv_edit_events).setVisibility(GONE);
+        }
+
         ((RecyclerView) findViewById(R.id.recyclerViewHorizontal)).setAdapter(adapter);
     }
 }

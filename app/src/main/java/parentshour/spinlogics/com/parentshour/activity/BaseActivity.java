@@ -93,8 +93,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         preferenceUtils = new PreferenceUtils(basecontext);
 
-        basecontext=BaseActivity.this;
-
         this.savedInstanceState=savedInstanceState;
 
         inflater = this.getLayoutInflater();

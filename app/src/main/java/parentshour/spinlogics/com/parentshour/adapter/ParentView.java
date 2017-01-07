@@ -1,18 +1,19 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.ParentPlaySearchDateDetailViewActivity;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 
 /**
@@ -45,7 +46,9 @@ public class ParentView extends FrameLayout {
         imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "clicked:  " + playDateEventsModel.getpId(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(context, "clicked:  " + playDateEventsModel.getpId(), Toast.LENGTH_LONG).show();
+                context.startActivity(new Intent(context, ParentPlaySearchDateDetailViewActivity.class).putExtra("id", playDateEventsModel.getpId()));
+
             }
         });
     }

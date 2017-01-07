@@ -178,9 +178,9 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void setFriendRequest(final String friendId) {
+    public void acceptRequest(final String friendId) {
         showLoaderNew();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_FRIEND_REQUEST_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_ACCEPT_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -193,6 +193,7 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                             if (jsonObject.has("Success")) {
 
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                                finish();
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -218,10 +219,8 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&to_p_id=" + friendId;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&pe_id=" + friendId;
                 Log.v("credentials", "credentials " + credentials);
-                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
-
                 try {
                     return credentials.getBytes(getParamsEncoding());
                 } catch (UnsupportedEncodingException uee) {
@@ -247,9 +246,9 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
 
     }
 
-    public void setFlagParent(final String friendId) {
+    public void rejectRequest(final String friendId) {
         showLoaderNew();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_FRIEND_FLAG_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_REJECT_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -287,7 +286,7 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&to_p_id=" + friendId;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&pe_id=" + friendId;
                 Log.v("credentials", "credentials " + credentials);
                 // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
 

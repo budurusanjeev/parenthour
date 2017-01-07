@@ -8,12 +8,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +48,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import parentshour.spinlogics.com.parentshour.R;
@@ -81,8 +87,10 @@ public class ParentEditActivity extends BaseActivity {
             cb_afternoonValue,
             cb_eveningValue;
     CheckBox cb_weekdays, cb_weekends, cb_morning, cb_afternoon, cb_evening;
+    Spinner ethnicitySpinner;
+    List<String> Lines = null;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
+    private String userChoosenTask, ethnicity;
     private PreferenceUtils preferenceUtils;
 
     @Override
@@ -310,7 +318,7 @@ public class ParentEditActivity extends BaseActivity {
                             "&p_occupation="+ edt_occupation.getText().toString()+
                             "&p_gender="+ rg_gender_value+
                             "&p_education="+ edt_education.getText().toString()+
-                            "&p_ethnicity= Indian"+
+                            "&p_ethnicity=" + ethnicity +
                             "&p_avail_days="+validateSignup() +
                             "&p_avail_time="+validateTimings() +
                             "&photo="+imageData;
@@ -327,7 +335,7 @@ public class ParentEditActivity extends BaseActivity {
                             "&p_occupation="+ edt_occupation.getText().toString()+
                             "&p_gender="+ rg_gender_value+
                             "&p_education="+ edt_education.getText().toString()+
-                            "&p_ethnicity= Indian"+
+                            "&p_ethnicity=" + ethnicity +
                             "&p_avail_days="+validateSignup() +
                             "&p_avail_time="+validateTimings() ;
                 }
@@ -491,6 +499,7 @@ public class ParentEditActivity extends BaseActivity {
                                 edt_phone.setText(jsonObject.getString("p_mobile"));
                                 edt_age.setText(jsonObject.getString("p_age"));
                                 edt_occupation.setText(jsonObject.getString("p_occupation"));
+                                ethnicitySpinner.setSelection(Lines.indexOf(jsonObject.getString("p_ethnicity")));
                                 if(jsonObject.getString("p_gender").equals("male"))
                                 {
                                     rb_male.setChecked(true);
@@ -579,46 +588,10 @@ public class ParentEditActivity extends BaseActivity {
                                                 }
                                                 break;
                                         }
-                                       /* if(jsonObject.getString("p_avail_time").equals("Morning"))
-                                        {
-                                            cb_morning.setChecked(true);
-
-                                        }
-                                        if(jsonObject.getString("p_avail_time").equals("Afternoon"))
-                                        {
-                                            cb_afternoon.setChecked(true);
-
-                                        }
-                                        if(jsonObject.getString("p_avail_time").equals("Evening"))
-                                        {
-                                            cb_evening.setChecked(true);
-                                        }*/
-                                    }
-
-                                   /* if(jsonObject.getString("p_avail_time").equals("Morning"))
-                                    {
-                                        cb_morning.setChecked(true);
 
                                     }
-                                    if(jsonObject.getString("p_avail_time").equals("Afternoon"))
-                                    {
-                                        cb_afternoon.setChecked(true);
 
-                                    }
-                                    if(jsonObject.getString("p_avail_time").equals("Evening"))
-                                    {
-                                        cb_evening.setChecked(true);
-                                    }
-                                    if(jsonObject.getString("p_avail_time").equals("Morning,Afternoon"))
-                                    {
-                                        cb_morning.setChecked(true);
-                                        cb_afternoon.setChecked(true);
-                                    }
-                                    if(jsonObject.getString("p_avail_time").equals("Afternoon,Evening"))
-                                    {
-                                        cb_morning.setChecked(true);
-                                        cb_afternoon.setChecked(true);
-                                    }*/
+
                                 }
                                 edt_education.setText(jsonObject.getString("p_education"));
 
@@ -628,14 +601,12 @@ public class ParentEditActivity extends BaseActivity {
                                         .error(R.drawable.ic_addprofile)
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
-                              //  Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success-msg"), Toast.LENGTH_LONG).show();
-                                //startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
                                 Log.v("res ", "res  success" + jsonObject.toString());
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                                 if (jsonObject.getString("Error").equals("Parent Account doesn't exist.")) {
-
+                                    //TODO if parent doesn't exist
                                 }
                                 Log.v("res ", "res  success" + jsonObject.toString());
                             }
@@ -778,11 +749,55 @@ public class ParentEditActivity extends BaseActivity {
 
         bt_save = (Button)findViewById(R.id.btn_save);
         bt_cancel = (Button)findViewById(R.id.btn_cancel);
+
+        ethnicitySpinner = (Spinner) findViewById(R.id.spinner_ethnicity);
+        //
+        Lines = Arrays.asList(getResources().getStringArray(R.array.enthincityArray));
+      /* ArrayAdapter adapterBusinessType = new ArrayAdapter<String>
+               (this,R.layout.row_spinner,Lines);*/
+        ArrayAdapter adapterBusinessType = new ArrayAdapter<String>(this, R.layout.row_spinner, Lines) {
+            @Override
+            public int getCount() {
+                return Lines.size();
+            }
+
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View row;
+
+                if (null == convertView) {
+                    row = LayoutInflater.from(context).inflate(R.layout.row_spinner, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(R.id.tv_ethnicity_row);
+                tv.setText(getItem(position));
+
+                return row;
+            }
+        };
+        adapterBusinessType.setDropDownViewResource(R.layout.row_spinner);
+
+        ethnicitySpinner.setAdapter(adapterBusinessType);
+
         TextView toolbarTextView = (TextView)findViewById(R.id.page_heading);
         toolbarTextView.setText("Edit Profile");
         LinearLayout par_edit_layout = (LinearLayout)findViewById(R.id.par_edit_layout);
         FontStyle.applyFont(getApplicationContext(),par_edit_layout, FontStyle.Lato_Medium);
+        ethnicitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                ethnicity = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
     @Override
     public void goto_playDateSearch_method() {

@@ -5,9 +5,11 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +50,7 @@ public class ParentPlayDateSearch extends BaseActivity {
     RecyclerView.Adapter adapter;
     AutoPlayDateSearchAdapter searchAdapter;
     ArrayList<PlaySearchDateModel> playSearchArrayList;
-    AutoCompleteTextView playDateSearch;
+    EditText editTextPlayDateSearch;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -76,10 +78,42 @@ public class ParentPlayDateSearch extends BaseActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
             playSearchArrayList = new ArrayList<PlaySearchDateModel>();
-            playDateSearch = (AutoCompleteTextView) findViewById(R.id.searchAutoComplete);
-            playDateSearch.setThreshold(1);
+            editTextPlayDateSearch = (EditText) findViewById(R.id.searchAutoComplete);
 
 
+            editTextPlayDateSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    charSequence = charSequence.toString().toLowerCase();
+
+                    final ArrayList<PlaySearchDateModel> filteredList = new ArrayList<PlaySearchDateModel>();
+
+                    for (int v = 0; v < playSearchArrayList.size(); v++) {
+
+                        final String text = playSearchArrayList.get(v).getpName().toLowerCase();
+                        if (text.contains(charSequence)) {
+
+                            filteredList.add(playSearchArrayList.get(v));
+                        }
+                    }
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentPlayDateSearch.this));
+                    adapter = new ParentSearchPlayAdapter(filteredList, context);
+                    mRecyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+
+                }
+            });
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -89,9 +123,6 @@ public class ParentPlayDateSearch extends BaseActivity {
                         public void run() {
                             playSearchArrayList.clear();
                             getPlayDate();
-                            // mRecyclerView.setAdapter(adapter);
-                            // searchAdapter = new AutoPlayDateSearchAdapter(context, R.layout.row_playdate_search, playSearchArrayList);
-                            // playDateSearch.setAdapter(searchAdapter);
                         }
                     }, 1500);
                     mSwipeRefreshLayout.setRefreshing(false);
@@ -240,6 +271,7 @@ public class ParentPlayDateSearch extends BaseActivity {
 
 
     }
+
     private void getPlayDate() {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
@@ -271,8 +303,7 @@ public class ParentPlayDateSearch extends BaseActivity {
                                 }
                                 adapter = new ParentSearchPlayAdapter(playSearchArrayList, context);
                                 mRecyclerView.setAdapter(adapter);
-                                searchAdapter = new AutoPlayDateSearchAdapter(context, R.layout.row_playdate_search, playSearchArrayList);
-                                playDateSearch.setAdapter(searchAdapter);
+
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();

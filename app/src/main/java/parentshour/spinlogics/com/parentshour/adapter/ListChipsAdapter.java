@@ -11,16 +11,18 @@ import parentshour.spinlogics.com.parentshour.models.PlayDateEventsModel;
 public class ListChipsAdapter extends RecyclerView.Adapter {
 
     private ArrayList<PlayDateEventsModel> chipsArray;
+    private String namerow;
 
-    public ListChipsAdapter(ArrayList<PlayDateEventsModel> chipsArray) {
+    public ListChipsAdapter(ArrayList<PlayDateEventsModel> chipsArray, String name) {
         this.chipsArray = chipsArray;
+        this.namerow = name;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_assistant_dashboard, parent, false);
 
-        return new ChipsViewHolder(new RowChipsView(parent.getContext()));
+        return new ChipsViewHolder(new RowChipsView(parent.getContext(), namerow));
     }
 
     @Override

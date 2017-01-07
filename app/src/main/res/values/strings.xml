@@ -12,19 +12,24 @@
         <item>Chats</item>
     </string-array>
 
+    <string-array name="enthincityArray">
+        <item>Select ethnicity</item>
+        <item>Hispanic or Latino</item>
+        <item>Asian</item>
+        <item>White</item>
+        <item>African American</item>
+        <item>Other</item>
+    </string-array>
 
     <array name="nav_drawer_icons">
-        <!--<item>@drawable/ic_search</item>
-        <item>@drawable/parentasstant</item>-->
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_assistantrequests</item>
         <item>@drawable/ic_friend</item>
         <item>@drawable/ic_notifications</item>
-        <!-- <item>@drawable/ic_playdateevents</item>-->
         <item>@drawable/ic_setting</item>
         <item>@drawable/ic_chats</item>
-
     </array>
+
 
     <array name="nav_drawer_assistant_icons">
         <item>@drawable/ic_home</item>
@@ -158,5 +163,10 @@
     <string name="do_you_want_to_attend">Do you want to attend ?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="date">Date:</string>
+    <string name="time">Time</string>
+    <string name="address">Address</string>
+    <string name="addfriends">Add Friends</string>
+    <string name="create">Create</string>
 
 </resources>

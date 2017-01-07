@@ -13,7 +13,7 @@
         android:background="@drawable/edittext_search_background"
         android:orientation="horizontal">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/searchAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

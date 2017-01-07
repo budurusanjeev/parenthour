@@ -1,6 +1,7 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.ParentPlaySearchDateDetailViewActivity;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
@@ -52,6 +54,13 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.iv_profile_pic);
 
+        viewHolder.iv_profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class)
+                        .putExtra("id", list.get(s).getpId()));
+            }
+        });
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
         viewHolder.cb_friend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
