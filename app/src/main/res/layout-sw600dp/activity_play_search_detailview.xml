@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/par_get_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar_layout" />
+    <!--
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_upload_profile_photo"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_profilelogo" />
+
+            <TextView
+                android:id="@+id/tv_userName_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/gray_color"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/Orange" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_name"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_name"
+                android:gravity="center_vertical"
+                android:text="@string/name"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_zip_code_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_zipcode"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_zipcode"
+                android:gravity="center_vertical"
+                android:text="@string/zipcode"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_zipcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/emailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_email"
+                android:gravity="center_vertical"
+                android:text="@string/email"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_fifteen_textSize" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_fifteen_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mobileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_mobileno"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_mobileno"
+                android:gravity="center_vertical"
+                android:text="@string/mobile_no"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_fifteen_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_age_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_age"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_age"
+                android:gravity="center_vertical"
+                android:text="@string/age"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_occupation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_occupation"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_occupation"
+                android:gravity="center_vertical"
+                android:text="@string/occupation"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_occupation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_gender_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_gender"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_gender"
+                android:gravity="center_vertical"
+                android:text="@string/genders"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/ll_education_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_education"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_education"
+                android:gravity="center_vertical"
+                android:text="@string/education"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_education"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_ethnicity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_ethnicity"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_ethnicity"
+                android:gravity="center_vertical"
+                android:text="@string/ethnicity"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_ethnicity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_available_days_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_availabledays"
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_availabledays"
+                android:gravity="center_vertical"
+                android:text="@string/available_days"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_available_days"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_available_time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:background="@color/gray_use"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_availabletime"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_availabletime"
+                android:gravity="center_vertical"
+                android:text="@string/available_times"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
+            <TextView
+                android:id="@+id/tv_available_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <!--
+        </ScrollView>-->
+
+
+</LinearLayout>

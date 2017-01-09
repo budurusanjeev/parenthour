@@ -51,8 +51,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -86,18 +88,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_zip_code_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -131,113 +125,12 @@
                 </TextView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="gone">
-
-            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/emailLayout"
+                android:id="@+id/ll_age_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray_use"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_email"
-                    android:gravity="center_vertical"
-                    android:text="@string/email"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
-
-                <TextView
-                    android:id="@+id/tv_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    android:textStyle="bold">
-
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="gone">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mobileLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray_use"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_mobileno"
-                    android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_mobileno"
-                    android:gravity="center_vertical"
-                    android:text="@string/mobile_no"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize" />
-
-                <TextView
-                    android:id="@+id/tv_mobile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/activity_fifteen_textSize"
-                    android:textStyle="bold">
-
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -249,6 +142,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_age"
+                    android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_age"
                     android:gravity="center_vertical"
                     android:text="@string/age"
@@ -269,19 +163,13 @@
                 </TextView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
 
             <LinearLayout
+
+                android:id="@+id/ll_occupation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -315,18 +203,11 @@
             </LinearLayout>
 
             <LinearLayout
+
+                android:id="@+id/ll_gender_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -360,18 +241,11 @@
             </LinearLayout>
 
             <LinearLayout
+
+                android:id="@+id/ll_education_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -405,18 +279,11 @@
             </LinearLayout>
 
             <LinearLayout
+
+                android:id="@+id/ll_ethnicity_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -449,19 +316,13 @@
                 </TextView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:padding="10dp">
-
-            </LinearLayout>
 
             <LinearLayout
 
+                android:id="@+id/ll_available_days_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
@@ -495,20 +356,13 @@
                 </TextView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-            </LinearLayout>
 
             <LinearLayout
+
+                android:id="@+id/ll_available_time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@color/gray_use"
                 android:baselineAligned="false"
                 android:orientation="horizontal">

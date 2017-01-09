@@ -29,8 +29,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/edittext_white_background"
-            android:drawableEnd="@drawable/ic_add"
-            android:drawableRight="@drawable/ic_add"
+            android:drawableEnd="@drawable/ic_date_button"
+            android:drawableRight="@drawable/ic_date_button"
             android:padding="5dp"
             android:textColor="@color/gray_color" />
 
@@ -54,8 +54,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/edittext_white_background"
-            android:drawableEnd="@drawable/ic_add"
-            android:drawableRight="@drawable/ic_add"
+            android:drawableEnd="@drawable/ic_time_button"
+            android:drawableRight="@drawable/ic_time_button"
             android:padding="5dp"
             android:textColor="@color/gray_color" />
 

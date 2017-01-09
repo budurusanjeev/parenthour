@@ -89,7 +89,7 @@ public class AppConstants
 	public static String PARENT_EDIT_EVENT_URL = HOST_URL + "p_edit_play_date.php";
 	public static String PARENT_ACCEPT_EVENT_URL = HOST_URL + "p_accept_play_date.php";
 	public static String PARENT_REJECT_EVENT_URL = HOST_URL + "p_reject_play_date.php";
-
+	public static String PARENT_SELECTED_PROFILE_URL = HOST_URL + "p_get_selected_user_profile_android.php";
 
 
 	//Assistant

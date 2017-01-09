@@ -47,7 +47,8 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
             tv_age, tv_occupation, tv_gender, tv_education, tv_ethnicity,
             tv_available_days, tv_available_time, tv_username;
     String parentId;
-
+    LinearLayout ll_name_layout, ll_zip_code_layout, ll_age_layout, ll_occupation_layout, ll_gender_layout,
+            ll_education_layout, ll_ethnicity_layout, ll_available_days_layout, ll_available_time_layout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
         // showLoaderNew();
         final LoadingText loadingText = new LoadingText(ParentPlaySearchDateDetailViewActivity.this);
         loadingText.showLoaderNew(ParentPlaySearchDateDetailViewActivity.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.GET_PARENT_PROFILE_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_SELECTED_PROFILE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -76,22 +77,77 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                         loadingText.hideloader(ParentPlaySearchDateDetailViewActivity.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-
+//ll_name_layout,
+// ll_zip_code_layout,
+// ll_age_layout,
+// ll_occupation_layout,
+// ll_gender_layout,
+                            //    ll_education_layout,
+                            // ll_ethnicity_layout,
+                            // ll_available_days_layout,
+                            // ll_available_time_layout
                             if (!jsonObject.has("Error")) {
-                                tv_name.setText(jsonObject.getString("p_name"));
+
                                 tv_username.setText(jsonObject.getString("p_name"));
-                                tv_zipcode.setText(jsonObject.getString("p_zip"));
+
+                                if (!jsonObject.getString("p_name").equals("")) {
+                                    tv_name.setText(jsonObject.getString("p_name"));
+                                } else {
+                                    ll_name_layout.setVisibility(View.GONE);
+                                }
+
+                                if (!jsonObject.getString("p_zip").equals("")) {
+                                    tv_zipcode.setVisibility(View.VISIBLE);
+                                    tv_zipcode.setText(jsonObject.getString("p_zip"));
+                                } else {
+                                    ll_zip_code_layout.setVisibility(View.GONE);
+                                }
+
                                 //tv_email.setText(jsonObject.getString("p_email"));
                                 // tv_mobile.setText(jsonObject.getString("p_mobile"));
-                                tv_email.setVisibility(View.GONE);
-                                tv_mobile.setVisibility(View.GONE);
-                                tv_age.setText(jsonObject.getString("p_age"));
-                                tv_occupation.setText(jsonObject.getString("p_occupation"));
-                                tv_gender.setText(jsonObject.getString("p_gender"));
-                                tv_education.setText(jsonObject.getString("p_education"));
-                                tv_ethnicity.setText(jsonObject.getString("p_ethnicity"));
-                                tv_available_days.setText(jsonObject.getString("p_avail_days"));
-                                tv_available_time.setText(jsonObject.getString("p_avail_time"));
+                                // tv_email.setVisibility(View.GONE);
+                                // tv_mobile.setVisibility(View.GONE);
+                                if (!jsonObject.getString("p_age").equals("")) {
+                                    tv_age.setText(jsonObject.getString("p_age"));
+                                } else {
+                                    ll_age_layout.setVisibility(View.GONE);
+                                }
+                                if (!jsonObject.getString("p_occupation").equals("")) {
+                                    tv_occupation.setText(jsonObject.getString("p_occupation"));
+                                } else {
+                                    ll_occupation_layout.setVisibility(View.GONE);
+                                }
+
+                                if (!jsonObject.getString("p_gender").equals("")) {
+                                    tv_gender.setText(jsonObject.getString("p_gender"));
+                                } else {
+                                    ll_gender_layout.setVisibility(View.GONE);
+                                }
+
+                                if (!jsonObject.getString("p_education").equals("")) {
+                                    tv_education.setText(jsonObject.getString("p_education"));
+                                } else {
+                                    ll_education_layout.setVisibility(View.GONE);
+                                }
+
+                                if (!jsonObject.getString("p_ethnicity").equals("")) {
+                                    tv_ethnicity.setText(jsonObject.getString("p_ethnicity"));
+                                } else {
+                                    ll_ethnicity_layout.setVisibility(View.GONE);
+                                }
+
+                                if (!jsonObject.getString("p_avail_days").equals("")) {
+                                    tv_available_days.setText(jsonObject.getString("p_avail_days"));
+                                } else {
+                                    ll_available_days_layout.setVisibility(View.GONE);
+                                }
+                                if (!jsonObject.getString("p_avail_time").equals("")) {
+                                    tv_available_time.setText(jsonObject.getString("p_avail_time"));
+                                } else {
+                                    ll_available_time_layout.setVisibility(View.GONE);
+                                }
+
+
                                 Glide.with(context).load(jsonObject.getString("p_pic"))
                                         .thumbnail(0.5f)
                                         .crossFade().error(R.drawable.ic_addprofile)
@@ -124,7 +180,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&parent_id=" + parentId;
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&to_p_id=" + parentId;
                 // String credentials = "p_id=12&parent_id=" + parentId;
                 Log.v("credentials ", "credentials " + credentials);
                 try {
@@ -152,12 +208,22 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
 
     }
 
+    /* public void setViewVisibity()
+       {
+           if(!jsonObject.getString("p_name").equals(""))
+           {
+               tv_name.setText(jsonObject.getString("p_name"));
+           }else
+           {
+               tv_name.setVisibility(View.GONE);
+           }
+       }*/
     private void initViewControll() {
         profilePic = (ImageView) findViewById(R.id.iv_upload_profile_photo);
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_zipcode = (TextView) findViewById(R.id.tv_zipcode);
-        tv_email = (TextView) findViewById(R.id.tv_email);
-        tv_mobile = (TextView) findViewById(R.id.tv_mobile);
+        // tv_email = (TextView) findViewById(R.id.tv_email);
+        // tv_mobile = (TextView) findViewById(R.id.tv_mobile);
         tv_age = (TextView) findViewById(R.id.tv_age);
         tv_occupation = (TextView) findViewById(R.id.tv_occupation);
         tv_gender = (TextView) findViewById(R.id.tv_gender);
@@ -167,12 +233,22 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
         tv_available_time = (TextView) findViewById(R.id.tv_available_time);
         tv_username = (TextView) findViewById(R.id.tv_userName_edit);
         View test1View = findViewById(R.id.toolbarLayout);
-        LinearLayout emailLayout = (LinearLayout) findViewById(R.id.emailLayout);
-        LinearLayout mobileLayout = (LinearLayout) findViewById(R.id.mobileLayout);
-        emailLayout.setVisibility(View.GONE);
-        mobileLayout.setVisibility(View.GONE);
+        // LinearLayout emailLayout = (LinearLayout) findViewById(R.id.emailLayout);
+        //// LinearLayout mobileLayout = (LinearLayout) findViewById(R.id.mobileLayout);
+        // emailLayout.setVisibility(View.GONE);
+        // mobileLayout.setVisibility(View.GONE);
         toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         toolbarTextView.setText("Parent Profile");
+
+        ll_name_layout = (LinearLayout) findViewById(R.id.ll_name_layout);
+        ll_zip_code_layout = (LinearLayout) findViewById(R.id.ll_zip_code_layout);
+        ll_age_layout = (LinearLayout) findViewById(R.id.ll_age_layout);
+        ll_occupation_layout = (LinearLayout) findViewById(R.id.ll_occupation_layout);
+        ll_gender_layout = (LinearLayout) findViewById(R.id.ll_gender_layout);
+        ll_education_layout = (LinearLayout) findViewById(R.id.ll_education_layout);
+        ll_ethnicity_layout = (LinearLayout) findViewById(R.id.ll_ethnicity_layout);
+        ll_available_days_layout = (LinearLayout) findViewById(R.id.ll_available_days_layout);
+        ll_available_time_layout = (LinearLayout) findViewById(R.id.ll_available_time_layout);
 
         TextView tv_Done = (TextView) test1View.findViewById(R.id.setting_Save);
         tv_Done.setVisibility(View.VISIBLE);

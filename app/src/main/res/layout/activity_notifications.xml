@@ -30,6 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_bell"
+            android:drawableStart="@drawable/ic_bell"
+            android:gravity="center"
             android:maxLines="1"
             android:text="@string/friend_requests"
             android:textColor="@color/gray_color"
@@ -55,9 +58,10 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_arrow"
+            android:drawableRight="@drawable/ic_arrow"
             android:gravity="right"
             android:padding="5dp"
-            android:text="@string/nextscreen"
             android:textColor="@color/gray_color"
             android:textSize="30sp" />
     </LinearLayout>
@@ -79,6 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawableStart="@drawable/ic_calendar"
+            android:gravity="center"
             android:text="@string/play_date_events"
             android:textColor="@color/gray_color"
             android:textSize="@dimen/activity_fifteen_textSize" />
@@ -103,11 +110,11 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:drawableEnd="@drawable/ic_arrow"
+            android:drawableRight="@drawable/ic_arrow"
             android:gravity="right"
             android:padding="5dp"
-            android:text="@string/nextscreen"
-            android:textColor="@color/gray_color"
-            android:textSize="30sp" />
+            android:textColor="@color/gray_color" />
     </LinearLayout>
 
     <View
