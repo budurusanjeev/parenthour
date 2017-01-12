@@ -90,6 +90,10 @@ public class AppConstants
 	public static String PARENT_ACCEPT_EVENT_URL = HOST_URL + "p_accept_play_date.php";
 	public static String PARENT_REJECT_EVENT_URL = HOST_URL + "p_reject_play_date.php";
 	public static String PARENT_SELECTED_PROFILE_URL = HOST_URL + "p_get_selected_user_profile_android.php";
+	public static String PARENT_ASSISTANT_REQUESTS_URL = HOST_URL + "p_get_asst_requests.php";
+	public static String PARENT_SEARCH_ASSISTANT_URL = HOST_URL + "p_asst_search.php";
+	public static String PARENT_SET_ASSISTANT_REQUEST_URL = HOST_URL + "p_set_asst_request.php";
+	public static String PARENT_ASSISTANT_DETAIL_URL = HOST_URL + "p_asst_details.php";
 
 
 	//Assistant
@@ -101,5 +105,9 @@ public class AppConstants
 	public static String ASSISTANT_CHANGE_PASSWORD_URL = HOST_URL +"a_changepassword.php";
 	public static String ASSISTANT_FORTGOT_PASSWORD_URL = HOST_URL+"a_forgotpassword.php";
 	public static String ASSISTANT_SOCIAL_LOGIN_URL = HOST_URL +"a_login_social.php";
+	public static String ASSISTANT_LIST_URL = HOST_URL + "a_get_requests.php";
+	public static String ASSISTANT_NOTIFICATION_URL = HOST_URL + "a_get_notifications.php";
+	public static String ASSISTANT_ACCEPT_URL = HOST_URL + "a_accept_parent_request.php";
+	public static String ASSISTANT_REJECT_URL = HOST_URL + "a_reject_parent_request.php";
 
 }

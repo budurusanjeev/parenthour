@@ -148,9 +148,12 @@ switch (position)
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
             mdrawerlayout.closeDrawers();
+            startActivity(new Intent(getApplicationContext(), ParentAssistantRequests.class));
         }
         else if(preferenceUtils.getStringFromPreference("select","").equals("assistant"))
         {
+            startActivity(new Intent(getApplicationContext(), AssistantNotificationsActivity.class));
+
             mdrawerlayout.closeDrawers();
         }
         break;

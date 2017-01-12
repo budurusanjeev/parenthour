@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,12 @@ public class ParentRowChips extends FrameLayout {
         ((TextView) findViewById(R.id.tv_date)).setText(playDateEventsModel.getDate());
         ((TextView) findViewById(R.id.tv_time)).setText(playDateEventsModel.getTime());
         ((RecyclerView) findViewById(R.id.recyclerViewHorizontal)).setAdapter(adapter);
+        findViewById(R.id.iv_location).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 }

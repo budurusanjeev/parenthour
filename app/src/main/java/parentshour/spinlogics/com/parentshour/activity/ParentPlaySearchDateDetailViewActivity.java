@@ -150,7 +150,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
 
                                 Glide.with(context).load(jsonObject.getString("p_pic"))
                                         .thumbnail(0.5f)
-                                        .crossFade().error(R.drawable.ic_addprofile)
+                                        .crossFade().error(R.drawable.ic_profilelogo)
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
                             } else {

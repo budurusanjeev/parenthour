@@ -29,25 +29,27 @@ import java.util.Random;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.adapter.AssistantDashBoardAdapter;
+import parentshour.spinlogics.com.parentshour.adapter.AssistantNotificationAdapter;
 import parentshour.spinlogics.com.parentshour.models.AssistantDashboardModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 /**
- * Created by SPINLOGICS ic_on 12/8/2016.
+ * Created by SPINLOGICS on 1/12/2017.
  */
 
-public class AssitantDashBoard extends BaseActivity {
+public class AssistantNotificationsActivity extends BaseActivity {
     Context context;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
     ArrayList<AssistantDashboardModel> assistantList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Random mRandom = new Random();
+
     @Override
     public void initialize() {
-        context = AssitantDashBoard.this;
+        context = AssistantNotificationsActivity.this;
 
         preferenceUtils = new PreferenceUtils(context);
 
@@ -69,7 +71,6 @@ public class AssitantDashBoard extends BaseActivity {
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    assistantList.clear();
                     getAssistantList();
                     mSwipeRefreshLayout.setRefreshing(false);
 
@@ -83,7 +84,7 @@ public class AssitantDashBoard extends BaseActivity {
     private void getAssistantList() {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_LIST_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_NOTIFICATION_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -104,14 +105,14 @@ public class AssitantDashBoard extends BaseActivity {
                                     assistantDashboardModel.setDate(jsonObjectData.getString("a_date"));
                                     assistantDashboardModel.setName(jsonObjectData.getString("p_name"));
                                     assistantDashboardModel.setA_req_id(jsonObjectData.getString("a_req_id"));
-                                    assistantDashboardModel.setStatus(jsonObjectData.getString("a_status"));
+                                    // assistantDashboardModel.setStatus(jsonObjectData.getString("a_status"));
                                     assistantDashboardModel.setTime(jsonObjectData.getString("a_start_time"));
                                     assistantDashboardModel.setEndtime(jsonObjectData.getString("a_end_time"));
                                     assistantDashboardModel.setTitle(jsonObjectData.getString("a_task_name"));
                                     assistantDashboardModel.setImgUrl(jsonObjectData.getString("p_pic"));
                                     assistantList.add(assistantDashboardModel);
                                 }
-                                adapter = new AssistantDashBoardAdapter(assistantList, context);
+                                adapter = new AssistantNotificationAdapter(assistantList, context);
                                 mRecyclerView.setAdapter(adapter);
 
                             } else {
@@ -133,7 +134,7 @@ public class AssitantDashBoard extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         hideloader();
                         Log.v("error", "error " + error.toString());
-                        Toast.makeText(AssitantDashBoard.this, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AssistantNotificationsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         //throw new RuntimeException("crash " + error);
                         Crashlytics.logException(error);
                     }
@@ -168,53 +169,145 @@ public class AssitantDashBoard extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
+    public void acceptAssistant(final String aid) {
+        showLoaderNew();
+        // PARENT_SEARCH_PLAY_DATE_URL
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_ACCEPT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response.trim());
+                        hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("a_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
-   /* private void updateOperation(int w) {
-        // countries = new ArrayList<AssistantDashboardModel>();
-        Log.v("number", "number: " + w);
-        if (w % 2 == 0) {
-            for (int s = 0; s < 10; s++) {
-                if (s % 2 != 0) {
-                    AssistantDashboardModel assistantDashboardModel = new AssistantDashboardModel();
-                    assistantDashboardModel.setDate("20/12/2016");
-                    assistantDashboardModel.setName("Jhon");
-                    assistantDashboardModel.setStatus("Accepted");
-                    assistantDashboardModel.setTime("06:00 pm to 09:00 pm");
-                    assistantDashboardModel.setTitle("Play");
-                    countries.add(assistantDashboardModel);
-                } else {
-                    AssistantDashboardModel assistantDashboardModel = new AssistantDashboardModel();
-                    assistantDashboardModel.setDate("15/11/2016");
-                    assistantDashboardModel.setName("Tom");
-                    assistantDashboardModel.setStatus("Play date completed");
-                    assistantDashboardModel.setTime("01:00 pm to 05:00 pm");
-                    assistantDashboardModel.setTitle("Chess");
-                    countries.add(assistantDashboardModel);
+                            if (jsonObject.has("Success")) {
+
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            //throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(AssistantNotificationsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        //throw new RuntimeException("crash " + error);
+                        Crashlytics.logException(error);
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "a_id=" + preferenceUtils.getStringFromPreference("a_id", "") + "&a_req_id=" + aid;
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+                Log.v("credentials", "credentials " + credentials);
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
                 }
             }
-        } else {
-            for (int s = 0; s < 10; s++) {
-                if (s % 2 == 0) {
-                    AssistantDashboardModel assistantDashboardModel = new AssistantDashboardModel();
-                    assistantDashboardModel.setDate("20/12/2016");
-                    assistantDashboardModel.setName("Jhon");
-                    assistantDashboardModel.setStatus("Accepted");
-                    assistantDashboardModel.setTime("06:00 pm to 09:00 pm");
-                    assistantDashboardModel.setTitle("Play");
-                    countries.add(assistantDashboardModel);
-                } else {
-                    AssistantDashboardModel assistantDashboardModel = new AssistantDashboardModel();
-                    assistantDashboardModel.setDate("15/11/2016");
-                    assistantDashboardModel.setName("Tom");
-                    assistantDashboardModel.setStatus("Play date completed");
-                    assistantDashboardModel.setTime("01:00 pm to 05:00 pm");
-                    assistantDashboardModel.setTitle("Chess");
-                    countries.add(assistantDashboardModel);
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void rejectAssistant(final String aid) {
+        showLoaderNew();
+        // PARENT_SEARCH_PLAY_DATE_URL
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_REJECT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response.trim());
+                        hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("a_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.has("Success")) {
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            //throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(AssistantNotificationsActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                        //throw new RuntimeException("crash " + error);
+                        Crashlytics.logException(error);
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "a_id=" + preferenceUtils.getStringFromPreference("a_id", "") + "&a_req_id=" + aid;
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+                Log.v("credentials", "credentials " + credentials);
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
                 }
             }
-        }
 
-    }*/
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
 
     @Override
     public void goto_playDateSearch_method() {
@@ -262,3 +355,4 @@ public class AssitantDashBoard extends BaseActivity {
         toolbarTextView.setText("Parenthour");
     }
 }
+

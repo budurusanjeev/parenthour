@@ -82,6 +82,7 @@ public class ParentAddFriendList extends BaseActivity {
             myFriendsList = new ArrayList<String>();
             for (int s = 0; s < size; s++) {
                 myFriendsList.add(parentAddedFriendArrayList.get(s).getpId());
+                Log.v("names ", "names " + parentAddedFriendArrayList.get(s).getpName());
             }
         }
 
@@ -204,8 +205,10 @@ public class ParentAddFriendList extends BaseActivity {
                                     if (size > 0) {
                                         if (myFriendsList.contains(jsonObjectParent.getString("p_id"))) {
                                             playSearchDateModel.setSelectFriend(true);
+                                            Log.v("name ", "name true" + jsonObjectParent.getString("p_id"));
                                         } else {
                                             playSearchDateModel.setSelectFriend(false);
+                                            Log.v("name ", "name false" + jsonObjectParent.getString("p_id"));
                                         }
                                     } else {
                                         playSearchDateModel.setSelectFriend(false);

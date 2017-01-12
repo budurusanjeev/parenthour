@@ -49,7 +49,38 @@
             android:screenOrientation="portrait"
             android:theme="@style/myAppTheme"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ParentAssistantRequests"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.AssistantNotificationsActivity"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
 
+        <activity
+            android:name=".activity.ParentAssistantSetRequest"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ParentAssistantRequestDetail"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".activity.ParentSearchAssistants"
+            android:label="Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/myAppTheme"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ParentAddGroup"
             android:label="Login"

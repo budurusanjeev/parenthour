@@ -222,6 +222,19 @@ public class ParentEventCreation extends BaseActivity {
 
     }
 
+    public void removeFriend(int newPosition) {
+        friendsList = "";
+        parentFriendModels.remove(newPosition);
+        adapter.notifyItemRemoved(newPosition);
+        for (int s = 0; s < parentFriendModels.size(); s++) {
+            friendsList = friendsList + "," + parentFriendModels.get(s).getpId();
+            Log.v("friends", "friends: " + friendsList);
+        }
+        adapter.notifyItemRangeChanged(newPosition, parentFriendModels.size());
+
+    }
+
+
     private void editEvent() {
         showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_EDIT_EVENT_URL,
@@ -258,7 +271,7 @@ public class ParentEventCreation extends BaseActivity {
             public byte[] getBody() throws AuthFailureError {
                 String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") +
                         "&pe_date=" + tv_date.getText().toString() + "&pe_time=" + tv_time.getText().toString()
-                        + "&pe_address=" + tv_addFriends.getText().toString() +
+                        + "&pe_address=" + edt_address_value.getText().toString() +
                         "&p_id_list=" + friendsList + "&pe_id=" + eventId;
 
                 // p_id=12&pe_date=2016-12-24&pe_time=10:30&pe_address=hyderabad&p_id_list=13,12
@@ -351,7 +364,7 @@ public class ParentEventCreation extends BaseActivity {
             public byte[] getBody() throws AuthFailureError {
                 String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") +
                         "&pe_date=" + tv_date.getText().toString() + "&pe_time=" + tv_time.getText().toString()
-                        + "&pe_address=" + tv_addFriends.getText().toString() +
+                        + "&pe_address=" + edt_address_value.getText().toString() +
                         "&p_id_list=" + friendsList;
 
                 // p_id=12&pe_date=2016-12-24&pe_time=10:30&pe_address=hyderabad&p_id_list=13,12

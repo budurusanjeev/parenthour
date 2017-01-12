@@ -14,7 +14,16 @@ public class PlayDateEventsModel {
     String pe_edit;
     String imgurl;
     String pEid;
+    String pAddress;
     ArrayList playDateMembers;
+
+    public String getpAddress() {
+        return pAddress;
+    }
+
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
 
     public String getPe_edit() {
         return pe_edit;

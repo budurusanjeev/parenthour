@@ -2,6 +2,7 @@ package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,6 +56,14 @@ public class RowChipsView extends FrameLayout {
             public void onClick(View view) {
                 ((ParentPlayDateSelectionEvent) contexts).rejectRequest(playDateEventsModel.getpEid());
 
+            }
+        });
+        (findViewById(R.id.iv_location)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://maps.google.com/maps?daddr=" + playDateEventsModel.getpAddress();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+                contexts.startActivity(intent);
             }
         });
         if (playDateEventsModel.getPe_edit().equals("1")) {

@@ -168,5 +168,11 @@
     <string name="address">Address</string>
     <string name="addfriends">Add Friends</string>
     <string name="create">Create</string>
+    <string name="request">Request</string>
+    <string name="task_name">Task Name</string>
+    <string name="end_time">End Time</string>
+    <string name="start_time">Start Time</string>
+    <string name="Request">Request</string>
+    <string name="reject">Reject</string>
 
 </resources>

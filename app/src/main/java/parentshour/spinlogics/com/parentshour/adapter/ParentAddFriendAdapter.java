@@ -46,7 +46,9 @@ public class ParentAddFriendAdapter extends RecyclerView.Adapter<ParentAddFriend
         final int s = i;
         viewHolder.tv_name.setText(list.get(i).getpName());
         viewHolder.cb_friend.setOnCheckedChangeListener(null);
+
         viewHolder.cb_friend.setChecked(list.get(i).getSelectFriend());
+
         viewHolder.cb_friend.setTag(list.get(i));
         Glide.with(activity)
                 .load(list.get(i).getpImgUrl())

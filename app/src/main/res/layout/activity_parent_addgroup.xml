@@ -109,10 +109,10 @@
             android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:background="@color/white"
+            android:drawableEnd="@drawable/ic_plus_add"
+            android:drawableRight="@drawable/ic_plus_add"
             android:padding="5dp"
-            android:text="@string/plus"
-            android:textColor="@color/App_Orange"
-            android:textSize="20sp" />
+            android:textColor="@color/App_Orange" />
 
         <View
             android:id="@+id/view"

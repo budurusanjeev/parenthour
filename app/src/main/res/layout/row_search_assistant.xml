@@ -20,6 +20,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/iv_image_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -40,8 +41,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     android:textColor="@color/gray_color" />
             </LinearLayout>
 
@@ -90,29 +89,17 @@
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/iv_rate_me"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:contentDescription="@string/imagestatedescription"
+                android:src="@drawable/ic_rateme" />
 
-                <ImageView
-                    android:id="@+id/iv_friend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:contentDescription="@string/imagestatedescription"
-                    android:src="@drawable/ic_connect" />
-
-                <ImageView
-                    android:id="@+id/iv_flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_flag" />
-            </LinearLayout>
         </LinearLayout>
 
         <View

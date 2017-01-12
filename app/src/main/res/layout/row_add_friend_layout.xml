@@ -38,6 +38,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:button="@drawable/custom_friend_checkbox"
+            android:checked="false"
             android:padding="5dp"
             android:src="@drawable/ic_chat" />
     </LinearLayout>

@@ -122,6 +122,13 @@ public class ParentDashboard extends BaseActivity {
             }
         });
 
+        tv_search_for_assistant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ParentSearchAssistants.class));
+            }
+        });
+
     }
 
 
