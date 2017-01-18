@@ -2,11 +2,12 @@ package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,20 +37,22 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
  * Created by SPINLOGICS on 1/12/2017.
  */
 
-public class ParentAssistantRequestDetail extends BaseActivity {
+public class ParentAssistantRequestDetail extends AppCompatActivity {
     Context context;
     TextView tv_name, tv_experience, tv_state, tv_city, tv_billing, tv_about, tv_type_of_gigs, tv_request, tv_cancel, tv_userName_edit;
     ImageView iv_profile_pic;
     String aid;
-
+    View test1View;
+    PreferenceUtils preferenceUtils;
+    TextView toolbarTextView;
     @Override
-    public void initialize() {
-
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         context = ParentAssistantRequestDetail.this;
 
         preferenceUtils = new PreferenceUtils(context);
-        llContent.addView(inflater.inflate(R.layout.parent_assistant_request_detail, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(R.layout.parent_assistant_request_detail);
+        //llContent.addView(inflater.inflate(R.layout.parent_assistant_request_detail, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         initViewControll();
         if (getIntent().getExtras().get("aid") != null) {
@@ -58,18 +61,17 @@ public class ParentAssistantRequestDetail extends BaseActivity {
             getAssistantDetails();
         }
         Fabric.with(this, new Crashlytics());
-
     }
 
     private void getAssistantDetails() {
-        showLoaderNew();
+        // showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_ASSISTANT_DETAIL_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        //         hideloader();
 
                         try {
 
@@ -83,7 +85,7 @@ public class ParentAssistantRequestDetail extends BaseActivity {
                                 tv_billing.setText(jsonObject.getString("a_hourly_rate"));
                                 tv_about.setText(jsonObject.getString("a_about_me"));
                                 tv_type_of_gigs.setText(jsonObject.getString("a_skill"));
-                                Glide.with(basecontext).load(jsonObject.getString("a_pic"))
+                                Glide.with(context).load(jsonObject.getString("a_pic"))
                                         .thumbnail(0.5f).error(R.drawable.ic_profilelogo)
                                         .crossFade()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -99,7 +101,7 @@ public class ParentAssistantRequestDetail extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        //  hideloader();
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAssistantRequestDetail.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -146,6 +148,7 @@ public class ParentAssistantRequestDetail extends BaseActivity {
         tv_request = (TextView) findViewById(R.id.tv_request);
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);
         iv_profile_pic = (ImageView) findViewById(R.id.iv_upload_profile_photo);
+        test1View = findViewById(R.id.toolbarLayout);
 
         tv_request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,43 +165,11 @@ public class ParentAssistantRequestDetail extends BaseActivity {
         });
     }
 
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
 
     @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
+    protected void onResume() {
+        super.onResume();
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
+        toolbarTextView.setText("Assistant Profile");
     }
 }

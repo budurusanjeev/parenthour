@@ -71,6 +71,7 @@ public class ParentPlayDateEvents extends BaseActivity {
         TextView tv_save = (TextView) findViewById(R.id.setting_Save);
         tv_save.setVisibility(View.VISIBLE);
         tv_save.setText("");
+        tv_save.setTextSize(12f);
         tv_save.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_whiteplus_add, 0, 0, 0);
         // tv_save.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,R.drawable.ic_plus_add);
         tv_save.setTextSize(18f);

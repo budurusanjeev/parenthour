@@ -59,6 +59,7 @@
     <string name="Lato_Bold">Lato_Bold.ttf</string>
     <string name="Lato_Medium">Lato_Medium.ttf</string>
 
+    <string name="years">  Years</string>
     <string name="facebook">FACEBOOK</string>
     <string name="name">Name</string>
     <string name="phone">Phone no</string>
@@ -174,5 +175,7 @@
     <string name="start_time">Start Time</string>
     <string name="Request">Request</string>
     <string name="reject">Reject</string>
+    <string name="rate_me">Rate me</string>
+    <string name="_0">0</string>
 
 </resources>

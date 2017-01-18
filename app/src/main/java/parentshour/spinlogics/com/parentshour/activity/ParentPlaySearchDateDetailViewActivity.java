@@ -43,6 +43,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
     Context context;
     ImageView profilePic;
     PreferenceUtils preferenceUtils;
+    View test1View;
     TextView tv_name, tv_zipcode, tv_email, tv_mobile,
             tv_age, tv_occupation, tv_gender, tv_education, tv_ethnicity,
             tv_available_days, tv_available_time, tv_username;
@@ -64,6 +65,14 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
+        toolbarTextView.setText("Parent Profile");
+    }
+
     private void getProfileData() {
         // showLoaderNew();
         final LoadingText loadingText = new LoadingText(ParentPlaySearchDateDetailViewActivity.this);
@@ -77,15 +86,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                         loadingText.hideloader(ParentPlaySearchDateDetailViewActivity.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-//ll_name_layout,
-// ll_zip_code_layout,
-// ll_age_layout,
-// ll_occupation_layout,
-// ll_gender_layout,
-                            //    ll_education_layout,
-                            // ll_ethnicity_layout,
-                            // ll_available_days_layout,
-                            // ll_available_time_layout
+
                             if (!jsonObject.has("Error")) {
 
                                 tv_username.setText(jsonObject.getString("p_name"));
@@ -103,10 +104,6 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
                                     ll_zip_code_layout.setVisibility(View.GONE);
                                 }
 
-                                //tv_email.setText(jsonObject.getString("p_email"));
-                                // tv_mobile.setText(jsonObject.getString("p_mobile"));
-                                // tv_email.setVisibility(View.GONE);
-                                // tv_mobile.setVisibility(View.GONE);
                                 if (!jsonObject.getString("p_age").equals("")) {
                                     tv_age.setText(jsonObject.getString("p_age"));
                                 } else {
@@ -208,22 +205,11 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
 
     }
 
-    /* public void setViewVisibity()
-       {
-           if(!jsonObject.getString("p_name").equals(""))
-           {
-               tv_name.setText(jsonObject.getString("p_name"));
-           }else
-           {
-               tv_name.setVisibility(View.GONE);
-           }
-       }*/
+
     private void initViewControll() {
         profilePic = (ImageView) findViewById(R.id.iv_upload_profile_photo);
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_zipcode = (TextView) findViewById(R.id.tv_zipcode);
-        // tv_email = (TextView) findViewById(R.id.tv_email);
-        // tv_mobile = (TextView) findViewById(R.id.tv_mobile);
         tv_age = (TextView) findViewById(R.id.tv_age);
         tv_occupation = (TextView) findViewById(R.id.tv_occupation);
         tv_gender = (TextView) findViewById(R.id.tv_gender);
@@ -232,14 +218,6 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
         tv_available_days = (TextView) findViewById(R.id.tv_available_days);
         tv_available_time = (TextView) findViewById(R.id.tv_available_time);
         tv_username = (TextView) findViewById(R.id.tv_userName_edit);
-        View test1View = findViewById(R.id.toolbarLayout);
-        // LinearLayout emailLayout = (LinearLayout) findViewById(R.id.emailLayout);
-        //// LinearLayout mobileLayout = (LinearLayout) findViewById(R.id.mobileLayout);
-        // emailLayout.setVisibility(View.GONE);
-        // mobileLayout.setVisibility(View.GONE);
-        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
-        toolbarTextView.setText("Parent Profile");
-
         ll_name_layout = (LinearLayout) findViewById(R.id.ll_name_layout);
         ll_zip_code_layout = (LinearLayout) findViewById(R.id.ll_zip_code_layout);
         ll_age_layout = (LinearLayout) findViewById(R.id.ll_age_layout);
@@ -249,7 +227,7 @@ public class ParentPlaySearchDateDetailViewActivity extends AppCompatActivity {
         ll_ethnicity_layout = (LinearLayout) findViewById(R.id.ll_ethnicity_layout);
         ll_available_days_layout = (LinearLayout) findViewById(R.id.ll_available_days_layout);
         ll_available_time_layout = (LinearLayout) findViewById(R.id.ll_available_time_layout);
-
+        test1View = findViewById(R.id.toolbarLayout);
         TextView tv_Done = (TextView) test1View.findViewById(R.id.setting_Save);
         tv_Done.setVisibility(View.VISIBLE);
         tv_Done.setText("Done");

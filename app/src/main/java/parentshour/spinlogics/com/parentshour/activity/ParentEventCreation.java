@@ -55,6 +55,7 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
  * Created by SPINLOGICS on 1/5/2017.
  */
 
+
 public class ParentEventCreation extends BaseActivity {
     private static SimpleDateFormat dateFormatter;
     Context context;
@@ -66,6 +67,7 @@ public class ParentEventCreation extends BaseActivity {
     ArrayList<PlaySearchDateModel> parentAddGroupArrayList;
     ArrayList<ParentFriendModel> parentFriendModels;
     String friendsList;
+    TextView toolbarTextView;
     private int SELECT_FRIENDS = 2;
 
     @SuppressLint("SetTextI18n")
@@ -83,8 +85,21 @@ public class ParentEventCreation extends BaseActivity {
             Log.v("get group", "get group " + eventId);
             getEventDetails();
             tv_create.setText("Update");
+
+            toolbarTextView.setText("Edit Play Date");
         }
         Fabric.with(this, new Crashlytics());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getExtras().get("eventId") != null) {
+
+            toolbarTextView.setText("Edit Play Date");
+        } else {
+            toolbarTextView.setText("Add Play Date");
+        }
     }
 
     private void getEventDetails() {
@@ -172,7 +187,7 @@ public class ParentEventCreation extends BaseActivity {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         parentFriendModels = new ArrayList<ParentFriendModel>();
         parentAddGroupArrayList = new ArrayList<PlaySearchDateModel>();
         tv_date.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +197,7 @@ public class ParentEventCreation extends BaseActivity {
 
             }
         });
-
+        toolbarTextView = (TextView) findViewById(R.id.page_heading);
         tv_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -504,7 +519,43 @@ public class ParentEventCreation extends BaseActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the returned time
             TextView tv_time = (TextView) getActivity().findViewById(R.id.tv_time_value);
-            tv_time.setText(hourOfDay + ":" + minute);
+            // tv_time.setText(hourOfDay + ":" + minute);
+            tv_time.setText(updateTime(hourOfDay, minute));
+            //;
         }
+
+        // Used to convert 24hr format to 12hr format with AM/PM values
+        private String updateTime(int hours, int mins) {
+
+            String timeSet = "";
+            if (hours > 12) {
+                hours -= 12;
+                timeSet = "PM";
+            } else if (hours == 0) {
+                hours += 12;
+                timeSet = "AM";
+            } else if (hours == 12)
+                timeSet = "PM";
+            else
+                timeSet = "AM";
+
+
+            String minutes = "";
+            if (mins < 10)
+                minutes = "0" + mins;
+            else
+                minutes = String.valueOf(mins);
+
+            // Append in a StringBuilder
+            String aTime = new StringBuilder().append(hours).append(':')
+                    .append(minutes).append(" ").append(timeSet).toString();
+
+            return aTime;
+            // output.setText(aTime);
+        }
+
+
+
     }
+
 }

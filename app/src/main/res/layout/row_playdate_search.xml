@@ -28,8 +28,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_pic"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_profilelogo" />
@@ -42,6 +42,7 @@
                     android:layout_gravity="center"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="@string/about"
                     android:textColor="@color/gray_color" />
             </LinearLayout>
 
@@ -50,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -58,25 +59,31 @@
                     fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="start"
                     android:text="@string/about"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fourteen_textSize" />
 
                 <TextView
-
                     android:id="@+id/tv_date"
                     fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="@string/about"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fourteen_textSize" />
 
                 <TextView
-
                     android:id="@+id/tv_time"
                     fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
+                    android:text="@string/about"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -85,6 +92,8 @@
                     fontPath="assets\Lato-Medium.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -99,8 +108,8 @@
 
                 <ImageView
                     android:id="@+id/iv_friend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:contentDescription="@string/imagestatedescription"
@@ -108,8 +117,8 @@
 
                 <ImageView
                     android:id="@+id/iv_flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_flag" />
             </LinearLayout>

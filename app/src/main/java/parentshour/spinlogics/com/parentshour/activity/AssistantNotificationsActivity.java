@@ -352,7 +352,7 @@ public class AssistantNotificationsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        toolbarTextView.setText("Parenthour");
+        toolbarTextView.setText("Notification");
     }
 }
 

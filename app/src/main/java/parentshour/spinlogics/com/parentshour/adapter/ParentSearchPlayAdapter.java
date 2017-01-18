@@ -46,7 +46,7 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
 
         viewHolder.tv_name.setText(list.get(i).getpName());
         viewHolder.tv_education.setText(list.get(i).getpEducation());
-        viewHolder.tv_age.setText(list.get(i).getpAge());
+        viewHolder.tv_age.setText(list.get(i).getpAge() + " " + activity.getResources().getString(R.string.years));
         viewHolder.tv_ethnicity.setText(list.get(i).getpEthnicity());
         if (list.get(i).getpIsFriend().equals("1"))
         {

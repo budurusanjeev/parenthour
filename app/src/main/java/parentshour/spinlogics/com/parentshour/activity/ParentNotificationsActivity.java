@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class ParentNotificationsActivity extends BaseActivity {
     ArrayList<ParentFriendModel> friendRequestArray;
     ArrayList<PlayDateEventModelParcel> playDateEvent;
     int u, s;
-
+    RelativeLayout rl_friend_layout, rl_event_layout;
     @Override
     public void initialize() {
         context = ParentNotificationsActivity.this;
@@ -53,6 +54,8 @@ public class ParentNotificationsActivity extends BaseActivity {
         llContent.addView(inflater.inflate(R.layout.activity_notifications, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         friendRequestArray = new ArrayList<ParentFriendModel>();
         playDateEvent = new ArrayList<PlayDateEventModelParcel>();
+        rl_friend_layout = (RelativeLayout) findViewById(R.id.rl_friend_layout);
+        rl_event_layout = (RelativeLayout) findViewById(R.id.rl_event_layout);
         initViewControll();
 
         Fabric.with(this, new Crashlytics());
@@ -174,7 +177,7 @@ public class ParentNotificationsActivity extends BaseActivity {
         tv_play_date_count = (TextView) findViewById(R.id.tv_play_date_events_count);
         tv_play_cou_next = (TextView) findViewById(R.id.tv_play_cou_next);
         tv_fri_cou_next = (TextView) findViewById(R.id.tv_fri_cou_next);
-        tv_fri_cou_next.setOnClickListener(new View.OnClickListener() {
+        rl_friend_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (s > 0) {
@@ -186,7 +189,7 @@ public class ParentNotificationsActivity extends BaseActivity {
 
             }
         });
-        tv_play_cou_next.setOnClickListener(new View.OnClickListener() {
+        rl_event_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (u > 0) {

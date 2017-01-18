@@ -109,5 +109,6 @@ public class AppConstants
 	public static String ASSISTANT_NOTIFICATION_URL = HOST_URL + "a_get_notifications.php";
 	public static String ASSISTANT_ACCEPT_URL = HOST_URL + "a_accept_parent_request.php";
 	public static String ASSISTANT_REJECT_URL = HOST_URL + "a_reject_parent_request.php";
+	public static String ASSISTANT_SET_RATING_URL = HOST_URL + "p_set_asst_rating.php";
 
 }

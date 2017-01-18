@@ -100,6 +100,10 @@ public class ParentPlayDateSearch extends BaseActivity {
                         if (text.contains(charSequence)) {
 
                             filteredList.add(playSearchArrayList.get(v));
+                        } else {
+                            if (filteredList.size() == 0) {
+                                Toast.makeText(getApplicationContext(), "No results found", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentPlayDateSearch.this));
@@ -402,6 +406,8 @@ public class ParentPlayDateSearch extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        toolbarTextView.setText("Playdate Search");
         playSearchArrayList.clear();
         getPlayDate();
 

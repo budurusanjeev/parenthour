@@ -34,6 +34,7 @@
             android:background="@drawable/custom_toggle"
             android:textSize="0sp" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

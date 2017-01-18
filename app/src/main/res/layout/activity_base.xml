@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
                 android:background="@color/App_SideBar"
-                android:divider="#eee"
+                android:divider="@null"
                 android:dividerHeight="1dp"
                 android:scrollbars="none" />
 

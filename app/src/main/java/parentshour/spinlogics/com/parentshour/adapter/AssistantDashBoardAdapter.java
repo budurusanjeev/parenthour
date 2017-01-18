@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.AssitantDashBoard;
 import parentshour.spinlogics.com.parentshour.models.AssistantDashboardModel;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
@@ -50,7 +51,7 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
 
     @Override
     public void onBindViewHolder(AssistantDashBoardAdapter.ViewHolder viewHolder, int i) {
-
+        final int q = i;
         viewHolder.tv_title.setText(list.get(i).getTitle());
         viewHolder.tv_date.setText(list.get(i).getDate());
         viewHolder.tv_time.setText(list.get(i).getTime() + " to " + list.get(i).getEndtime());
@@ -61,6 +62,19 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
                 .error(R.drawable.ic_profilelogo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.iv_profile_pic);
+        viewHolder.iv_profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        viewHolder.iv_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AssitantDashBoard) activity).ratingDialog(list.get(q).getpId(),
+                        list.get(q).getA_req_id());
+            }
+        });
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_title, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_date, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_time, FontStyle.Lato_Medium, activity);
@@ -75,7 +89,7 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_profile_pic;
+        ImageView iv_profile_pic, iv_chat;
         //LinearLayout row_assistant_layout;
         private TextView tv_title, tv_date, tv_time, tv_status, tv_name;
 
@@ -87,6 +101,7 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
             tv_time = (TextView) view.findViewById(R.id.tv_time);
             tv_status = (TextView) view.findViewById(R.id.tv_status);
             tv_name = (TextView) view.findViewById(R.id.profile_name);
+            iv_chat = (ImageView) view.findViewById(R.id.iv_chat);
             //  row_assistant_layout = (LinearLayout) view.findViewById(R.id.row_assistant_layout);
             // FontStyle.applyFont(activity, row_assistant_layout, FontStyle.Lato_Medium);
 
