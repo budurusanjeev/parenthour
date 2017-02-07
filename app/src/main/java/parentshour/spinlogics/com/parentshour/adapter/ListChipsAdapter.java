@@ -27,8 +27,8 @@ public class ListChipsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        ((RowChipsView) holder.itemView).setAdapter(chipsArray.get(position), new ChipsAdapter(chipsArray.get(position).getPlayDateMembers()));
+        final int pos = position;
+        ((RowChipsView) holder.itemView).setAdapter(chipsArray.get(position), pos, new ChipsAdapter(chipsArray.get(position).getPlayDateMembers()));
     }
 
     @Override

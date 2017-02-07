@@ -58,15 +58,14 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:textColor="@color/gray_color"
+
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -74,7 +73,6 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="2dp"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/activity_fourteen_textSize" />
 
@@ -92,7 +90,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/edittext_search_background"
                     android:gravity="center"
-                    android:padding="5dp"
                     android:text="@string/accept"
                     android:textColor="@color/Orange" />
 
@@ -103,7 +100,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/edittext_search_background"
                     android:gravity="center"
-                    android:padding="5dp"
                     android:text="@string/reject"
                     android:textColor="@color/Orange" />
             </LinearLayout>

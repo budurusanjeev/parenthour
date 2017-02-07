@@ -170,31 +170,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_set_request"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@color/Orange"
+            android:background="@drawable/rounded_border"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="10dp"
             android:text="@string/Request"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_cancel"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/Orange"
+            android:background="@drawable/rounded_border"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="10dp"
             android:text="@string/cancel"
             android:textColor="@color/white"
             android:textStyle="bold" />

@@ -3,16 +3,17 @@ package parentshour.spinlogics.com.parentshour.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,13 +41,14 @@ import parentshour.spinlogics.com.parentshour.adapter.ParentAddFriendAdapter;
 import parentshour.spinlogics.com.parentshour.adapter.ParentFriendAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 /**
  * Created by SPINLOGICS on 12/27/2016.
  */
 
-public class ParentAddFriendList extends BaseActivity {
+public class ParentAddFriendList extends AppCompatActivity {
     Context context;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
@@ -57,26 +59,20 @@ public class ParentAddFriendList extends BaseActivity {
     List<String> myFriendsList;
     SwipeRefreshLayout mSwipeRefreshLayout;
     EditText editTextFriendSearch;
+    PreferenceUtils preferenceUtils;
+    LoadingText loadingText;
+    TextView toolbarTextView, tv_done;
     @Override
-    public void initialize() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.parents_add_friendlist_layout);
         context = ParentAddFriendList.this;
-
+        loadingText = new LoadingText(context);
         preferenceUtils = new PreferenceUtils(context);
-
-        llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
         initViewControll();
 
-        if (getIntent().getParcelableArrayListExtra("selected") != null) {  // parentselectedFriendArrayList = new ArrayList<>();
-         /*  String selected = getIntent().getStringExtra("selected");
-           String d[] = selected.split(",");
-           size = d.length;
-           *//*for(int s = 0; s < size ; s++)
-           {
-           parentselectedFriendArrayList.add(d[s]);
-               parentselectedFriendArrayList.add();
-           }*//*
-           (Arrays.asList(selected.split(",")));*/
+        if (getIntent().getParcelableArrayListExtra("selected") != null) {
+
             ArrayList<ParentFriendModel> parentAddedFriendArrayList = getIntent().getParcelableArrayListExtra("selected");
             size = parentAddedFriendArrayList.size();
             myFriendsList = new ArrayList<String>();
@@ -90,11 +86,11 @@ public class ParentAddFriendList extends BaseActivity {
     }
 
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Add Friends");
-        TextView tv_done = (TextView) findViewById(R.id.setting_Save);
-        tv_done.setVisibility(View.VISIBLE);
-        tv_done.setText("Done");
+        //TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
+        tv_done = (TextView) findViewById(R.id.setting_Save);
+
         tv_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +123,7 @@ public class ParentAddFriendList extends BaseActivity {
                 }
             }
         });
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         mSwipeRefreshLayout.setRefreshing(false);
@@ -177,17 +174,21 @@ public class ParentAddFriendList extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        toolbarTextView.setText("Add Friends");
+        tv_done.setVisibility(View.VISIBLE);
+        tv_done.setText("Done");
         parentAddedFriendArrayList.clear();
         getAddedFriends();
+
     }
 
     private void getAddedFriends() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentAddFriendList.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_ADDED_FRIENDS_LIST_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        hideloader();
+                        loadingText.hideloader(ParentAddFriendList.this);
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
@@ -221,7 +222,7 @@ public class ParentAddFriendList extends BaseActivity {
 
                             } else {
                                 jsonObject.getString("Error");
-                                hideloader();
+                                loadingText.hideloader(ParentAddFriendList.this);
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
                                 Log.v("res ", "res  success" + jsonObject.getString("Error"));
                             }
@@ -237,7 +238,7 @@ public class ParentAddFriendList extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentAddFriendList.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddFriendList.this, error.toString(), Toast.LENGTH_LONG).show();
                         //     throw new RuntimeException("crash" + error.toString());
@@ -270,45 +271,5 @@ public class ParentAddFriendList extends BaseActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
-
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
     }
 }

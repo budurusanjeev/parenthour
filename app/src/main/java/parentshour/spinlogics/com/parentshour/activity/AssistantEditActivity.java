@@ -1,20 +1,29 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +56,7 @@ import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 import parentshour.spinlogics.com.parentshour.utilities.Utility;
@@ -56,7 +66,7 @@ import parentshour.spinlogics.com.parentshour.utilities.Utility;
  * Created by SPINLOGICS ic_on 12/8/2016.
  */
 
-public class AssistantEditActivity extends BaseActivity {
+public class AssistantEditActivity extends AppCompatActivity {
 
     String imageData;
     Context context;
@@ -67,7 +77,11 @@ public class AssistantEditActivity extends BaseActivity {
             edt_email,
             edt_phone, edt_city, edt_zipcode, edt_state, edt_billing, edt_about_me, edt_gigs;
     LinearLayout ass_edit_parent;
+    LoadingText loadingText;
+    File destination;
     TextView toolbarTextView;
+    CheckBox cb_assisting_with_children, cb_cooking, cb_House_errands, cb_bet_friendly;
+    String valueSkillls, cb_assisting_with_children_Value, cb_cooking_Value, cb_House_errands_Value, cb_bet_friendly_Value;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
     private PreferenceUtils preferenceUtils;
@@ -80,15 +94,121 @@ public class AssistantEditActivity extends BaseActivity {
         }
     }
 
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
     @Override
-    public void initialize() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_assistant_editprofile);
         context = AssistantEditActivity.this;
-
         preferenceUtils = new PreferenceUtils(context);
-
-        llContent.addView(inflater.inflate(R.layout.activity_assistant_editprofile, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        loadingText = new LoadingText(context);
         initViewControll();
+        cb_assisting_with_children.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (compoundButton.isChecked()) {
+                    cb_assisting_with_children_Value = "assisting with children";
+
+                } else {
+                    cb_assisting_with_children_Value = null;
+                }
+                Log.v("", "res checked " + cb_cooking_Value);
+            }
+        });
+
+        cb_cooking.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()) {
+                    cb_cooking_Value = "Cooking";
+
+                } else {
+                    cb_cooking_Value = null;
+                }
+                Log.v("", "res checked " + cb_cooking_Value);
+            }
+        });
+
+        cb_House_errands.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()) {
+                    cb_House_errands_Value = "house errands";
+
+                } else {
+                    cb_House_errands_Value = null;
+                }
+                Log.v("", "res checked " + cb_House_errands_Value);
+            }
+        });
+
+        cb_bet_friendly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()) {
+                    cb_bet_friendly_Value = "betting";
+
+                } else {
+                    cb_bet_friendly_Value = null;
+                }
+                Log.v("", "res checked " + cb_bet_friendly_Value);
+            }
+        });
         Fabric.with(this, new Crashlytics());
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
             //  showLoaderNew();
@@ -109,19 +229,20 @@ public class AssistantEditActivity extends BaseActivity {
             public void onClick(View view) {
                 if (edt_name.getText().length() > 0 &&
                         edt_experience.getText().length() > 0 &&
-                        edt_zipcode.getText().length() == 5 &&
+                        //  edt_zipcode.getText().length() == 5 &&
                         edt_email.getText().length() > 0 &&
                         edt_phone.getText().length() > 0 &&
                         edt_city.getText().length() > 0 &&
                         edt_state.getText().length() > 0 &&
                         edt_billing.getText().length() > 0 &&
                         edt_about_me.getText().length() > 0 &&
-                        edt_gigs.getText().length() > 0 &&
+                        edt_gigs.getText().length() > 0 ||
+                        validateSkills() != null &&
                         edt_city.getText().length() > 0) {
 
                     if (isValidEmail(edt_email.getText().toString())) {
                         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
-                            showLoaderNew();
+                            loadingText.showLoaderNew(AssistantEditActivity.this);
                             sendData();
                         } else {
                             Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
@@ -132,27 +253,26 @@ public class AssistantEditActivity extends BaseActivity {
                     }
                 } else {
                     if (edt_name.getText().length() == 0) {
-                        showAlertValidation("Please enter the ic_name");
+                        showAlertValidation("Please enter the name");
                     } else if (edt_experience.getText().length() == 0) {
                         showAlertValidation("Please enter the experience");
                     } else if (edt_email.getText().length() == 0) {
-                        showAlertValidation("Please enter the ic_email");
+                        showAlertValidation("Please enter the email");
                     } else if (edt_phone.getText().length() == 0) {
                         showAlertValidation("Please enter the phone");
                     } else if (edt_city.getText().length() == 0) {
                         showAlertValidation("Please enter the city");
-                    } else if (edt_zipcode.getText().length() == 0 ||
-                            edt_zipcode.getText().length() < 5) {
-                        showAlertValidation("Please enter the valid zip code");
+                    } else if (validateSkills() == null || edt_gigs.getText().length() == 0) {
+                        showAlertValidation("Please check the Skills");
                     } else if (edt_state.getText().length() == 0) {
                         showAlertValidation("Please enter the state");
                     } else if (edt_billing.getText().length() == 0) {
                         showAlertValidation("Please enter the billing");
                     } else if (edt_about_me.getText().length() == 0) {
                         showAlertValidation("Please enter the About me");
-                    } else if (edt_gigs.getText().length() == 0) {
-                        showAlertValidation("Please enter the types od Gigs");
-                    }
+                    }/* else if (edt_gigs.getText().length() == 0) {
+                        showAlertValidation("Please enter the types of Gigs");
+                    }*/
                 }
             }
         });
@@ -162,7 +282,6 @@ public class AssistantEditActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     public void showAlertValidation(String error) {
@@ -185,18 +304,22 @@ public class AssistantEditActivity extends BaseActivity {
     }
 
     private void sendData() {
-showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_EDIT_PROFILE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         try {
-                            hideloader();
+                            loadingText.hideloader(AssistantEditActivity.this);
                             JSONObject jsonObject = new JSONObject(response);
 
                             if (jsonObject.has("Success")) {
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                                if (destination != null) {
+                                    PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
+                                    preferenceUtils.saveString("a_pic", destination.toString());
+                                }
+                                //  BaseActivity.setProfileImage(context,destination.toString(),edt_name.getText().toString());
                                 finish();
                                 Log.v("res ", "res  success" + jsonObject.getString("Success"));
                             } else {
@@ -214,19 +337,25 @@ showLoaderNew();
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.v("error", "error " + error.toString());
-                        hideloader();
+                        loadingText.hideloader(AssistantEditActivity.this);
                         Toast.makeText(AssistantEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                String credentials;
+                String credentials, skillsValue = null;
+                if (validateSkills() != null) {
+                    skillsValue = edt_gigs.getText().toString() + "," + validateSkills();
+                } else {
+                    skillsValue = edt_gigs.getText().toString();
+                }
                 if (imageData != null) {
+
 
                     credentials = "a_id=" + preferenceUtils.getStringFromPreference("a_id", "")
                             + "&a_name=" + edt_name.getText().toString() +
-                            "&a_zip=" + edt_zipcode.getText().toString() +
+                            //"&a_zip=" + edt_zipcode.getText().toString() +
                             "&a_email=" + edt_email.getText().toString() +
                             "&a_mobile=" + edt_phone.getText().toString() +
                             "&a_experience=" + edt_experience.getText().toString() +
@@ -234,7 +363,8 @@ showLoaderNew();
                             "&a_hourly_rate=" + edt_billing.getText().toString() +
                             "&a_state=" + edt_state.getText().toString() +
                             "&a_about_me=" + edt_about_me.getText().toString() +
-                            "&a_skill=" + edt_gigs.getText().toString() +
+                            "&a_skill="
+                            + skillsValue +
                             "&photo=" + imageData;
                     Log.v("res ","res if "+credentials);
                 } else {
@@ -248,7 +378,7 @@ showLoaderNew();
                             "&a_hourly_rate=" + edt_billing.getText().toString() +
                             "&a_state=" + edt_state.getText().toString() +
                             "&a_about_me=" + edt_about_me.getText().toString() +
-                            "&a_skill=" + edt_gigs.getText().toString() ;
+                            "&a_skill=" + skillsValue;
                Log.v("res ","res else "+credentials);
                 }
 
@@ -276,6 +406,39 @@ showLoaderNew();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         // Toast.makeText(getApplicationContext(),"Sending Data ........",Toast.LENGTH_LONG).show();
+    }
+
+    private String validateSkills() {
+        if (cb_assisting_with_children_Value != null &&
+                cb_cooking_Value != null &&
+                cb_bet_friendly_Value != null &&
+                cb_House_errands_Value != null) {
+            valueSkillls = "assisting with children,Cooking,betting,house errands";
+        } else if (cb_assisting_with_children_Value != null) {
+            valueSkillls = "assisting with children";
+            if (cb_cooking_Value != null) {
+                valueSkillls = valueSkillls + ",Cooking";
+            } else if (cb_bet_friendly_Value != null) {
+                valueSkillls = valueSkillls + ",betting";
+            } else if (cb_House_errands_Value != null) {
+                valueSkillls = valueSkillls + ",house errands";
+            }
+        } else if (cb_cooking_Value != null) {
+            valueSkillls = "Cooking";
+            if (cb_bet_friendly_Value != null) {
+                valueSkillls = valueSkillls + ",betting";
+            } else if (cb_House_errands_Value != null) {
+                valueSkillls = valueSkillls + ",house errands";
+            }
+        } else if (cb_bet_friendly_Value != null) {
+            valueSkillls = "betting";
+            if (cb_House_errands_Value != null) {
+                valueSkillls = valueSkillls + ",house errands";
+            }
+        } else if (cb_House_errands_Value != null) {
+            valueSkillls = valueSkillls + "house errands";
+        }
+        return valueSkillls;
     }
 
     public String getStringImage(Bitmap bmp) {
@@ -326,12 +489,68 @@ showLoaderNew();
         }
     }
 
+    String imagePath(Uri uri) {
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+
+                    // TODO handle non-primary volumes
+                }
+                // DownloadsProvider
+                else if (isDownloadsDocument(uri)) {
+
+                    final String id = DocumentsContract.getDocumentId(uri);
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                // MediaProvider
+                else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    if ("image".equals(type)) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("video".equals(type)) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("audio".equals(type)) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[]{
+                            split[1]
+                    };
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                }
+            }
+        }
+
+
+        return null;
+    }
+
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-        File destination = new File(Environment.getExternalStorageDirectory(),
+        destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
         FileOutputStream fo;
@@ -360,7 +579,9 @@ showLoaderNew();
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                destination = new File(imagePath(data.getData()));
                 imageData = getStringImage(bm);
+                Log.v("file path ", "file path " + imagePath(data.getData()));
                 profilePic.setImageBitmap(bm);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -418,12 +639,125 @@ showLoaderNew();
                                 edt_state.setText(jsonObject.getString("a_state"));
                                 edt_billing.setText(jsonObject.getString("a_hourly_rate"));
                                 edt_about_me.setText(jsonObject.getString("a_about_me"));
-                                edt_gigs.setText(jsonObject.getString("a_skill"));
-                                edt_zipcode.setText(jsonObject.getString("a_zip"));
-                                 Glide.with(basecontext).load(jsonObject.getString("a_pic"))
+                                // edt_gigs.setText(jsonObject.getString("a_skill"));
+
+                                if (jsonObject.getString("a_skill").equals
+                                        ("assisting with children," +
+                                                "Cooking," +
+                                                "betting," +
+                                                "house errands")) {
+                                    cb_assisting_with_children.setChecked(true);
+                                    cb_cooking.setChecked(true);
+                                    cb_House_errands.setChecked(true);
+                                    cb_bet_friendly.setChecked(true);
+                                } else {
+                                    String r = jsonObject.getString("a_skill");
+                                    String d[] = r.split(",");
+                                    for (int s = 0; s < d.length; s++)
+
+                                    {
+                                        Log.v("name ", "selected name " + d[s]);
+                                        switch (s) {
+                                            case 0:
+                                                if (d[s].equals("assisting with children")) {
+                                                    cb_assisting_with_children.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("Cooking")) {
+                                                    cb_cooking.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("betting")) {
+                                                    cb_bet_friendly.setChecked(true);
+                                                }
+                                                if (d[s].equals("house errands")) {
+                                                    cb_House_errands.setChecked(true);
+                                                }
+                                                if (!d[s].equals("assisting with children") &&
+                                                        !d[s].equals("Cooking") &&
+                                                        !d[s].equals("betting") &&
+                                                        !d[s].equals("house errands")) {
+                                                    edt_gigs.setText(d[s]);
+                                                }
+
+                                                break;
+                                            case 1:
+                                                if (d[s].equals("assisting with children")) {
+                                                    cb_assisting_with_children.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("Cooking")) {
+                                                    cb_cooking.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("betting")) {
+                                                    cb_bet_friendly.setChecked(true);
+                                                }
+                                                if (d[s].equals("house errands")) {
+                                                    cb_House_errands.setChecked(true);
+                                                }
+                                                if (!d[s].equals("assisting with children") &&
+                                                        !d[s].equals("Cooking") &&
+                                                        !d[s].equals("betting") &&
+                                                        !d[s].equals("house errands")) {
+                                                    edt_gigs.setText(d[s]);
+                                                }
+                                                break;
+                                            case 2:
+                                                if (d[s].equals("assisting with children")) {
+                                                    cb_assisting_with_children.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("Cooking")) {
+                                                    cb_cooking.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("betting")) {
+                                                    cb_bet_friendly.setChecked(true);
+                                                }
+                                                if (d[s].equals("house errands")) {
+                                                    cb_House_errands.setChecked(true);
+                                                }
+                                                if (!d[s].equals("assisting with children") &&
+                                                        !d[s].equals("Cooking") &&
+                                                        !d[s].equals("betting") &&
+                                                        !d[s].equals("house errands")) {
+                                                    edt_gigs.setText(d[s]);
+                                                }
+                                                break;
+                                            case 3:
+                                                if (d[s].equals("assisting with children")) {
+                                                    cb_assisting_with_children.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("Cooking")) {
+                                                    cb_cooking.setChecked(true);
+
+                                                }
+                                                if (d[s].equals("betting")) {
+                                                    cb_bet_friendly.setChecked(true);
+                                                }
+                                                if (d[s].equals("house errands")) {
+                                                    cb_House_errands.setChecked(true);
+                                                }
+                                                if (!d[s].equals("assisting with children") &&
+                                                        !d[s].equals("Cooking") &&
+                                                        !d[s].equals("betting") &&
+                                                        !d[s].equals("house errands")) {
+                                                    edt_gigs.setText(d[s]);
+                                                }
+                                                break;
+                                        }
+
+                                    }
+                                }
+
+
+                                // edt_zipcode.setText(jsonObject.getString("a_zip"));
+                                Glide.with(context).load(jsonObject.getString("a_pic"))
                                         .thumbnail(0.5f)
                                         .crossFade()
-                                         .error(R.drawable.ic_addprofile)
+                                        .error(R.drawable.ic_addprofile)
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
                                 //  Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success-msg"), Toast.LENGTH_LONG).show();
@@ -435,6 +769,7 @@ showLoaderNew();
                                 Log.v("res ", "res  success" + jsonObject.getString("Error"));
 
                             }
+
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -488,6 +823,8 @@ showLoaderNew();
     }
 
     private void initViewControll() {
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         profilePic = (ImageView)findViewById(R.id.iv_upload_profile_photo);
         edt_name = (EditText) findViewById(R.id.edt_name);
         edt_experience = (EditText) findViewById(R.id.edt_experience);
@@ -498,57 +835,23 @@ showLoaderNew();
         edt_billing = (EditText) findViewById(R.id.edt_billing);
         edt_about_me = (EditText) findViewById(R.id.edt_about_me);
         edt_gigs = (EditText) findViewById(R.id.edt_gigs);
-        edt_zipcode  =(EditText)findViewById(R.id.edt_zipcode);
+        // edt_zipcode  =(EditText)findViewById(R.id.edt_zipcode);
         bt_save = (Button)findViewById(R.id.btn_save);
         bt_cancel = (Button)findViewById(R.id.btn_cancel);
         ass_edit_parent  = (LinearLayout)findViewById(R.id.ass_edit_parent);
 
-        //View test1View = findViewById(R.id.toolbarLayout);
+        cb_assisting_with_children = (CheckBox) findViewById(R.id.cb_assisting_with_children);
+        cb_cooking = (CheckBox) findViewById(R.id.cb_cooking);
+        cb_House_errands = (CheckBox) findViewById(R.id.cb_House_errands);
+        cb_bet_friendly = (CheckBox) findViewById(R.id.cb_bet_friendly);
+
+
+       /* /*//*//*View test1View = findViewById(R.id.toolbarLayout);
         toolbarTextView  = (TextView)findViewById(R.id.page_heading);
-        toolbarTextView.setText("Edit Profile");
+        toolbarTextView.setText("Edit Profile");*/
         FontStyle.applyFont(getApplicationContext(),toolbarTextView,FontStyle.Lato_Medium);
         FontStyle.applyFont(getApplicationContext(),ass_edit_parent,FontStyle.Lato_Medium);
 
-        // mtoolbar.setTitle("Edit Profile");
     }
 
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
-    }
 }

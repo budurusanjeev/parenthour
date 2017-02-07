@@ -17,10 +17,17 @@ public class ParentDashboard extends BaseActivity {
     Context context;
     LinearLayout ll_parent_dashboard, ll_child_dashboard;
     TextView tv_search_for_playdate, tv_search_for_assistant, tv_playdate_events;
+    TextView toolbarTextView;
     private View decorView;
     private boolean doubleBackToExitPressedOnce = false;
     private PreferenceUtils preferenceUtils;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        toolbarTextView.setText("Parents Hour");
+    }
 
     @Override
     public void initialize() {
@@ -36,7 +43,7 @@ public class ParentDashboard extends BaseActivity {
 
         //getTaxInformation()
         initViewControll();
-
+        //   BaseActivity.setProfileImage(context,preferenceUtils.getStringFromPreference("p_pic",""));
     }
 
     @Override
@@ -107,7 +114,7 @@ public class ParentDashboard extends BaseActivity {
         tv_search_for_assistant =(TextView) findViewById(R.id.tv_search_for_assistant);
         tv_playdate_events =(TextView) findViewById(R.id.tv_playdate_events);
         FontStyle.applyFont(context, ll_parent_dashboard, FontStyle.Lato_Medium);
-
+        toolbarTextView = (TextView) findViewById(R.id.page_heading);
         tv_search_for_playdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,14 +28,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -98,25 +96,25 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    public static void disconnectFromFacebook() {
+    /* public static void disconnectFromFacebook() {
 
-        if (AccessToken.getCurrentAccessToken() == null) {
-            // Toast.makeText()
-            loginButtonfb.performClick();
-            return; // already logged out
+         if (AccessToken.getCurrentAccessToken() == null) {
+             // Toast.makeText()
+             loginButtonfb.performClick();
+             return; // already logged out
 
-        }
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                .Callback() {
-            @Override
-            public void onCompleted(GraphResponse graphResponse) {
+         }
+         new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                 .Callback() {
+             @Override
+             public void onCompleted(GraphResponse graphResponse) {
 
-                LoginManager.getInstance().logOut();
+                 LoginManager.getInstance().logOut();
 
-            }
-        }).executeAsync();
-    }
-
+             }
+         }).executeAsync();
+     }
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +175,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         loginButtonfb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                showLoaderNew();
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -314,62 +313,69 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }*/
 
     private void handleSignInResult(GoogleSignInResult result) {
+        if (result != null)
 
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
-            if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
-                preferenceUtils.saveString("p_id", acct.getId());
-                preferenceUtils.saveString("email", acct.getEmail());
-                preferenceUtils.saveString("p_name", acct.getDisplayName());
-                if (acct.getPhotoUrl() != null) {
-                    Log.v("", "" + acct.getPhotoUrl());
-                    // getDataFromUri(acct.getPhotoUrl());
-                    preferenceUtils.saveString("p_pic", acct.getPhotoUrl().toString());
-                    try {
-                        sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Crashlytics.logException(e);
-                    }
-                } else {
-                    sendProfileData(acct.getEmail(), acct.getId(), "");
+        {
+            if (result.isSuccess()) {
+                // Signed in successfully, show authenticated UI.
+                showLoaderNew();
+                GoogleSignInAccount acct = result.getSignInAccount();
+                PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
+                if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
+                    preferenceUtils.saveString("p_id", acct.getId());
+                    preferenceUtils.saveString("email", acct.getEmail());
+                    preferenceUtils.saveString("p_name", acct.getDisplayName());
+                    if (acct.getPhotoUrl() != null) {
+                        Log.v("", "" + acct.getPhotoUrl());
+                        // getDataFromUri(acct.getPhotoUrl());
+                        preferenceUtils.saveString("p_pic", acct.getPhotoUrl().toString());
+                        try {
+                            sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Crashlytics.logException(e);
                 }
-                // preferenceUtils.saveString("loggedin", "loggedin");
-                preferenceUtils.saveString("social", "gp");
-                // sendProfileData(acct.getEmail(), acct.getId(),  acct.getPhotoUrl().toString());
+                    } else {
+                        sendProfileData(acct.getEmail(), acct.getId(), "");
+                    }
+                    // preferenceUtils.saveString("loggedin", "loggedin");
+                    preferenceUtils.saveString("social", "gp");
+                    // sendProfileData(acct.getEmail(), acct.getId(),  acct.getPhotoUrl().toString());
                /* Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
                 startActivity(dashbordactivity);
                 finish();*/
-            } else if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
-                preferenceUtils.saveString("a_id", acct.getId());
-                preferenceUtils.saveString("a_name", acct.getDisplayName());
-                preferenceUtils.saveString("email", acct.getEmail());
-                if (acct.getPhotoUrl() != null) {
-                    preferenceUtils.saveString("a_pic", acct.getPhotoUrl().toString());
-                    Log.v("Image url", "Image url " + acct.getPhotoUrl());
-                    try {
-                        sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Crashlytics.logException(e);
-                    }
-
-                } else {
-                    sendProfileData(acct.getEmail(), acct.getId(), "");
+                } else if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
+                    preferenceUtils.saveString("a_id", acct.getId());
+                    preferenceUtils.saveString("a_name", acct.getDisplayName());
+                    preferenceUtils.saveString("email", acct.getEmail());
+                    if (acct.getPhotoUrl() != null) {
+                        preferenceUtils.saveString("a_pic", acct.getPhotoUrl().toString());
+                        Log.v("Image url", "Image url " + acct.getPhotoUrl());
+                        try {
+                            sendProfileData(acct.getEmail(), acct.getId(), String.valueOf(new URL(acct.getPhotoUrl().toString())));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Crashlytics.logException(e);
                 }
-                // preferenceUtils.saveString("loggedin", "loggedin");
-                preferenceUtils.saveString("social", "gp");
+
+                    } else {
+                        sendProfileData(acct.getEmail(), acct.getId(), "");
+                    }
+                    // preferenceUtils.saveString("loggedin", "loggedin");
+                    preferenceUtils.saveString("social", "gp");
                /* Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
                 startActivity(dashbordactivity);
                 finish();*/
-            }
-
-        } else {
-            // Signed out, show unauthenticated UI.
-            // updateUI(false);
         }
+
+            } else {
+                // Signed out, show unauthenticated UI.
+                // updateUI(false);
+    }
+        } else {
+            Toast.makeText(getApplicationContext(), "No google account found", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -490,7 +496,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("social", "general");
                                     preferenceUtils.saveString("loggedin", "loggedin");
                                     // sendProfileData();
-                                    Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
+                                    Intent dashbordactivity = new Intent(mContext, ParentDashboard.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
 
@@ -502,7 +509,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("social", "general");
                                     preferenceUtils.saveString("loggedin", "loggedin");
                                     //  sendProfileData();
-                                    Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
+                                    Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
                                 }
@@ -563,7 +571,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void sendProfileData(final String email, final String id, final String url) {
-        showLoaderNew();
+        //showLoaderNew();
         final PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
         preferenceUtils.getStringFromPreference("select", "");
 
@@ -590,7 +598,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     // generateIconAndStringForDrawer();
                                     PreferenceUtils preferenceUtils = new PreferenceUtils(mContext);
                                     preferenceUtils.saveString("p_pic", url);
-                                    Intent dashbordactivity = new Intent(mContext, SignupRegistration.class);
+                                    Intent dashbordactivity = new Intent(mContext, SignupRegistration.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
                                 } else {
@@ -599,7 +608,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("p_name", jsonObject.getString("p_name"));
                                     preferenceUtils.saveString("p_pic", jsonObject.getString("p_pic"));
                                     preferenceUtils.saveString("loggedin", "loggedin");
-                                    Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
+                                    Intent dashbordactivity = new Intent(mContext, ParentDashboard.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
                                 }
@@ -607,7 +617,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 if (jsonObject.getString("Success-msg").equals("Email Does Not Exists")) {
                                     PreferenceUtils preferenceUtils = new PreferenceUtils(mContext);
                                     preferenceUtils.saveString("a_pic", url);
-                                    Intent dashbordactivity = new Intent(mContext, SignupRegistration.class);
+                                    Intent dashbordactivity = new Intent(mContext, SignupRegistration.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
                                 } else {
@@ -616,7 +627,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     preferenceUtils.saveString("a_name", jsonObject.getString("a_name"));
                                     preferenceUtils.saveString("a_pic", jsonObject.getString("a_pic"));
                                     preferenceUtils.saveString("loggedin", "loggedin");
-                                    Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class);
+                                    Intent dashbordactivity = new Intent(mContext, AssitantDashBoard.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(dashbordactivity);
                                     finish();
                                 }
@@ -709,7 +721,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        // ...
+                        // ...logout
                     }
                 });
     }

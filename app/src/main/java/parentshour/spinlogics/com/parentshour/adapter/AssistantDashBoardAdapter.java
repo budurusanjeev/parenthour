@@ -1,6 +1,7 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.AssitantDashBoard;
 import parentshour.spinlogics.com.parentshour.models.AssistantDashboardModel;
-import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
  * Created by SPINLOGICS on 12/20/2016.
@@ -33,30 +33,32 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
 
     @Override
     public AssistantDashBoardAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_assistant_dashboard, viewGroup, false);
-     /*   //iv_profile_pic = (ImageView) view.findViewById(R.id.profile_pic);
-        TextView  tv_title = (TextView) view.findViewById(R.id.tv_title);
-        TextView tv_date = (TextView) view.findViewById(R.id.tv_date);
-        TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
-        TextView tv_status = (TextView) view.findViewById(R.id.tv_status);
-        TextView tv_name = (TextView) view.findViewById(R.id.profile_name);
-     */ /*  FontStyle.applyfontBasedOnSelection(tv_title,FontStyle.Lato_Medium,activity);
-        FontStyle.applyfontBasedOnSelection(tv_date,FontStyle.Lato_Medium,activity);
-        FontStyle.applyfontBasedOnSelection(tv_time,FontStyle.Lato_Medium,activity);
-        FontStyle.applyfontBasedOnSelection(tv_status,FontStyle.Lato_Medium,activity);
-        FontStyle.applyfontBasedOnSelection(tv_name,FontStyle.Lato_Medium,activity);
-*/
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_assistant_list, viewGroup, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(AssistantDashBoardAdapter.ViewHolder viewHolder, int i) {
         final int q = i;
+
         viewHolder.tv_title.setText(list.get(i).getTitle());
         viewHolder.tv_date.setText(list.get(i).getDate());
         viewHolder.tv_time.setText(list.get(i).getTime() + " to " + list.get(i).getEndtime());
         viewHolder.tv_status.setText(list.get(i).getStatus());
         viewHolder.tv_name.setText(list.get(i).getName());
+
+        if (list.get(i).getStatus().equals("accept")) {
+            viewHolder.iv_chat.setImageResource(R.drawable.ic_chat);
+        }
+
+        if (list.get(i).getStatus().equals("pending")) {
+            viewHolder.iv_chat.setVisibility(View.INVISIBLE);
+        }
+
+        if (list.get(i).getStatus().equals("completed")) {
+            viewHolder.iv_chat.setImageResource(R.drawable.ic_rateme);
+        }
         Glide.with(activity)
                 .load(list.get(i).getImgUrl())
                 .error(R.drawable.ic_profilelogo)
@@ -65,21 +67,19 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
         viewHolder.iv_profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+               /* activity.startActivity(new Intent(activity, ParentPlaySearchDateDetailViewActivity.class)
+                        .putExtra("id", list.get(q).getpId()));*/
             }
         });
         viewHolder.iv_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AssitantDashBoard) activity).ratingDialog(list.get(q).getpId(),
-                        list.get(q).getA_req_id());
+                if (list.get(q).getStatus().equals("completed")) {
+                    ((AssitantDashBoard) activity).ratingDialog(list.get(q).getpId(),
+                            list.get(q).getA_req_id(), q);
+                }
             }
         });
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_title, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_date, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_time, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_status, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
 
     }
 
@@ -102,9 +102,14 @@ public class AssistantDashBoardAdapter extends RecyclerView.Adapter<AssistantDas
             tv_status = (TextView) view.findViewById(R.id.tv_status);
             tv_name = (TextView) view.findViewById(R.id.profile_name);
             iv_chat = (ImageView) view.findViewById(R.id.iv_chat);
-            //  row_assistant_layout = (LinearLayout) view.findViewById(R.id.row_assistant_layout);
-            // FontStyle.applyFont(activity, row_assistant_layout, FontStyle.Lato_Medium);
+            Typeface faceBold = Typeface.createFromAsset(activity.getAssets(), "Lato-Bold.ttf");
+            tv_status.setTypeface(faceBold);
 
+            Typeface faceMedium = Typeface.createFromAsset(activity.getAssets(), "Lato-Medium.ttf");
+            tv_title.setTypeface(faceMedium);
+            tv_date.setTypeface(faceMedium);
+            tv_time.setTypeface(faceMedium);
+            tv_name.setTypeface(faceMedium);
         }
     }
 }

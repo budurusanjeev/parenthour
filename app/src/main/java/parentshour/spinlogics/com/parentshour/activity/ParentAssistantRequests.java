@@ -3,12 +3,16 @@ package parentshour.spinlogics.com.parentshour.activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,8 +66,7 @@ public class ParentAssistantRequests extends BaseActivity {
     }
 
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Search Assistant");
+
 
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
@@ -109,7 +112,7 @@ public class ParentAssistantRequests extends BaseActivity {
 
                 }
             });*/
-            getSearchAssistant();
+            // getSearchAssistant();
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -129,6 +132,103 @@ public class ParentAssistantRequests extends BaseActivity {
         }
     }
 
+    public void ratingDialog(final String aId, final String aReqId) {
+        Log.v("credentials method", "credentials method " + aId + " " + aReqId);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_rating, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog b = dialogBuilder.create();
+        final RatingBar rb_userRating = (RatingBar) dialogView.findViewById(R.id.assistant_rating);
+        final TextView tv_rating = (TextView) dialogView.findViewById(R.id.tv_rate_me);
+
+        tv_rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext()," "+ rb_userRating.getRating(),Toast.LENGTH_LONG).show();
+                setAssistantRating(aId, aReqId, String.valueOf(rb_userRating.getRating()));
+                b.dismiss();
+            }
+        });
+
+        b.show();
+    }
+
+    public void setAssistantRating(final String aId, final String aReqId, final String rating) {
+        showLoaderNew();
+        // PARENT_SEARCH_PLAY_DATE_URL
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_SET_RATING_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response.trim());
+                        hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("a_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.has("Success")) {
+
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            //throw new RuntimeException("crash" + e.toString());
+                            Crashlytics.logException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(ParentAssistantRequests.this, error.toString(), Toast.LENGTH_LONG).show();
+                        //throw new RuntimeException("crash " + error);
+                        Crashlytics.logException(error);
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") +
+                        "&a_id=" + aId +
+                        "&p_req_id=" + aReqId + "&p_stars=" + rating;
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+//p_id=12&a_id=2&a_req_id=1&a_stars=5
+
+                Log.v("credentials ", "credentials " + credentials);
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
     private void getSearchAssistant() {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
@@ -215,6 +315,18 @@ public class ParentAssistantRequests extends BaseActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        toolbarTextView.setText("Assistant Requests");
+        if (NetworkUtils.isNetworkConnectionAvailable(context)) {
+            getSearchAssistant();
+        } else {
+            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

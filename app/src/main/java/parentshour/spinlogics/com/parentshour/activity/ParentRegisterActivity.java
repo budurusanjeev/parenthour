@@ -1,9 +1,11 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,13 +43,14 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 import static parentshour.spinlogics.com.parentshour.R.layout.registration_layout;
 
 
-public class ParentRegisterActivity extends BaseNew {
+public class ParentRegisterActivity extends AppCompatActivity {
 
     TextView toolbarTextView;
    /* Typeface custom_font;
@@ -64,6 +67,8 @@ public class ParentRegisterActivity extends BaseNew {
     Button btn_signup;
     PreferenceUtils preferenceUtils;
     List<String> Lines = null;
+    Context mContext;
+    LoadingText loadingText;
     String ethnicity, cb_weekdaysValue, rg_gender_value = "", value, valueTimimgs, cb_weekendsValue, cb_morningValue, cb_afternoonValue, cb_eveningValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +79,10 @@ public class ParentRegisterActivity extends BaseNew {
 
         initializeControls();
         Fabric.with(this, new Crashlytics());
-
         preferenceUtils=new PreferenceUtils(mContext);
+        loadingText = new LoadingText(mContext);
+
+
         rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -171,7 +178,8 @@ public class ParentRegisterActivity extends BaseNew {
                     else
                     {
                         if (NetworkUtils.isNetworkConnectionAvailable(mContext)) {
-                            showLoaderNew();
+
+                            loadingText.showLoaderNew(ParentRegisterActivity.this);
                             if (!edt_occupation.getText().toString().equals("")) {
                                 sendData();
                             } else {
@@ -258,9 +266,10 @@ public class ParentRegisterActivity extends BaseNew {
 
                             if (jsonObject.has("Success")) {
                                 jsonObject.getString("Success");
-                                hideloader();
+                                loadingText.hideloader(ParentRegisterActivity.this);
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-                                Intent dashbordactivity = new Intent(mContext, ParentDashboard.class);
+                                Intent dashbordactivity = new Intent(mContext, ParentDashboard.class)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(dashbordactivity);
                                 Log.v("res ", "res  success" + jsonObject.getString("Success"));
                             } else {

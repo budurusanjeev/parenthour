@@ -30,7 +30,8 @@ public class ParentPlayDateEventAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ((ParentChipsView) holder.itemView).setAdapter(chipsArray.get(position), new ParentChipsAdapter(chipsArray.get(position).getPlayDateMembers()));
+        ((ParentChipsView) holder.itemView).setAdapter(chipsArray.get(position),
+                new ParentChipsAdapter(chipsArray.get(position).getPlayDateMembers()), position);
     }
 
     @Override

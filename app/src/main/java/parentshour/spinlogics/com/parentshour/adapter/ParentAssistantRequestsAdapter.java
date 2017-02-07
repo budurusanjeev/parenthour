@@ -2,6 +2,7 @@ package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.ParentAssistantRequestDetail;
+import parentshour.spinlogics.com.parentshour.activity.ParentAssistantRequests;
 import parentshour.spinlogics.com.parentshour.models.ParentAssistantRequestsModel;
-import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
  * Created by SPINLOGICS on 1/11/2017.
@@ -49,6 +50,27 @@ public class ParentAssistantRequestsAdapter extends RecyclerView.Adapter<ParentA
         viewHolder.profile_name.setText(list.get(i).getA_name());
         viewHolder.tv_status.setText(list.get(i).getA_status());
         //viewHolder.tv_title.setText(list.get(i).getA_task_name());
+        if (list.get(i).getA_status().equals("pending")) {
+            viewHolder.iv_rate_group.setVisibility(View.INVISIBLE);
+        }
+
+        if (list.get(i).getA_status().equals("accept")) {
+            viewHolder.iv_rate_group.setImageResource(R.drawable.ic_chat);
+        }
+
+        if (list.get(i).getA_status().equals("completed")) {
+            viewHolder.iv_rate_group.setImageResource(R.drawable.ic_favourite_check);
+            viewHolder.iv_rate_group.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (list.get(s).getA_status().equals("completed")) {
+                        ((ParentAssistantRequests) activity).ratingDialog(list.get(s).getA_id(),
+                                list.get(s).getA_req_id());
+                    }
+                }
+            });
+        }
+
         viewHolder.iv_image_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,17 +85,26 @@ public class ParentAssistantRequestsAdapter extends RecyclerView.Adapter<ParentA
                         .putExtra("aid", list.get(s).getA_id()));
             }
         });
+
+        viewHolder.iv_rate_group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
         Glide.with(activity)
                 .load(list.get(i).getA_pic())
                 .error(R.drawable.ic_profilelogo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.iv_profile_pic);
 
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_title, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_date, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_time, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.profile_name, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_status, FontStyle.Lato_Medium, activity);
+        //  FontStyle.applyfontBasedOnSelection(viewHolder.tv_title, FontStyle.Lato_Medium, activity);
+        //  FontStyle.applyfontBasedOnSelection(viewHolder.tv_date, FontStyle.Lato_Medium, activity);
+        //  FontStyle.applyfontBasedOnSelection(viewHolder.tv_time, FontStyle.Lato_Medium, activity);
+        //  FontStyle.applyfontBasedOnSelection(viewHolder.profile_name, FontStyle.Lato_Medium, activity);
+        //  FontStyle.applyfontBasedOnSelection(viewHolder.tv_status, FontStyle.Lato_Medium, activity);
 
     }
 
@@ -97,8 +128,16 @@ public class ParentAssistantRequestsAdapter extends RecyclerView.Adapter<ParentA
             tv_time = (TextView) view.findViewById(R.id.tv_time);
             tv_status = (TextView) view.findViewById(R.id.tv_status);
             profile_name = (TextView) view.findViewById(R.id.profile_name);
+            iv_rate_group = (ImageView) view.findViewById(R.id.iv_rate_me);
             // tv_title = (TextView) view.findViewById(R.id.tv_title);
+            Typeface faceMedium = Typeface.createFromAsset(activity.getAssets(), "Lato-Medium.ttf");
+            tv_title.setTypeface(faceMedium);
+            tv_date.setTypeface(faceMedium);
+            tv_time.setTypeface(faceMedium);
 
+            Typeface faceBold = Typeface.createFromAsset(activity.getAssets(), "Lato-Bold.ttf");
+            tv_status.setTypeface(faceBold);
+            tv_status.setTextSize(15f);
         }
     }
 }

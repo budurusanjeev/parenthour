@@ -1,17 +1,17 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -50,6 +50,7 @@ public class AssitantDashBoard extends BaseActivity {
     RecyclerView mRecyclerView;
     RecyclerView.Adapter adapter;
     ArrayList<AssistantDashboardModel> assistantList;
+    EditText editTextAssitantSearch;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     //private Random mRandom = new Random();
@@ -65,20 +66,68 @@ public class AssitantDashBoard extends BaseActivity {
 
             mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
             mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+
             mRecyclerView = (RecyclerView) findViewById(R.id.assistant_dashborad_recyclerView);
-            mRecyclerView.setHasFixedSize(true);
+            // mRecyclerView.setAdapter(adapter);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
-            assistantList = new ArrayList<AssistantDashboardModel>();
-            getAssistantList();
+            mRecyclerView.setHasFixedSize(true);
 
-            adapter = new AssistantDashBoardAdapter(assistantList, context);
-            mRecyclerView.setAdapter(adapter);
+            assistantList = new ArrayList<AssistantDashboardModel>();
+            // getAssistantList();
+            //adapter = new AssistantDashBoardAdapter(assistantList, context);
+            //mRecyclerView.setAdapter(adapter);
+            editTextAssitantSearch = (EditText) findViewById(R.id.searchAutoComplete);
+
+
+            editTextAssitantSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    charSequence = charSequence.toString().toLowerCase();
+
+                    final ArrayList<AssistantDashboardModel> filteredList = new ArrayList<AssistantDashboardModel>();
+
+                    for (int v = 0; v < assistantList.size(); v++) {
+
+                        final String textName, textTitle;
+                        textName = assistantList.get(v).getpName().toLowerCase();
+
+                        textTitle = assistantList.get(v).getTitle().toLowerCase();
+
+                        if (textName.contains(charSequence) || textTitle.contains(charSequence)) {
+
+                            filteredList.add(assistantList.get(v));
+                        } else {
+                            if (filteredList.size() == 0) {
+                                Toast.makeText(getApplicationContext(), "No results found", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(AssitantDashBoard.this));
+                    adapter = new AssistantDashBoardAdapter(filteredList, context);
+                    mRecyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+
+                }
+            });
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     assistantList.clear();
                     getAssistantList();
+                    //adapter = new AssistantDashBoardAdapter(assistantList, context);
+                    // mRecyclerView.setAdapter(adapter);
                     mSwipeRefreshLayout.setRefreshing(false);
 
                 }
@@ -121,7 +170,6 @@ public class AssitantDashBoard extends BaseActivity {
                                 }
                                 adapter = new AssistantDashBoardAdapter(assistantList, context);
                                 mRecyclerView.setAdapter(adapter);
-
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -176,7 +224,7 @@ public class AssitantDashBoard extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void ratingDialog(final String pId, final String aReqId) {
+    public void ratingDialog(final String pId, final String aReqId, final int pos) {
         Log.v("credentials method", "credentials method " + pId + " " + aReqId);
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = getLayoutInflater();
@@ -186,19 +234,11 @@ public class AssitantDashBoard extends BaseActivity {
         final RatingBar rb_userRating = (RatingBar) dialogView.findViewById(R.id.assistant_rating);
         final TextView tv_rating = (TextView) dialogView.findViewById(R.id.tv_rate_me);
 
-        LayerDrawable stars = (LayerDrawable) rb_userRating
-                .getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.parseColor("#FF8C00"),
-                PorterDuff.Mode.SRC_ATOP); // for filled stars
-        stars.getDrawable(1).setColorFilter(Color.parseColor("#FFFF89"),
-                PorterDuff.Mode.SRC_ATOP); // for half filled stars
-        stars.getDrawable(0).setColorFilter(Color.WHITE,
-                PorterDuff.Mode.SRC_ATOP);
         tv_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getApplicationContext()," "+ rb_userRating.getRating(),Toast.LENGTH_LONG).show();
-                setAssistantRating(pId, aReqId, String.valueOf(rb_userRating.getRating()));
+                setAssistantRating(pId, aReqId, String.valueOf(rb_userRating.getRating()), pos);
                 b.dismiss();
             }
         });
@@ -206,8 +246,21 @@ public class AssitantDashBoard extends BaseActivity {
         b.show();
     }
 
-    public void setAssistantRating(final String pId, final String aReqId, final String rating) {
+    public void removeFriend(int newPosition) {
+        // friendsList = "";
+        assistantList.remove(newPosition);
+        adapter.notifyItemRemoved(newPosition);
+        /*for (int s = 0; s < parentFriendModels.size(); s++) {
+            friendsList = friendsList + "," + parentFriendModels.get(s).getpId();
+            Log.v("friends", "friends: " + friendsList);
+        }*/
+        adapter.notifyItemRangeChanged(newPosition, assistantList.size());
+
+    }
+
+    public void setAssistantRating(final String pId, final String aReqId, final String rating, final int pos) {
         showLoaderNew();
+        //  dsfsdfsd
         // PARENT_SEARCH_PLAY_DATE_URL
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_SET_RATING_URL,
                 new Response.Listener<String>() {
@@ -222,7 +275,7 @@ public class AssitantDashBoard extends BaseActivity {
                             if (jsonObject.has("Success")) {
 
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-
+                                removeFriend(pos);
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -325,5 +378,12 @@ public class AssitantDashBoard extends BaseActivity {
     protected void onResume() {
         super.onResume();
         toolbarTextView.setText("Home");
+        if (NetworkUtils.isNetworkConnectionAvailable(context)) {
+            assistantList.clear();
+            getAssistantList();
+
+        } else {
+            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 }

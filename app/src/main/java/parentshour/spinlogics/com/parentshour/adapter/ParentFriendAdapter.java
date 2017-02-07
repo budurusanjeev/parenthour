@@ -68,16 +68,22 @@ public class ParentFriendAdapter extends RecyclerView.Adapter<ParentFriendAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_profile_pic;
-        private TextView tv_title;
+        private TextView tv_title, tv_date, tv_time, tv_status, tv_name;
 
         public ViewHolder(View view) {
             super(view);
             iv_profile_pic = (ImageView) view.findViewById(R.id.profile_pic);
             tv_title = (TextView) view.findViewById(R.id.tv_title);
-           /* tv_date = (TextView) view.findViewById(tv_date);
-            tv_time = (TextView) view.findViewById(tv_time);
-            tv_status = (TextView) view.findViewById(tv_status);
-            tv_name = (TextView) view.findViewById(R.id.profile_name);*/
+            tv_date = (TextView) view.findViewById(R.id.tv_date);
+            tv_time = (TextView) view.findViewById(R.id.tv_time);
+            tv_status = (TextView) view.findViewById(R.id.tv_status);
+            tv_name = (TextView) view.findViewById(R.id.profile_name);
+
+            tv_time.setVisibility(View.GONE);
+            tv_date.setVisibility(View.GONE);
+            tv_status.setVisibility(View.GONE);
+            tv_name.setVisibility(View.GONE);
+
             //  row_assistant_layout = (LinearLayout) view.findViewById(R.id.row_assistant_layout);
             // FontStyle.applyFont(activity, row_assistant_layout, FontStyle.Lato_Medium);
 

@@ -32,8 +32,6 @@ public class AppConstants
 	public static String CHECK_NETWORK_CONN="Please check internet connection!!";
 	
 	public static String NO_RESPONSE="No Response from Server";
-	public static int PAYMODEONLINE=5;
-	public static int PAYMODECOD=7;
 	public static String DASHBOARD = ParentDashboard.class.getSimpleName();
 	public static String RESTAURANTID = "restaurantid";
 	public static String RESTAURANTNAME = "restaurant ic_name";
@@ -48,11 +46,7 @@ public class AppConstants
 	public static String KEY_SOCIAL_TYPE="socialtype";
 	public static String KEY_USER_CONTACT="MobileNo";
 	public static String KEY_WALLET_AMOUNT= "walletAmount";
-	public static String ActionProceedToBillSummry = "proceedToBillSummry";
-	public static String KEY_ORDER_SUCCESS= "orderDatails";
-	public static String KEY_ORDERPACKEAGE="orderpackagelist";
 	public static String LOGINCOOKIE="loginCookie";
-	public static String FILTERQUIERY = "?ic_filter=";
 
 	//Host url
 	public static String HOST_URL="http://spinlogics.com/Parentshour/webservices/";

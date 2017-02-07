@@ -71,8 +71,8 @@
     <string name="billingtext">Billing /\ Hour</string>
     <string name="abouttext">About :</string>
     <string name="about">About </string>
-    <string name="gigstext">Types of Gigs :  </string>
-    <string name="gigs">Types of Gigs   </string>
+    <string name="gigstext">Skills :  </string>
+    <string name="gigs">Skills   </string>
     <string name="search">Search</string>
     <string name="parent"> Parent </string>
     <string name="assistant"> Assistant </string>

@@ -30,23 +30,24 @@ public class ParentChipsView extends FrameLayout {
         ((RecyclerView) findViewById(R.id.recyclerViewHorizontal)).setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    public void setAdapter(final PlayDateEventModelParcel playDateEventsModel, ParentChipsAdapter adapter) {
+    public void setAdapter(final PlayDateEventModelParcel playDateEventsModel, final ParentChipsAdapter adapter, final int position) {
 
         //((TextView)findViewById(R.id.chipTextView)).setText(playDateEventsModel.getName());
         ((TextView) findViewById(R.id.tv_date)).setText(playDateEventsModel.getDate());
         ((TextView) findViewById(R.id.tv_time)).setText(playDateEventsModel.getTime());
-
+        findViewById(R.id.iv_edit_events).setVisibility(GONE);
         (findViewById(R.id.tv_yes)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ParentPlayDateSelectionEvent) contexts).acceptRequest(playDateEventsModel.getpEid());
+                ((ParentPlayDateSelectionEvent) contexts).acceptRequest(playDateEventsModel.getpEid(), position, adapter);
+
             }
         });
 
         (findViewById(R.id.tv_no)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ParentPlayDateSelectionEvent) contexts).rejectRequest(playDateEventsModel.getpEid());
+                ((ParentPlayDateSelectionEvent) contexts).rejectRequest(playDateEventsModel.getpEid(), position, adapter);
 
             }
         });

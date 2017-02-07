@@ -20,8 +20,8 @@
 
         <TextView
             android:id="@+id/tv_friend_request_count"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
@@ -30,7 +30,7 @@
             android:layout_toRightOf="@+id/tv_friend_request"
             android:background="@drawable/circle_drawable"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="@string/_0"
             android:textColor="@color/white"
             android:textSize="@dimen/activity_fifteen_textSize" />
@@ -114,8 +114,8 @@
 
         <TextView
             android:id="@+id/tv_play_date_events_count"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
@@ -124,7 +124,7 @@
             android:layout_toRightOf="@+id/tv_play_date_events"
             android:background="@drawable/circle_drawable"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="@string/_0"
             android:textColor="@color/white"
             android:textSize="@dimen/activity_fifteen_textSize" />

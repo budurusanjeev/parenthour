@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,8 @@ public class ParentPlayDateEvents extends BaseActivity {
     RecyclerView.Adapter adapter;
     ArrayList<PlayDateEventsModel> playDateArrayList;
     EditText editTextPlayEventsSearch;
+    TextView toolbarTextView;
+    RelativeLayout searchLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -61,13 +64,25 @@ public class ParentPlayDateEvents extends BaseActivity {
         llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         initViewControll();
-        getPlayDateEvents();
+
         Fabric.with(this, new Crashlytics());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toolbarTextView.setText("Play Date Events");
+        if (NetworkUtils.isNetworkConnectionAvailable(context)) {
+            getPlayDateEvents();
+        } else {
+            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Play Date");
+        toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        searchLayout = (RelativeLayout) findViewById(R.id.searchLayout);
+        searchLayout.setVisibility(View.GONE);
         TextView tv_save = (TextView) findViewById(R.id.setting_Save);
         tv_save.setVisibility(View.VISIBLE);
         tv_save.setText("");
@@ -78,7 +93,8 @@ public class ParentPlayDateEvents extends BaseActivity {
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ParentEventCreation.class).putExtra("eventId", (Parcelable[]) null));
+                startActivity(new Intent(getApplicationContext(), ParentEventCreation.class)
+                        .putExtra("eventId", (Parcelable[]) null));
             }
         });
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
@@ -155,6 +171,143 @@ public class ParentPlayDateEvents extends BaseActivity {
         }
     }
 
+    public void acceptRequest(final String friendId) {
+        showLoaderNew();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_ACCEPT_EVENT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response);
+                        //  loadingText.hideloader(ParentPlayDateSelectionEvent.this);
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.has("Success")) {
+
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                                //finish();
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            throw new RuntimeException("crash" + e.toString());
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(ParentPlayDateEvents.this, error.toString(), Toast.LENGTH_LONG).show();
+                        throw new RuntimeException("crash" + error.toString());
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&pe_id=" + friendId;
+                Log.v("credentials", "credentials " + credentials);
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void rejectRequest(final String friendId) {
+        showLoaderNew();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_REJECT_EVENT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("res ", "res  " + response);
+                        hideloader();
+                        Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            if (jsonObject.has("Success")) {
+
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                            } else {
+                                jsonObject.getString("Error");
+                                Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
+                                Log.v("res ", "res  success" + jsonObject.getString("Error"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            throw new RuntimeException("crash" + e.toString());
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        hideloader();
+                        Log.v("error", "error " + error.toString());
+                        Toast.makeText(ParentPlayDateEvents.this, error.toString(), Toast.LENGTH_LONG).show();
+                        throw new RuntimeException("crash" + error.toString());
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String credentials = "p_id=" + preferenceUtils.getStringFromPreference("p_id", "") + "&pe_id=" + friendId;
+                Log.v("credentials", "credentials " + credentials);
+                // String credentials = "p_id=12"; /*+ preferenceUtils.getStringFromPreference("p_id", "");*/
+
+                try {
+                    return credentials.getBytes(getParamsEncoding());
+                } catch (UnsupportedEncodingException uee) {
+                    throw new RuntimeException("Encoding not supported: "
+                            + getParamsEncoding(), uee);
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorisation", "e4f507ddf306806gc7dcg77ed1e52f97");
+                return params;
+            }
+
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded";
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+
+    }
     private void getPlayDateEvents() {
         showLoaderNew();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_PLAY_DATE_EVENT,
@@ -246,6 +399,15 @@ public class ParentPlayDateEvents extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
+    public void removeItem(int newPosition) {
+        playDateArrayList.remove(newPosition);
+        adapter.notifyItemRemoved(newPosition);
+        adapter.notifyItemRangeChanged(newPosition, playDateArrayList.size());
+        if (playDateArrayList.size() == 0) {
+            Toast.makeText(getApplicationContext(), "No notifications founds", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
     @Override
     public void goto_playDateSearch_method() {
 

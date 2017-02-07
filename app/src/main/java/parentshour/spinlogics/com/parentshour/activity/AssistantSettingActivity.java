@@ -1,6 +1,7 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,7 +70,7 @@ public class AssistantSettingActivity extends BaseActivity {
 
                     }else
                     {
-                        showAlertValidation("New password and Conform password not equal");
+                        showAlertValidation("New password and Conform password do not match");
                     }
 
                 }else
@@ -110,7 +111,8 @@ public class AssistantSettingActivity extends BaseActivity {
 
                             if (jsonObject.has("Success")) {
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-
+                                startActivity(new Intent(getApplicationContext(), AssitantDashBoard.class));
+                                finish();
                                 Log.v("res ", "res  success" + jsonObject.getString("Success"));
                             } else {
                                 jsonObject.getString("error");

@@ -2,6 +2,7 @@ package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,6 @@ import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.ParentAssistantRequestDetail;
 import parentshour.spinlogics.com.parentshour.activity.ParentAssistantSetRequest;
 import parentshour.spinlogics.com.parentshour.models.ParentSearchAssistantModel;
-import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
  * Created by SPINLOGICS on 1/11/2017.
@@ -47,7 +47,7 @@ public class ParentSearchAssistantAdapter extends RecyclerView.Adapter<ParentSea
         viewHolder.tv_years.setText(list.get(i).getA_experience());
         viewHolder.tv_miles.setText(list.get(i).getA_distance());
         viewHolder.profile_name.setText(list.get(i).getA_name());
-
+        viewHolder.tv_rating.setText(list.get(i).getA_rating());
         Glide.with(activity)
                 .load(list.get(i).getA_pic())
                 .error(R.drawable.ic_profilelogo)
@@ -60,12 +60,12 @@ public class ParentSearchAssistantAdapter extends RecyclerView.Adapter<ParentSea
                         .putExtra("aid", list.get(s).getA_id()));
             }
         });
-        viewHolder.iv_rate_group.setOnClickListener(new View.OnClickListener() {
+       /* viewHolder.iv_rate_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
         viewHolder.titleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,12 +81,12 @@ public class ParentSearchAssistantAdapter extends RecyclerView.Adapter<ParentSea
                         .putExtra("aid", list.get(s).getA_id()));
             }
         });
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_years, FontStyle.Lato_Medium, activity);
+       /* FontStyle.applyfontBasedOnSelection(viewHolder.tv_years, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_miles, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.tv_rate_me, FontStyle.Lato_Medium, activity);
         FontStyle.applyfontBasedOnSelection(viewHolder.profile_name, FontStyle.Lato_Medium, activity);
         // FontStyle.applyfontBasedOnSelection(viewHolder.tv_status, FontStyle.Lato_Medium, activity);
-
+*/
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ParentSearchAssistantAdapter extends RecyclerView.Adapter<ParentSea
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_profile_pic, iv_rate_group;
         LinearLayout iv_image_layout, titleLayout;
-        private TextView tv_years, tv_miles, tv_rate_me, tv_status, profile_name;
+        private TextView tv_years, tv_miles, tv_rate_me, tv_status, tv_rating, profile_name;
 
         public ViewHolder(View view) {
             super(view);
@@ -107,8 +107,17 @@ public class ParentSearchAssistantAdapter extends RecyclerView.Adapter<ParentSea
             iv_rate_group = (ImageView) view.findViewById(R.id.iv_rate_me);
             tv_rate_me = (TextView) view.findViewById(R.id.tv_rate_me);
             profile_name = (TextView) view.findViewById(R.id.profile_name);
+            tv_rating = (TextView) view.findViewById(R.id.tv_rating);
             iv_image_layout = (LinearLayout) view.findViewById(R.id.iv_image_layout);
             titleLayout = (LinearLayout) view.findViewById(R.id.titleLayout);
+
+
+            Typeface faceMedium = Typeface.createFromAsset(activity.getAssets(), "Lato-Medium.ttf");
+            tv_miles.setTypeface(faceMedium);
+            tv_years.setTypeface(faceMedium);
+            tv_rate_me.setTypeface(faceMedium);
+            profile_name.setTypeface(faceMedium);
+            tv_rating.setTypeface(faceMedium);
         }
     }
 }

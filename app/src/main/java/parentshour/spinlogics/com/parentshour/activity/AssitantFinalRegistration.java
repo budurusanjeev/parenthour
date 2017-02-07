@@ -45,6 +45,7 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 public class AssitantFinalRegistration extends AppCompatActivity {
     TextView toolbarTextView,tv_signup;
     Context mContext;
+    PreferenceUtils preferenceUtils;
     EditText edt_experience, edt_hourly, edt_city, edt_state, edt_about_me,edt_others;
     CheckBox cb_assisting_with_children, cb_cooking, cb_House_errands, cb_bet_friendly;
     String valueSkillls,cb_assisting_with_children_Value, cb_cooking_Value, cb_House_errands_Value, cb_bet_friendly_Value;
@@ -55,6 +56,7 @@ public class AssitantFinalRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_final_registration);
         mContext = AssitantFinalRegistration.this;
         initializeControls();
+        preferenceUtils = new PreferenceUtils(mContext);
 
         tv_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,8 +171,10 @@ public class AssitantFinalRegistration extends AppCompatActivity {
 
                             if (jsonObject.has("Success"))
                             {
+                                //  BaseActivity.generateIconAndStringForDrawer();
                               //  Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(),AssitantDashBoard.class));
+                                startActivity(new Intent(getApplicationContext(), AssitantDashBoard.class)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                 Log.v("res ", "res  success" + jsonObject.getString("Success"));
                             } else {
                                 jsonObject.getString("Error");
@@ -197,7 +201,7 @@ public class AssitantFinalRegistration extends AppCompatActivity {
 
                 Log.v("test","test1 "+ validateSkills());
                 String credentials;
-PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
+                PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
                     credentials = "a_id="+ preferenceUtils.getStringFromPreference("a_id","")
                             +"&a_experience="+ edt_experience.getText().toString()+
                             "&a_hourly_rate="+ edt_hourly.getText().toString()+

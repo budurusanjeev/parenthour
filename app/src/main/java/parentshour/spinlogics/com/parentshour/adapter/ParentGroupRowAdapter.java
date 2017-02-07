@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.activity.ParentAddGroup;
 import parentshour.spinlogics.com.parentshour.activity.ParentEventCreation;
 import parentshour.spinlogics.com.parentshour.activity.ParentPlaySearchDateDetailViewActivity;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
@@ -26,11 +27,13 @@ import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 public class ParentGroupRowAdapter extends RecyclerView.Adapter<ParentGroupRowAdapter.ViewHolder> {
     Context activity;
+    String typeName;
     private ArrayList<ParentFriendModel> list;
 
-    public ParentGroupRowAdapter(ArrayList<ParentFriendModel> countries, Context context) {
+    public ParentGroupRowAdapter(ArrayList<ParentFriendModel> countries, Context context, String type) {
         this.list = countries;
         this.activity = context;
+        this.typeName = type;
     }
 
     @Override
@@ -60,7 +63,12 @@ public class ParentGroupRowAdapter extends RecyclerView.Adapter<ParentGroupRowAd
         viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ParentEventCreation) activity).removeFriend(viewHolder.getAdapterPosition());
+                if (typeName.equals("group")) {
+                    ((ParentAddGroup) activity).removeFriend(viewHolder.getAdapterPosition());
+                } else {
+                    ((ParentEventCreation) activity).removeFriend(viewHolder.getAdapterPosition());
+                }
+
             }
         });
     }

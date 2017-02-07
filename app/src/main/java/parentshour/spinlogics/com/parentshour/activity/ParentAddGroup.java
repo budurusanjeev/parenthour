@@ -6,15 +6,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +55,8 @@ import parentshour.spinlogics.com.parentshour.adapter.ParentGroupRowAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
+import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 import parentshour.spinlogics.com.parentshour.utilities.Utility;
 
@@ -59,7 +64,7 @@ import parentshour.spinlogics.com.parentshour.utilities.Utility;
  * Created by SPINLOGICS on 12/27/2016.
  */
 
-public class ParentAddGroup extends BaseActivity {
+public class ParentAddGroup extends AppCompatActivity {
     Context context;
     EditText et_groupName;
     RecyclerView mRecyclerView;
@@ -70,16 +75,20 @@ public class ParentAddGroup extends BaseActivity {
     ParentFriendModel groupId;
     String imageData, friendsSelected;
     ImageView iv_upload_profile_photo;
+    PreferenceUtils preferenceUtils;
+    LoadingText loadingText;
+    TextView toolbarTextView;
     private String userChoosenTask, friendsList;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1, SELECT_FRIENDS = 2;
 
     @Override
-    public void initialize() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         context = ParentAddGroup.this;
-
         preferenceUtils = new PreferenceUtils(context);
         parentFriendModels = new ArrayList<ParentFriendModel>();
-        llContent.addView(inflater.inflate(R.layout.activity_parent_addgroup, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(R.layout.activity_parent_addgroup);
+        loadingText = new LoadingText(ParentAddGroup.this);
         initViewControll();
         if (getIntent().getExtras().get("groupId") != null) {
             groupId = getIntent().getExtras().getParcelable("groupId");
@@ -98,8 +107,10 @@ public class ParentAddGroup extends BaseActivity {
     }
 
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Add Group");
+        /*TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        toolbarTextView.setText("Add Group");*/
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         RelativeLayout uploadImageLayout = (RelativeLayout) findViewById(R.id.uploadImageLayout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerAddedGroupMembers);
         iv_addMemberToGroup = (TextView) findViewById(R.id.tv_addMemberToGroup);
@@ -169,15 +180,35 @@ public class ParentAddGroup extends BaseActivity {
         });
     }
 
+    public void showAlertValidation(String error) {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.notification_dailog, null);
+        dialogBuilder.setView(dialogView);
+        final AlertDialog b = dialogBuilder.create();
+        final TextView tv_errorTitle = (TextView) dialogView.findViewById(R.id.tvTitle);
+        final TextView tv_ok = (TextView) dialogView.findViewById(R.id.btnYes);
+        LinearLayout alert_layout = (LinearLayout) findViewById(R.id.alert_layout);
+        FontStyle.applyFont(getApplicationContext(), alert_layout, FontStyle.Lato_Medium);
+        tv_errorTitle.setText(error);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        b.show();
+
+    }
     private void createGroup() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentAddGroup.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_CREATE_GROUP_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -202,7 +233,7 @@ public class ParentAddGroup extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -240,16 +271,26 @@ public class ParentAddGroup extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getExtras().get("groupId") != null) {
+            toolbarTextView.setText("Edit Group");
+        } else {
+            toolbarTextView.setText("Add Group");
+        }
+    }
+
     private void editedGroup() {
 
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentAddGroup.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_EDIT_GROUP_MEMBERS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -274,7 +315,7 @@ public class ParentAddGroup extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -409,7 +450,7 @@ public class ParentAddGroup extends BaseActivity {
         friendsList = data.getStringExtra("friendsList");
         parentFriendModels.clear();
         parentFriendModels = data.getParcelableArrayListExtra("friendObject");
-        adapter = new ParentGroupRowAdapter(parentFriendModels, context);
+        adapter = new ParentGroupRowAdapter(parentFriendModels, context, "group");
         mRecyclerView.setAdapter(adapter);
         Log.v("friend list", "friend list: " + data.getStringExtra("friendsList"));
     }
@@ -463,16 +504,27 @@ public class ParentAddGroup extends BaseActivity {
 
     }
 
+    public void removeFriend(int newPosition) {
+        friendsList = "";
+        parentFriendModels.remove(newPosition);
+        adapter.notifyItemRemoved(newPosition);
+        for (int s = 0; s < parentFriendModels.size(); s++) {
+            friendsList = friendsList + "," + parentFriendModels.get(s).getpId();
+            Log.v("friends", "friends: " + friendsList);
+        }
+        adapter.notifyItemRangeChanged(newPosition, parentFriendModels.size());
+
+    }
 
     private void getGroupMembers() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentAddGroup.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_GROUP_MEMBERS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (!jsonObject.has("Error")) {
@@ -488,7 +540,7 @@ public class ParentAddGroup extends BaseActivity {
                                     parentFriendModels.add(parentFriendModel);
                                     friendsList = friendObject.getString("p_id") + ",";
                                 }
-                                adapter = new ParentGroupRowAdapter(parentFriendModels, context);
+                                adapter = new ParentGroupRowAdapter(parentFriendModels, context, "group");
                                 mRecyclerView.setAdapter(adapter);
                             }
 
@@ -502,7 +554,7 @@ public class ParentAddGroup extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentAddGroup.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentAddGroup.this, error.toString(), Toast.LENGTH_LONG).show();
                         // throw new RuntimeException("crash" + error.toString());
@@ -537,43 +589,4 @@ public class ParentAddGroup extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
-    }
 }

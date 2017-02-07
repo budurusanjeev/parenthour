@@ -112,6 +112,16 @@ public class AssistantGetActivity extends BaseActivity {
                                         .crossFade()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
+                                // BaseActivity.setProfileImage(jsonObject.getString("a_pic"),jsonObject.getString("a_name"));
+                                Glide.with(context)
+                                        .load(jsonObject.getString("a_pic"))
+                                        .thumbnail(0.5f)
+                                        .crossFade()
+                                        .error(R.drawable.ic_addprofile)
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(img_header);
+                                BaseActivity.txt_usrname.setText(jsonObject.getString("a_name"));
+
 //                                Log.v("res ", "res  success" + jsonObject.getString("Success"));
                             } else {
                                 jsonObject.getString("Error");

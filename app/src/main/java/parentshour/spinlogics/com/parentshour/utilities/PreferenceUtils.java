@@ -5,12 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.HashMap;
+
 public class PreferenceUtils
 
 {
+	public static String KEY = "key";
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor edit;
-	public static String KEY 			= 	"key";
 
 	public PreferenceUtils(Context context)
 	{

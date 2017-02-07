@@ -108,7 +108,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
               b.dismiss();
           }else
           {
-              showAlertValidation("New password and Conform password not equal");
+              showAlertValidation("New password and Confirm password does not match");
           }
 
          }else {
@@ -283,6 +283,7 @@ public class ParentSettingAcitivity extends BaseActivity implements ToggleButton
              if (jsonObject.has("Success")) {
               Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
               Log.v("res ", "res  success" + jsonObject.getString("Success"));
+                 finish();
              } else {
               jsonObject.getString("error");
               Toast.makeText(getApplicationContext(), "" + jsonObject.getString("error"), Toast.LENGTH_LONG).show();
@@ -403,6 +404,7 @@ sendSettings();
                             if (jsonObject.has("Success")) {
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
                                 Log.v("res ", "res  success" + jsonObject.getString("Success"));
+                                finish();
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();

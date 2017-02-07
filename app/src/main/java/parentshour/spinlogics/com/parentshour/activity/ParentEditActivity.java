@@ -1,15 +1,23 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +64,7 @@ import java.util.Map;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
 import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 import parentshour.spinlogics.com.parentshour.utilities.Utility;
@@ -66,7 +75,7 @@ import static parentshour.spinlogics.com.parentshour.R.id.iv_upload_profile_phot
  * Created by SPINLOGICS ic_on 12/7/2016.
  */
 
-public class ParentEditActivity extends BaseActivity {
+public class ParentEditActivity extends AppCompatActivity {
     String imageData;
     Context context;
     ImageView profilePic;
@@ -89,18 +98,74 @@ public class ParentEditActivity extends BaseActivity {
     CheckBox cb_weekdays, cb_weekends, cb_morning, cb_afternoon, cb_evening;
     Spinner ethnicitySpinner;
     List<String> Lines = null;
+    LoadingText loadingText;
+    TextView toolbarTextView;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask, ethnicity;
     private PreferenceUtils preferenceUtils;
 
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
     @Override
-    public void initialize() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_parent_editprofile);
         context = ParentEditActivity.this;
-
         preferenceUtils = new PreferenceUtils(context);
-
-        llContent.addView(inflater.inflate(R.layout.activity_parent_editprofile, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        loadingText = new LoadingText(context);
         initViewControll();
         getProfileData();
         profilePic.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +226,7 @@ public class ParentEditActivity extends BaseActivity {
                 }
             }
         });
+
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,34 +314,37 @@ public class ParentEditActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
-    private void sendData()
-    {
+    private void sendData() {
+        loadingText.showLoaderNew(ParentEditActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.EDIT_PROFILE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        showLoaderNew();
+
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
-                            if (jsonObject.has("Success"))
-                            {
+                            if (jsonObject.has("Success")) {
+                                loadingText.hideloader(ParentEditActivity.this);
                                 if(imageData != null)
                                 {
                                     Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-                                    Glide.with(basecontext)
+
+                                   /* Glide.with(context)
                                             .load(destination)
                                             .thumbnail(0.5f)
                                             .crossFade()
                                             .error(R.drawable.ic_addprofile)
                                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                            .into(img_header);
-                                    PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
-                                    preferenceUtils.saveString("p_pic", destination.toString());
+                                            .into(img_header);*/
+                                    // PreferenceUtils preferenceUtils = new PreferenceUtils(getApplicationContext());
+                                    // preferenceUtils.saveString("p_pic", destination.toString());
+                                    // preferenceUtils.saveString("p_name",edt_name.getText().toString());
+                                    // BaseActivity.setProfileImage(context,destination.toString(),edt_name.getText().toString());
                                 }
 
                                                               finish();
@@ -295,7 +364,7 @@ public class ParentEditActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentEditActivity.this);
                         Log.v("error", "error " + error.toString());
                         Crashlytics.logException(error);
                         Toast.makeText(ParentEditActivity.this, error.toString(), Toast.LENGTH_LONG).show();
@@ -304,8 +373,6 @@ public class ParentEditActivity extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-               /* Log.v("test","test1 "+ validateSignup());
-                Log.v("test","test2 "+ validateTimings());*/
                 String credentials;
                 if(imageData != null)
                 {
@@ -373,6 +440,7 @@ public class ParentEditActivity extends BaseActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -444,14 +512,93 @@ public class ParentEditActivity extends BaseActivity {
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                // Log.v("file path ","file path "+getRealPathFromURI(data.getData())); ;
                 imageData = getStringImage(bm);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
 
+            // imagePath(data.getData());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//android.os.Build.VERSION.SDK_INT < ICE_CREAM_SANDWICH
+                destination = new File(imagePath(data.getData()));
+            } else {
+                destination = new File(getRealPathFromURI(data.getData()));
+            }
+
+            Log.v("file path ", "file path " + imagePath(data.getData()));
+
+        }
         profilePic.setImageBitmap(bm);
     }
+
+    // And to convert the image URI to the direct file system path of the image file
+    public String getRealPathFromURI(Uri contentUri) {
+
+        String[] projection = {MediaStore.Images.Media.DATA};
+        @SuppressWarnings("deprecation")
+        Cursor cursor = managedQuery(contentUri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    String imagePath(Uri uri) {
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+
+                    // TODO handle non-primary volumes
+                }
+                // DownloadsProvider
+                else if (isDownloadsDocument(uri)) {
+
+                    final String id = DocumentsContract.getDocumentId(uri);
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                // MediaProvider
+                else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    if ("image".equals(type)) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("video".equals(type)) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("audio".equals(type)) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[]{
+                            split[1]
+                    };
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                }
+            }
+        }
+
+
+        return null;
+    }
+
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
@@ -513,11 +660,11 @@ public class ParentEditActivity extends BaseActivity {
                                     cb_weekends.setChecked(true);
                                 }else
                                 {
-                                    if(jsonObject.getString("p_avail_days").equals("Weekdays"))
+                                    if (jsonObject.getString("p_avail_days").equals("Weekdays") || jsonObject.getString("p_avail_days").equals(",Weekdays"))
                                     {
                                         cb_weekdays.setChecked(true);
                                     }
-                                    if(jsonObject.getString("p_avail_days").equals("Weekends"))
+                                    if (jsonObject.getString("p_avail_days").equals("Weekends") || jsonObject.getString("p_avail_days").equals(",Weekends"))
                                     {
                                         cb_weekends.setChecked(true);
                                     }
@@ -540,49 +687,49 @@ public class ParentEditActivity extends BaseActivity {
                                         switch (s)
                                         {
                                             case 0:
-                                                if(d[s].equals("Morning"))
+                                                if (d[s].equals("Morning") || d[s].equals(",Morning"))
                                                 {
                                                     cb_morning.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Afternoon"))
+                                                if (d[s].equals("Afternoon") || d[s].equals(",Afternoon"))
                                                 {
                                                     cb_afternoon.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Evening"))
+                                                if (d[s].equals("Evening") || d[s].equals(",Evening"))
                                                 {
                                                     cb_evening.setChecked(true);
                                                 }
                                                    break;
                                             case 1:
-                                                if(d[s].equals("Morning"))
+                                                if (d[s].equals("Morning") || d[s].equals(",Morning"))
                                                 {
                                                     cb_morning.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Afternoon"))
+                                                if (d[s].equals("Afternoon") || d[s].equals(",Afternoon"))
                                                 {
                                                     cb_afternoon.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Evening"))
+                                                if (d[s].equals("Evening") || d[s].equals(",Evening"))
                                                 {
                                                     cb_evening.setChecked(true);
                                                 }
                                                   break;
                                             case 2:
-                                                if(d[s].equals("Morning"))
+                                                if (d[s].equals("Morning") || d[s].equals(",Morning"))
                                                 {
                                                     cb_morning.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Afternoon"))
+                                                if (d[s].equals("Afternoon") || d[s].equals(",Afternoon"))
                                                 {
                                                     cb_afternoon.setChecked(true);
 
                                                 }
-                                                if(d[s].equals("Evening"))
+                                                if (d[s].equals("Evening") || d[s].equals(",Evening"))
                                                 {
                                                     cb_evening.setChecked(true);
                                                 }
@@ -595,7 +742,7 @@ public class ParentEditActivity extends BaseActivity {
                                 }
                                 edt_education.setText(jsonObject.getString("p_education"));
 
-                                Glide.with(basecontext).load(jsonObject.getString("p_pic"))
+                                Glide.with(context).load(jsonObject.getString("p_pic"))
                                         .thumbnail(0.5f)
                                         .crossFade()
                                         .error(R.drawable.ic_addprofile)
@@ -707,6 +854,12 @@ public class ParentEditActivity extends BaseActivity {
         return valueTimimgs;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toolbarTextView.setText("Edit Parent Info");
+    }
+
     public void showAlertValidation(String error)
     {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -727,6 +880,8 @@ public class ParentEditActivity extends BaseActivity {
     }
     private void initViewControll()
     {
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
         profilePic = (ImageView) findViewById(iv_upload_profile_photo);
 
         edt_name = (EditText) findViewById(R.id.edt_name);
@@ -781,9 +936,9 @@ public class ParentEditActivity extends BaseActivity {
         adapterBusinessType.setDropDownViewResource(R.layout.row_spinner);
 
         ethnicitySpinner.setAdapter(adapterBusinessType);
-
+/*
         TextView toolbarTextView = (TextView)findViewById(R.id.page_heading);
-        toolbarTextView.setText("Edit Profile");
+        toolbarTextView.setText("Edit Profile");*/
         LinearLayout par_edit_layout = (LinearLayout)findViewById(R.id.par_edit_layout);
         FontStyle.applyFont(getApplicationContext(),par_edit_layout, FontStyle.Lato_Medium);
         ethnicitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -798,44 +953,5 @@ public class ParentEditActivity extends BaseActivity {
 
             }
         });
-    }
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
     }
 }

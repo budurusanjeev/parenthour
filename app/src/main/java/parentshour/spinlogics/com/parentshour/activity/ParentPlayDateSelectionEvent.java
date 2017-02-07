@@ -1,12 +1,14 @@
 package parentshour.spinlogics.com.parentshour.activity;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +32,12 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import parentshour.spinlogics.com.parentshour.R;
+import parentshour.spinlogics.com.parentshour.adapter.ParentChipsAdapter;
 import parentshour.spinlogics.com.parentshour.adapter.ParentPlayDateEventAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.models.PlayDateEventModelParcel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.NetworkUtils;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
@@ -41,26 +45,33 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
  * Created by SPINLOGICS on 1/2/2017.
  */
 
-public class ParentPlayDateSelectionEvent extends BaseActivity {
+public class ParentPlayDateSelectionEvent extends AppCompatActivity {
     Context context;
     RecyclerView mRecyclerView;
     ArrayList<PlayDateEventModelParcel> playSearchArrayList;
     RelativeLayout searchLayout;
+    TextView toolbarTextView;
+    PreferenceUtils preferenceUtils;
+    LoadingText loadingText;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
-    public void initialize() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.parent_play_date_selection);
         context = ParentPlayDateSelectionEvent.this;
         preferenceUtils = new PreferenceUtils(context);
-        llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        loadingText = new LoadingText(context);
         playSearchArrayList = new ArrayList<PlayDateEventModelParcel>();
         initViewControll();
         Fabric.with(this, new Crashlytics());
     }
 
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("PlayDate Events");
-        TextView tv_save = (TextView) findViewById(R.id.setting_Save);
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
+        // toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        TextView tv_save = (TextView) test1View.findViewById(R.id.setting_Save);
         tv_save.setVisibility(View.VISIBLE);
         tv_save.setText("Done");
         tv_save.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +80,11 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                 finish();
             }
         });
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mRecyclerView = (RecyclerView) findViewById(R.id.assistant_dashborad_recyclerView);
+        mRecyclerView.setHasFixedSize(true);
 
         searchLayout = (RelativeLayout) findViewById(R.id.searchLayout);
         searchLayout.setVisibility(View.GONE);
@@ -79,6 +95,14 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
 
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    playSearchArrayList.clear();
+                    getCounts();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            });
         } else {
             Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
         }
@@ -86,13 +110,13 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
 
 
     private void getCounts() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentPlayDateSelectionEvent.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_NOTIFICATIONS_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -144,7 +168,7 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentPlayDateSelectionEvent.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -178,14 +202,20 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void acceptRequest(final String friendId) {
-        showLoaderNew();
+    public void removeItem(int position, ParentChipsAdapter adapter) {
+        playSearchArrayList.remove(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, playSearchArrayList.size());
+    }
+
+    public void acceptRequest(final String friendId, final int position, final ParentChipsAdapter adapter) {
+        loadingText.showLoaderNew(ParentPlayDateSelectionEvent.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_ACCEPT_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -193,7 +223,8 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                             if (jsonObject.has("Success")) {
 
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-                                finish();
+                                //finish();
+                                removeItem(position, adapter);
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -210,7 +241,7 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentPlayDateSelectionEvent.this, error.toString(), Toast.LENGTH_LONG).show();
                         throw new RuntimeException("crash" + error.toString());
@@ -246,20 +277,20 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
 
     }
 
-    public void rejectRequest(final String friendId) {
-        showLoaderNew();
+    public void rejectRequest(final String friendId, final int position, final ParentChipsAdapter adapter) {
+        loadingText.showLoaderNew(ParentPlayDateSelectionEvent.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_REJECT_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
                             if (jsonObject.has("Success")) {
-
+                                removeItem(position, adapter);
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
                             } else {
                                 jsonObject.getString("Error");
@@ -277,7 +308,7 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentPlayDateSelectionEvent.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentPlayDateSelectionEvent.this, error.toString(), Toast.LENGTH_LONG).show();
                         throw new RuntimeException("crash" + error.toString());
@@ -316,56 +347,12 @@ public class ParentPlayDateSelectionEvent extends BaseActivity {
 
     }
 
-  /*  private void getPlayDate() {
-        showLoaderNew();
-
-    }*/
-
-    @Override
-    public void goto_playDateSearch_method() {
-
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         playSearchArrayList.clear();
         // getPlayDate();
         getCounts();
+        toolbarTextView.setText("PlayDate Events");
     }
 }

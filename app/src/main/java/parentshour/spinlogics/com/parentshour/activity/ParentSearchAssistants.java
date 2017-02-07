@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -58,12 +60,16 @@ public class ParentSearchAssistants extends BaseActivity {
         llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         initViewControll();
+        if (NetworkUtils.isNetworkConnectionAvailable(context)) {
+            getSearchAssistant();
+        } else {
+            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
+        }
         Fabric.with(this, new Crashlytics());
     }
 
     private void initViewControll() {
-        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
-        toolbarTextView.setText("Search Assistant");
+
 
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
@@ -76,7 +82,7 @@ public class ParentSearchAssistants extends BaseActivity {
             playSearchArrayList = new ArrayList<ParentSearchAssistantModel>();
             editTextPlayDateSearch = (EditText) findViewById(R.id.searchAutoComplete);
 
-            /*editTextPlayDateSearch.addTextChangedListener(new TextWatcher() {
+            editTextPlayDateSearch.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -87,18 +93,20 @@ public class ParentSearchAssistants extends BaseActivity {
 
                     charSequence = charSequence.toString().toLowerCase();
 
-                    final ArrayList<PlaySearchDateModel> filteredList = new ArrayList<PlaySearchDateModel>();
+                    final ArrayList<ParentSearchAssistantModel> filteredList = new ArrayList<ParentSearchAssistantModel>();
 
                     for (int v = 0; v < playSearchArrayList.size(); v++) {
 
-                        final String text = playSearchArrayList.get(v).getpName().toLowerCase();
+                        final String text = playSearchArrayList.get(v).getA_name().toLowerCase();
                         if (text.contains(charSequence)) {
 
                             filteredList.add(playSearchArrayList.get(v));
+                            Log.v("name ", "name " + playSearchArrayList.get(v).getA_name());
                         }
                     }
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentAssistantRequests.this));
-                    adapter = new ParentSearchPlayAdapter(filteredList, context);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(ParentSearchAssistants.this));
+                    // adapter = new ParentSearchPlayAdapter(filteredList, context);
+                    adapter = new ParentSearchAssistantAdapter(filteredList, context);
                     mRecyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
@@ -108,8 +116,8 @@ public class ParentSearchAssistants extends BaseActivity {
 
 
                 }
-            });*/
-            getSearchAssistant();
+            });
+
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -127,6 +135,14 @@ public class ParentSearchAssistants extends BaseActivity {
         } else {
             Toast.makeText(context, "Please check internet connection", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        toolbarTextView.setText("Search Assistant");
+
     }
 
     private void getSearchAssistant() {

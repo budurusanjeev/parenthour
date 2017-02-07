@@ -72,7 +72,7 @@ public class ParentAssistantSetRequest extends BaseActivity {
         toolbarTextView.setText("Request Assistant");
         TextView tv_save = (TextView) findViewById(R.id.setting_Save);
         tv_save.setText("Done");
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         tv_date = (TextView) findViewById(R.id.tv_date_value);
         tv_start_time = (TextView) findViewById(R.id.tv_start_time_value);
         tv_end_time = (TextView) findViewById(R.id.tv_end_time_value);

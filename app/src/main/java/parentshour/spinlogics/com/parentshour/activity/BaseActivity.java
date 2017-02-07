@@ -5,16 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -40,6 +45,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import parentshour.spinlogics.com.parentshour.R;
@@ -50,36 +58,43 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public TextView txt_usrname,tv_userLogout,toolbarTextView;
-
+    public static TextView txt_usrname;
+    public static ImageView img_header;
+    public TextView tv_userLogout;
+    public TextView toolbarTextView;
     public LinearLayout llContent, ll_userDetail;
-
     public LayoutInflater inflater;
-
     public Context basecontext;
-
     public  Toolbar mtoolbar;
-
     public String[] nav_item_titlenames;
-
     public Bundle savedInstanceState;
-
     public ListView mdrawerlistview;
-
     public ImageView iv_filter;
-
     public DrawerLayout mdrawerlayout;
-
     public ActionBarDrawerToggle mdrawertoogle;
-
     public View header_view,footer_view;
     public ArrayList<NavDrawerItem> navDrawerItems;
     public NavDrawerListAdapter adapter;
     public Dialog dialog;
-    public ImageView img_header;
     PreferenceUtils preferenceUtils;
     GoogleApiClient mGoogleApiClient;
     private AnimationDrawable animationDrawable;
+
+    public static void setProfileImage(Context basecontext, String imageData, String name) {
+
+
+        Glide.with(basecontext).
+                load(new File(imageData))
+                .thumbnail(0.5f)
+                .crossFade()
+                .error(R.drawable.ic_profilelogo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(img_header);
+        txt_usrname.setText(name);
+        Log.v("name ", "name " + name + " " + imageData);
+        Toast.makeText(basecontext, " " + name, Toast.LENGTH_LONG).show();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,15 +218,18 @@ switch (position)
         tv_userLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "" + preferenceUtils.getStringFromPreference("social", ""), Toast.LENGTH_LONG).show();
-               if(preferenceUtils.getStringFromPreference("social","").equals("fb"))
+                //  Toast.makeText(getApplicationContext(), "" + preferenceUtils.getStringFromPreference("social", ""), Toast.LENGTH_LONG).show();
+                showLoaderNew();
+                if (preferenceUtils.getStringFromPreference("social", "").equals("fb"))
                {
 
                    if (AccessToken.getCurrentAccessToken() == null) {
                        // Toast.makeText()
                        preferenceUtils.saveString("loggedin","ic_logout");
                        preferenceUtils.logoutUser();
-                       startActivity(new Intent(getApplicationContext(),PreLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                       hideloader();
+                       startActivity(new Intent(getApplicationContext(), PreLoginActivity.class)
+                               .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                        finish();
                        return; // already logged out
 
@@ -225,6 +243,7 @@ switch (position)
                            LoginManager.getInstance().logOut();
                            preferenceUtils.saveString("loggedin","ic_logout");
                            preferenceUtils.logoutUser();
+                           hideloader();
                            startActivity(new Intent(getApplicationContext(),PreLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                            finish();
                        }
@@ -237,6 +256,7 @@ switch (position)
                                 public void onResult(Status status) {
                                     preferenceUtils.saveString("loggedin", "ic_logout");
                                     preferenceUtils.logoutUser();
+                                    hideloader();
                                     startActivity(new Intent(getApplicationContext(),PreLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                     finish();
                                 }
@@ -247,6 +267,7 @@ switch (position)
                {
                    preferenceUtils.saveString("loggedin","ic_logout");
                    preferenceUtils.logoutUser();
+                   hideloader();
                    startActivity(new Intent(getApplicationContext(),PreLoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                    finish();
 
@@ -294,6 +315,7 @@ switch (position)
         b.show();
 
     }
+
     private void initdrawer() {
 
         mtoolbar.setTitle("Parent Hour");
@@ -379,7 +401,32 @@ switch (position)
         }
     }
 
+    public String getDataFromUri(String data) {
+        String imageData = null;
+        Bitmap bm = null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), Uri.parse(data));
+                imageData = getStringImage(bm);
+                // iv_upload_profile_photo.setImageBitmap(bm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return imageData;
+    }
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
     public void generateIconAndStringForDrawer() {
+
+
 
         if(preferenceUtils.getStringFromPreference("select","").equals("parent"))
         {
@@ -394,7 +441,7 @@ switch (position)
                         .load(preferenceUtils.getStringFromPreference("p_pic", ""))
                         .thumbnail(0.5f)
                         .crossFade()
-                        .error(R.drawable.ic_addprofile)
+                        .error(R.drawable.ic_profilelogo)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(img_header);
             }
@@ -411,7 +458,7 @@ switch (position)
                 Glide.with(basecontext).load(preferenceUtils.getStringFromPreference("a_pic", ""))
                         .thumbnail(0.5f)
                         .crossFade()
-                        .error(R.drawable.ic_addprofile)
+                        .error(R.drawable.ic_profilelogo)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(img_header);
             }

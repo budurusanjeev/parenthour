@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.ParentEventCreation;
-import parentshour.spinlogics.com.parentshour.activity.ParentPlayDateSelectionEvent;
+import parentshour.spinlogics.com.parentshour.activity.ParentPlayDateEvents;
 import parentshour.spinlogics.com.parentshour.models.PlayDateEventsModel;
 
 public class RowChipsView extends FrameLayout {
@@ -39,23 +39,23 @@ public class RowChipsView extends FrameLayout {
         ((RecyclerView) findViewById(R.id.recyclerViewHorizontal)).setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    public void setAdapter(final PlayDateEventsModel playDateEventsModel, ChipsAdapter adapter) {
+    public void setAdapter(final PlayDateEventsModel playDateEventsModel, final int pos, ChipsAdapter adapter) {
 
         ((TextView) findViewById(R.id.tv_date)).setText(playDateEventsModel.getDate());
         ((TextView) findViewById(R.id.tv_time)).setText(playDateEventsModel.getTime());
         (findViewById(R.id.tv_yes)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ParentPlayDateSelectionEvent) contexts).acceptRequest(playDateEventsModel.getpEid());
-
+                ((ParentPlayDateEvents) contexts).acceptRequest(playDateEventsModel.getpEid());
+                ((ParentPlayDateEvents) contexts).removeItem(pos);
             }
         });
 
         (findViewById(R.id.tv_no)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ParentPlayDateSelectionEvent) contexts).rejectRequest(playDateEventsModel.getpEid());
-
+                ((ParentPlayDateEvents) contexts).rejectRequest(playDateEventsModel.getpEid());
+                ((ParentPlayDateEvents) contexts).removeItem(pos);
             }
         });
         (findViewById(R.id.iv_location)).setOnClickListener(new OnClickListener() {

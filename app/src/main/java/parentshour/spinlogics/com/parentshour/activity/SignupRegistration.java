@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -434,7 +433,8 @@ public class SignupRegistration extends AppCompatActivity {
         }
 
         imageData = getStringImage(thumbnail);
-
+        //BaseActivity.setProfileImage(getApplicationContext(),thumbnail);
+//        BaseActivity.img_header.setImageBitmap(thumbnail);
         iv_upload_profile_photo.setImageBitmap(thumbnail);
         iv_add.setVisibility(View.GONE);
     }
@@ -477,6 +477,19 @@ public class SignupRegistration extends AppCompatActivity {
 
                                 if (preferenceUtils.getStringFromPreference("select", "").equals("parent")) {
                                     preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("p_pic", imageData);
+                                    Log.v("image ", "image " + imageData);
+                                    // BaseActivity.setProfileImage(getApplicationContext(),imageData);
+                                    /*if(!preferenceUtils.getStringFromPreference("p_pic", "").equals(""))
+                                    {
+                                        Glide.with(mContext).load(Uri.parse(preferenceUtils.getStringFromPreference("p_pic", "")))
+                                                .thumbnail(0.5f)
+                                                .crossFade()
+                                                .error(R.drawable.bg_image_before)
+                                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                                .into(BaseActivity.img_header);
+                                    }*/
+
                                     preferenceUtils.saveString("p_id", jsonObject.getString("Success-pid"));
                                     startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
                                     finish();
@@ -484,6 +497,8 @@ public class SignupRegistration extends AppCompatActivity {
 
                                 if (preferenceUtils.getStringFromPreference("select", "").equals("assistant")) {
                                     preferenceUtils.saveString("loggedin", "loggedin");
+                                    preferenceUtils.saveString("a_pic", imageData);
+                                    Log.v("image ", "image " + imageData);
                                     preferenceUtils.saveString("a_id", jsonObject.getString("Success-aid"));
                                     startActivity(new Intent(getApplicationContext(), AssitantFinalRegistration.class));
                                     finish();
@@ -581,7 +596,7 @@ public class SignupRegistration extends AppCompatActivity {
         return encodedImage;
     }
 
-    public String getDataFromUri(Uri data) {
+   /* public String getDataFromUri(Uri data) {
         Bitmap bm = null;
         if (data != null) {
             try {
@@ -594,14 +609,14 @@ public class SignupRegistration extends AppCompatActivity {
             }
         }
         return imageData;
-    }
+    }*/
 
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+        //String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     private void initializeControls() {

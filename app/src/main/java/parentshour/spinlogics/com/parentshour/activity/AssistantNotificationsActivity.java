@@ -5,8 +5,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,7 +27,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.adapter.AssistantDashBoardAdapter;
@@ -45,7 +46,6 @@ public class AssistantNotificationsActivity extends BaseActivity {
     RecyclerView.Adapter adapter;
     ArrayList<AssistantDashboardModel> assistantList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Random mRandom = new Random();
 
     @Override
     public void initialize() {
@@ -54,7 +54,8 @@ public class AssistantNotificationsActivity extends BaseActivity {
         preferenceUtils = new PreferenceUtils(context);
 
         llContent.addView(inflater.inflate(R.layout.activity_assistant_dashboard, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        RelativeLayout searchLayout = (RelativeLayout) findViewById(R.id.searchLayout);
+        searchLayout.setVisibility(View.GONE);
         if (NetworkUtils.isNetworkConnectionAvailable(context)) {
 
             mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.assistant_swipeRefreshLayout);
@@ -64,7 +65,6 @@ public class AssistantNotificationsActivity extends BaseActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             mRecyclerView.setLayoutManager(layoutManager);
             assistantList = new ArrayList<AssistantDashboardModel>();
-            getAssistantList();
 
             adapter = new AssistantDashBoardAdapter(assistantList, context);
             mRecyclerView.setAdapter(adapter);
@@ -169,7 +169,7 @@ public class AssistantNotificationsActivity extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void acceptAssistant(final String aid) {
+    public void acceptAssistant(final String aid, final int position) {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_ACCEPT_URL,
@@ -185,7 +185,7 @@ public class AssistantNotificationsActivity extends BaseActivity {
                             if (jsonObject.has("Success")) {
 
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
-
+                                removeItem(position);
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -240,7 +240,17 @@ public class AssistantNotificationsActivity extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void rejectAssistant(final String aid) {
+    private void removeItem(int newPosition) {
+        assistantList.remove(newPosition);
+        adapter.notifyItemRemoved(newPosition);
+        adapter.notifyItemRangeChanged(newPosition, assistantList.size());
+        if (assistantList.size() == 0) {
+            Toast.makeText(getApplicationContext(), "No notifications founds", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
+    public void rejectAssistant(final String aid, final int position) {
         showLoaderNew();
         // PARENT_SEARCH_PLAY_DATE_URL
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.ASSISTANT_REJECT_URL,
@@ -255,6 +265,7 @@ public class AssistantNotificationsActivity extends BaseActivity {
 
                             if (jsonObject.has("Success")) {
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Success"), Toast.LENGTH_LONG).show();
+                                removeItem(position);
                             } else {
                                 jsonObject.getString("Error");
                                 Toast.makeText(getApplicationContext(), "" + jsonObject.getString("Error"), Toast.LENGTH_LONG).show();
@@ -353,6 +364,7 @@ public class AssistantNotificationsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         toolbarTextView.setText("Notification");
+        getAssistantList();
     }
 }
 

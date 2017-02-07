@@ -2,6 +2,7 @@ package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,10 @@ import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.ParentPlayDateSearch;
 import parentshour.spinlogics.com.parentshour.activity.ParentPlaySearchDateDetailViewActivity;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
-import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
+
+import static parentshour.spinlogics.com.parentshour.R.id.tv_date;
+import static parentshour.spinlogics.com.parentshour.R.id.tv_time;
+import static parentshour.spinlogics.com.parentshour.R.id.tv_title;
 
 /**
  * Created by SPINLOGICS on 12/27/2016.
@@ -92,10 +96,7 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
             }
         });
 
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_education, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_age, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_ethnicity, FontStyle.Lato_Medium, activity);
+
     }
 
     @Override
@@ -112,13 +113,18 @@ public class ParentSearchPlayAdapter extends RecyclerView.Adapter<ParentSearchPl
             super(view);
             iv_profile_pic = (ImageView) view.findViewById(R.id.profile_pic);
             tv_name = (TextView) view.findViewById(R.id.profile_name);
-            tv_education = (TextView) view.findViewById(R.id.tv_date);
-            tv_age = (TextView) view.findViewById(R.id.tv_title);
-            tv_ethnicity = (TextView) view.findViewById(R.id.tv_time);
+            tv_education = (TextView) view.findViewById(tv_date);
+            tv_age = (TextView) view.findViewById(tv_title);
+            tv_ethnicity = (TextView) view.findViewById(tv_time);
             titleLayout = (LinearLayout) view.findViewById(R.id.titleLayout);
             iv_flag = (ImageView) view.findViewById(R.id.iv_flag);
             iv_friend = (ImageView) view.findViewById(R.id.iv_friend);
 
+            Typeface faceMedium = Typeface.createFromAsset(activity.getAssets(), "Lato-Medium.ttf");
+            tv_education.setTypeface(faceMedium);
+            tv_age.setTypeface(faceMedium);
+            tv_ethnicity.setTypeface(faceMedium);
+            tv_name.setTypeface(faceMedium);
         }
     }
 }

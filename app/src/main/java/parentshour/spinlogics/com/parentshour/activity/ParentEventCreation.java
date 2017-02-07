@@ -9,15 +9,16 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import parentshour.spinlogics.com.parentshour.adapter.ParentGroupRowAdapter;
 import parentshour.spinlogics.com.parentshour.models.ParentFriendModel;
 import parentshour.spinlogics.com.parentshour.models.PlaySearchDateModel;
 import parentshour.spinlogics.com.parentshour.utilities.AppConstants;
+import parentshour.spinlogics.com.parentshour.utilities.LoadingText;
 import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 /**
@@ -56,7 +58,7 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
  */
 
 
-public class ParentEventCreation extends BaseActivity {
+public class ParentEventCreation extends AppCompatActivity {
     private static SimpleDateFormat dateFormatter;
     Context context;
     TextView tv_date, tv_time, tv_addFriends, tv_create, tv_cancel;
@@ -68,17 +70,19 @@ public class ParentEventCreation extends BaseActivity {
     ArrayList<ParentFriendModel> parentFriendModels;
     String friendsList;
     TextView toolbarTextView;
+    PreferenceUtils preferenceUtils;
+    LoadingText loadingText;
     private int SELECT_FRIENDS = 2;
 
     @SuppressLint("SetTextI18n")
+
     @Override
-    public void initialize() {
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_event_creation);
         context = ParentEventCreation.this;
-
         preferenceUtils = new PreferenceUtils(context);
-        llContent.addView(inflater.inflate(R.layout.activity_event_creation, null), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
+        loadingText = new LoadingText(context);
         initViewControll();
         if (getIntent().getExtras().get("eventId") != null) {
             eventId = getIntent().getExtras().getString("eventId");
@@ -103,14 +107,14 @@ public class ParentEventCreation extends BaseActivity {
     }
 
     private void getEventDetails() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentEventCreation.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_GET_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -129,7 +133,7 @@ public class ParentEventCreation extends BaseActivity {
                                 parentFriendModels.add(parentFriendModel);
                                 // friendsList = friendObject.getString("p_id") + ",";
                             }
-                            adapter = new ParentGroupRowAdapter(parentFriendModels, context);
+                            adapter = new ParentGroupRowAdapter(parentFriendModels, context, "event");
                             mRecyclerView.setAdapter(adapter);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -141,7 +145,7 @@ public class ParentEventCreation extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentEventCreation.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -187,7 +191,7 @@ public class ParentEventCreation extends BaseActivity {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         parentFriendModels = new ArrayList<ParentFriendModel>();
         parentAddGroupArrayList = new ArrayList<PlaySearchDateModel>();
         tv_date.setOnClickListener(new View.OnClickListener() {
@@ -197,7 +201,10 @@ public class ParentEventCreation extends BaseActivity {
 
             }
         });
-        toolbarTextView = (TextView) findViewById(R.id.page_heading);
+        View test1View = findViewById(R.id.toolbarLayout);
+        toolbarTextView = (TextView) test1View.findViewById(R.id.page_heading);
+
+        // toolbarTextView = (TextView) findViewById(R.id.page_heading);
         tv_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,7 +221,24 @@ public class ParentEventCreation extends BaseActivity {
                 if (getIntent().getExtras().get("eventId") != null) {
                     editEvent();
                 } else {
-                    createEvent();
+                    if (!tv_date.getText().toString().equals("") &&
+                            !tv_time.getText().toString().equals("") &&
+                            !edt_address_value.getText().toString().equals("") &&
+                            parentFriendModels.size() > 0) {
+                        createEvent();
+                    } else {
+                        if (tv_date.getText().toString().equals("")) {
+                            showAlertValidation("Please give date");
+                        } else if (tv_time.getText().toString().equals("")) {
+                            showAlertValidation("Please give time");
+                        } else if (edt_address_value.getText().toString().equals("")) {
+                            showAlertValidation("Please give address");
+                        } else if (parentFriendModels.size() == 0) {
+                            showAlertValidation("Please add a friend");
+                        }
+
+                    }
+
                 }
             }
         });
@@ -249,16 +273,35 @@ public class ParentEventCreation extends BaseActivity {
 
     }
 
+    public void showAlertValidation(String error) {
+        final android.support.v7.app.AlertDialog.Builder dialogBuilder =
+                new android.support.v7.app.AlertDialog.Builder(ParentEventCreation.this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.notification_dailog, null);
+        dialogBuilder.setView(dialogView);
+        final android.support.v7.app.AlertDialog b = dialogBuilder.create();
+        final TextView tv_errorTitle = (TextView) dialogView.findViewById(R.id.tvTitle);
+        final TextView tv_ok = (TextView) dialogView.findViewById(R.id.btnYes);
+        tv_errorTitle.setText(error);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        b.show();
+
+    }
 
     private void editEvent() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentEventCreation.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_EDIT_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.has("Success")) {
@@ -276,7 +319,7 @@ public class ParentEventCreation extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentEventCreation.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -331,7 +374,7 @@ public class ParentEventCreation extends BaseActivity {
         friendsList = data.getStringExtra("friendsList");
         parentFriendModels.clear();
         parentFriendModels = data.getParcelableArrayListExtra("friendObject");
-        adapter = new ParentGroupRowAdapter(parentFriendModels, context);
+        adapter = new ParentGroupRowAdapter(parentFriendModels, context, "event");
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -344,14 +387,14 @@ public class ParentEventCreation extends BaseActivity {
     }
 
     private void createEvent() {
-        showLoaderNew();
+        loadingText.showLoaderNew(ParentEventCreation.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConstants.PARENT_CREATE_EVENT_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("res ", "res  " + response);
                         Log.v("res ", "res  " + preferenceUtils.getStringFromPreference("p_id", ""));
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.has("Success")) {
@@ -369,7 +412,7 @@ public class ParentEventCreation extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        hideloader();
+                        loadingText.hideloader(ParentEventCreation.this);
                         Log.v("error", "error " + error.toString());
                         Toast.makeText(ParentEventCreation.this, error.toString(), Toast.LENGTH_LONG).show();
                         Crashlytics.logException(error);
@@ -409,45 +452,7 @@ public class ParentEventCreation extends BaseActivity {
         requestQueue.add(stringRequest);
     }
 
-    @Override
-    public void goto_playDateSearch_method() {
 
-    }
-
-    @Override
-    public void goto_SearchAssistant_method() {
-
-    }
-
-    @Override
-    public void goto_AssistantRequests_method() {
-
-    }
-
-    @Override
-    public void goto_Friends_method() {
-
-    }
-
-    @Override
-    public void goto_Notifications_method() {
-
-    }
-
-    @Override
-    public void goto_PlaydateEvents_method() {
-
-    }
-
-    @Override
-    public void goto_Settings_method() {
-
-    }
-
-    @Override
-    public void goto_Chats_method() {
-
-    }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -538,7 +543,12 @@ public class ParentEventCreation extends BaseActivity {
                 timeSet = "PM";
             else
                 timeSet = "AM";
-
+            String hrs = "";
+            if (hours < 10) {
+                hrs = "0" + hours;
+            } else {
+                hrs = String.valueOf(hours);
+            }
 
             String minutes = "";
             if (mins < 10)
@@ -547,7 +557,7 @@ public class ParentEventCreation extends BaseActivity {
                 minutes = String.valueOf(mins);
 
             // Append in a StringBuilder
-            String aTime = new StringBuilder().append(hours).append(':')
+            String aTime = new StringBuilder().append(hrs).append(':')
                     .append(minutes).append(" ").append(timeSet).toString();
 
             return aTime;

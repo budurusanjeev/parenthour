@@ -5,6 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbarLayout"
+        layout="@layout/app_toolbar_layout" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -302,7 +305,8 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_round_address_popup"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_zipcode"
@@ -410,8 +414,78 @@
                 android:text="@string/gigstext"
                 android:textColor="@color/gray_color" />
 
+            <CheckBox
+                android:id="@+id/cb_assisting_with_children"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:button="@drawable/custom_checkbox_design"
+                android:padding="5dp"
+                android:text="@string/assisting_with_child_care"
+                android:textColor="@color/gray_color" />
+
+            <CheckBox
+                android:id="@+id/cb_cooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:button="@drawable/custom_checkbox_design"
+                android:padding="5dp"
+                android:text="@string/cooking"
+                android:textColor="@color/gray_color" />
+
+            <CheckBox
+                android:id="@+id/cb_House_errands"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:button="@drawable/custom_checkbox_design"
+                android:padding="5dp"
+                android:text="@string/house_errands"
+                android:textColor="@color/gray_color" />
+
+            <CheckBox
+                android:id="@+id/cb_bet_friendly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:button="@drawable/custom_checkbox_design"
+                android:padding="5dp"
+                android:text="@string/bet_friendly"
+                android:textColor="@color/gray_color" />
+
+            <TextView
+                android:id="@+id/tv_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/other"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/activity_medium_textSize" />
+
             <EditText
                 android:id="@+id/edt_gigs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_round_address_popup"
+                android:inputType="textLongMessage"
+                android:lines="4"
+                android:padding="@dimen/activity_fifteen_textSize"
+                android:textColor="@color/gray_color"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/activity_fourteen_textSize" />
+
+            <EditText
+                android:id="@+id/edt_other"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -422,7 +496,8 @@
                 android:padding="5dp"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
-                android:textSize="@dimen/activity_fifteen_textSize" />
+                android:textSize="@dimen/activity_fifteen_textSize"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

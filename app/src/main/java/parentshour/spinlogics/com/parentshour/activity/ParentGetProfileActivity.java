@@ -101,7 +101,14 @@ startActivity(new Intent(getApplicationContext(),ParentEditActivity.class));
                                         .crossFade().error(R.drawable.ic_addprofile)
                                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                                         .into(profilePic);
-
+                                Glide.with(context)
+                                        .load(jsonObject.getString("p_pic"))
+                                        .thumbnail(0.5f)
+                                        .crossFade()
+                                        .error(R.drawable.ic_addprofile)
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(img_header);
+                                BaseActivity.txt_usrname.setText(jsonObject.getString("p_name"));
                                 // Toast.makeText(getApplicationContext(), "" , Toast.LENGTH_LONG).show();
                                 //startActivity(new Intent(getApplicationContext(), ParentRegisterActivity.class));
                               //  Log.v("res ", "res  success" + jsonObject.getString("Success-msg"));

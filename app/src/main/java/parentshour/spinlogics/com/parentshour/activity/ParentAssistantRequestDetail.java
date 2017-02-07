@@ -39,7 +39,7 @@ import parentshour.spinlogics.com.parentshour.utilities.PreferenceUtils;
 
 public class ParentAssistantRequestDetail extends AppCompatActivity {
     Context context;
-    TextView tv_name, tv_experience, tv_state, tv_city, tv_billing, tv_about, tv_type_of_gigs, tv_request, tv_cancel, tv_userName_edit;
+    TextView tv_name, tv_rating, tv_experience, tv_state, tv_city, tv_billing, tv_about, tv_type_of_gigs, tv_request, tv_cancel, tv_userName_edit;
     ImageView iv_profile_pic;
     String aid;
     View test1View;
@@ -85,6 +85,7 @@ public class ParentAssistantRequestDetail extends AppCompatActivity {
                                 tv_billing.setText(jsonObject.getString("a_hourly_rate"));
                                 tv_about.setText(jsonObject.getString("a_about_me"));
                                 tv_type_of_gigs.setText(jsonObject.getString("a_skill"));
+                                tv_rating.setText(jsonObject.getString("a_rating"));
                                 Glide.with(context).load(jsonObject.getString("a_pic"))
                                         .thumbnail(0.5f).error(R.drawable.ic_profilelogo)
                                         .crossFade()
@@ -144,6 +145,7 @@ public class ParentAssistantRequestDetail extends AppCompatActivity {
         tv_city = (TextView) findViewById(R.id.tv_city);
         tv_billing = (TextView) findViewById(R.id.tv_billing);
         tv_about = (TextView) findViewById(R.id.tv_about);
+        tv_rating = (TextView) findViewById(R.id.tv_rating);
         tv_type_of_gigs = (TextView) findViewById(R.id.tv_type_gigs);
         tv_request = (TextView) findViewById(R.id.tv_request);
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);

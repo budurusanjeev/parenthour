@@ -1,6 +1,7 @@
 package parentshour.spinlogics.com.parentshour.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import parentshour.spinlogics.com.parentshour.R;
 import parentshour.spinlogics.com.parentshour.activity.AssistantNotificationsActivity;
 import parentshour.spinlogics.com.parentshour.models.AssistantDashboardModel;
-import parentshour.spinlogics.com.parentshour.utilities.FontStyle;
 
 /**
  * Created by SPINLOGICS on 1/12/2017.
@@ -42,6 +42,7 @@ public class AssistantNotificationAdapter extends RecyclerView.Adapter<Assistant
     public void onBindViewHolder(AssistantNotificationAdapter.ViewHolder viewHolder, int i) {
 
         final int q = i;
+        final int e = viewHolder.getAdapterPosition();
         viewHolder.tv_title.setText(list.get(i).getTitle());
         viewHolder.tv_date.setText(list.get(i).getDate());
         viewHolder.tv_time.setText(list.get(i).getTime() + " to " + list.get(i).getEndtime());
@@ -55,23 +56,17 @@ public class AssistantNotificationAdapter extends RecyclerView.Adapter<Assistant
         viewHolder.tv_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AssistantNotificationsActivity) activity).acceptAssistant(list.get(q).getA_req_id());
+                ((AssistantNotificationsActivity) activity).acceptAssistant(list.get(q).getA_req_id(), e);
             }
         });
 
         viewHolder.tv_reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AssistantNotificationsActivity) activity).rejectAssistant(list.get(q).getA_req_id());
+
+                ((AssistantNotificationsActivity) activity).rejectAssistant(list.get(q).getA_req_id(), e);
             }
         });
-
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_title, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_date, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_time, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_accept, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_reject, FontStyle.Lato_Medium, activity);
-        FontStyle.applyfontBasedOnSelection(viewHolder.tv_name, FontStyle.Lato_Medium, activity);
 
     }
 
@@ -95,6 +90,13 @@ public class AssistantNotificationAdapter extends RecyclerView.Adapter<Assistant
             tv_accept = (TextView) view.findViewById(R.id.tv_accept);
             tv_reject = (TextView) view.findViewById(R.id.tv_reject);
 
+            Typeface faceMedium = Typeface.createFromAsset(activity.getAssets(), "Lato-Medium.ttf");
+            tv_title.setTypeface(faceMedium);
+            tv_date.setTypeface(faceMedium);
+            tv_time.setTypeface(faceMedium);
+            tv_accept.setTypeface(faceMedium);
+            tv_reject.setTypeface(faceMedium);
+            tv_name.setTypeface(faceMedium);
         }
     }
 }

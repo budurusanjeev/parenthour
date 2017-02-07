@@ -45,6 +45,8 @@ public class ParentNotificationsActivity extends BaseActivity {
     ArrayList<PlayDateEventModelParcel> playDateEvent;
     int u, s;
     RelativeLayout rl_friend_layout, rl_event_layout;
+    TextView toolbarTextView;
+
     @Override
     public void initialize() {
         context = ParentNotificationsActivity.this;
@@ -177,6 +179,7 @@ public class ParentNotificationsActivity extends BaseActivity {
         tv_play_date_count = (TextView) findViewById(R.id.tv_play_date_events_count);
         tv_play_cou_next = (TextView) findViewById(R.id.tv_play_cou_next);
         tv_fri_cou_next = (TextView) findViewById(R.id.tv_fri_cou_next);
+        toolbarTextView = (TextView) findViewById(R.id.page_heading);
         rl_friend_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,6 +209,7 @@ public class ParentNotificationsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         getCounts();
+        toolbarTextView.setText("Play date Notifications");
     }
 
     @Override
